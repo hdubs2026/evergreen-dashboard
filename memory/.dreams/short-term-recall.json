@@ -1,0 +1,267 @@
+{
+  "version": 1,
+  "updatedAt": "2026-04-18T11:00:41.199Z",
+  "entries": {
+    "memory:memory/2026-04-13.md:1:36": {
+      "key": "memory:memory/2026-04-13.md:1:36",
+      "path": "memory/2026-04-13.md",
+      "startLine": 1,
+      "endLine": 36,
+      "source": "memory",
+      "snippet": "# 2026-04-13 - Token Optimization Implementation ## Completed Optimizations ### 1. Model Routing Configuration - Added Ollama models for local, low-cost inference - Configured smart routing based on task complexity - Primary: deepseek/deepseek-chat (expensive, high-capability) - Routine: ollama/llama3.2:3b (cheap, local) - General: ollama/gemma4:latest (medium, local) ### 2. Heartbeat to Ollama - Heartbeat now uses ollama/llama3.2:3b instead of DeepSeek API - Cost reduction: 99.96% savings on heartbeat operations - Expected monthly savings: ~$40-50 ### 3. Memory System (Obsidian Integration) - Enabled memory-wiki plugin - Created Obsidian vault at: /Users/jarvishstark/Obsidian Vaults/Ope",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.4533461591106775,
+      "maxScore": 0.8166732004329093,
+      "firstRecalledAt": "2026-04-13T21:44:04.658Z",
+      "lastRecalledAt": "2026-04-13T21:44:09.366Z",
+      "queryHashes": [
+        "aa4168a32dac",
+        "396b230e8f31"
+      ],
+      "recallDays": [
+        "2026-04-13"
+      ],
+      "conceptTags": [
+        "low-cost",
+        "deepseek/deepseek-chat",
+        "high-capability",
+        "ollama/llama3.2",
+        "ollama/gemma4",
+        "99.96",
+        "40-50",
+        "memory-wiki"
+      ]
+    },
+    "memory:memory/2026-04-14.md:268:288": {
+      "key": "memory:memory/2026-04-14.md:268:288",
+      "path": "memory/2026-04-14.md",
+      "startLine": 268,
+      "endLine": 288,
+      "source": "memory",
+      "snippet": "### 🎯 Next Steps Identified 1. **Dashboard Launch**: User to start server and test access 2. **Jobber Data Flow**: Begin manual export process 3. **Agent Training**: Feed historical data to agents 4. **Model Optimization**: Implement task-based routing 5. **Cost Monitoring**: Track actual vs projected savings ### 💡 Key Insights & Lessons 1. **User preferences**: Clear desire for visual, interactive monitoring 2. **Cost awareness**: Active monitoring of model usage costs 3. **Pragmatic approach**: Willing to use manual workflows when APIs unavailable 4. **Iterative improvement**: \"We will improve on them as we go\" mindset 5. **Team collaboration**: Emphasis on agent interaction and learnin",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-17T11:00:29.081Z",
+      "lastRecalledAt": "2026-04-17T11:00:56.310Z",
+      "queryHashes": [
+        "c9260597f1c7",
+        "b3e6b728f583"
+      ],
+      "recallDays": [
+        "2026-04-17"
+      ],
+      "conceptTags": [
+        "task-based",
+        "steps",
+        "identified",
+        "dashboard",
+        "launch",
+        "user",
+        "start",
+        "server"
+      ]
+    },
+    "memory:memory/2026-04-14.md:144:182": {
+      "key": "memory:memory/2026-04-14.md:144:182",
+      "path": "memory/2026-04-14.md",
+      "startLine": 144,
+      "endLine": 182,
+      "source": "memory",
+      "snippet": "- Planning for following week ### Monthly Assessment - ROI calculation and reporting - Strategic adjustments - Budget review and planning - Team recognition and rewards --- **Next Update**: Evening progress report on invoice reminder implementation **Current Focus**: QuickBooks API integration and OpenClaw agent development **Overall Progress**: 15% complete, on schedule for 6-month transformation ## 📊 Afternoon/Evening Progress - April 14, 2026 ### 🤖 AI Agent Team Creation **User Request**: Create three specialized AI agents for Evergreen Landscaping **Channel Created**: #teamchat (ID: 1493596752882831512) #### Agents Created: 1. **Jordan Belfort** - CFO AI (Finance & Analytics) -",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-17T11:00:29.081Z",
+      "lastRecalledAt": "2026-04-18T11:00:41.199Z",
+      "queryHashes": [
+        "c9260597f1c7",
+        "b3e6b728f583",
+        "def344145a12"
+      ],
+      "recallDays": [
+        "2026-04-17",
+        "2026-04-18"
+      ],
+      "conceptTags": [
+        "6-month",
+        "afternoon/evening",
+        "planning",
+        "following",
+        "week",
+        "monthly",
+        "assessment",
+        "roi"
+      ]
+    },
+    "memory:memory/2026-04-14.md:29:79": {
+      "key": "memory:memory/2026-04-14.md:29:79",
+      "path": "memory/2026-04-14.md",
+      "startLine": 29,
+      "endLine": 79,
+      "source": "memory",
+      "snippet": "- Pain point analysis - Automation priority matrix - 6-month implementation plan 2. **Automation 1 - Invoice Reminder System.md** (10,356 bytes) - Detailed implementation plan for first automation - Technical architecture design - 2-week implementation timeline - Risk management and ROI analysis 3. **Evergreen Landscaping - AI Transformation Dashboard.md** (11,534 bytes) - Real-time progress tracking - KPI monitoring framework - Budget tracking - Risk register - Team responsibilities ## 🎯 Current Status & Next Steps ### Completed Overnight - ✅ Morning briefing system fixed and tested - ✅ Comprehensive workflow documentation created - ✅ First automatio",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-17T11:00:29.081Z",
+      "lastRecalledAt": "2026-04-18T11:00:41.199Z",
+      "queryHashes": [
+        "c9260597f1c7",
+        "b3e6b728f583",
+        "def344145a12"
+      ],
+      "recallDays": [
+        "2026-04-17",
+        "2026-04-18"
+      ],
+      "conceptTags": [
+        "6-month",
+        "system.md",
+        "2-week",
+        "dashboard.md",
+        "real-time",
+        "pain",
+        "point",
+        "analysis"
+      ]
+    },
+    "memory:memory/2026-04-14.md:1:38": {
+      "key": "memory:memory/2026-04-14.md:1:38",
+      "path": "memory/2026-04-14.md",
+      "startLine": 1,
+      "endLine": 38,
+      "source": "memory",
+      "snippet": "# 2026-04-14 - Evergreen Landscaping AI Transformation ## 🌅 Morning Briefing System Fix ### Problem Identified - Cron job failing with error: \"Discord recipient is required\" - Root cause: Missing `--to` parameter with specific channel ID ### Solution Implemented 1. **Correct syntax discovered**: `--channel discord --to \"channel:1493317177871171707\"` 2. **New cron job created**: `morning-briefing-final` (ID: `28ea3c8a-02de-4440-9a87-9939d0062493`) 3. **Test verification**: Manual run succeeded with `delivered: true` status 4. **Schedule confirmed**: 7:00 AM daily starting tomorrow ### Prevention Measures - Documented correct cron job syntax for Discord - Established testing protocol for n",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-17T11:00:29.081Z",
+      "lastRecalledAt": "2026-04-18T11:00:41.199Z",
+      "queryHashes": [
+        "c9260597f1c7",
+        "b3e6b728f583",
+        "def344145a12"
+      ],
+      "recallDays": [
+        "2026-04-17",
+        "2026-04-18"
+      ],
+      "conceptTags": [
+        "morning-briefing-final",
+        "evergreen",
+        "landscaping",
+        "transformation",
+        "morning",
+        "briefing",
+        "system",
+        "fix"
+      ]
+    },
+    "memory:memory/2026-04-15.md:29:68": {
+      "key": "memory:memory/2026-04-15.md:29:68",
+      "path": "memory/2026-04-15.md",
+      "startLine": 29,
+      "endLine": 68,
+      "source": "memory",
+      "snippet": "## 🎨 Interactive Dashboard Development **User Request**: \"I want a site i can type into google and be there i dont want to have to look through any .js files or anything just a simple website\" ### Solution Delivered: 1. **Created single-file website** in `/evergreen-ai-dashboard/` - `index.html` (52KB) - Complete dashboard in one file - No server required, works on GitHub Pages - Virtual office with animated agent avatars - Live activity feed, progress tracking, metrics - Mobile responsive design 2. **Deployment options provided**: - **GitHub Pages**: Free, permanent hosting - **Netlify Drop**: 2-minute deployment - **Direct file access**: Works locally 3. **User",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-17T11:00:56.310Z",
+      "lastRecalledAt": "2026-04-18T11:00:41.199Z",
+      "queryHashes": [
+        "b3e6b728f583",
+        "def344145a12"
+      ],
+      "recallDays": [
+        "2026-04-17",
+        "2026-04-18"
+      ],
+      "conceptTags": [
+        "single-file",
+        "evergreen-ai-dashboard",
+        "index.html",
+        "2-minute",
+        "interactive",
+        "dashboard",
+        "development",
+        "user"
+      ]
+    },
+    "memory:memory/2026-04-14.md:109:155": {
+      "key": "memory:memory/2026-04-14.md:109:155",
+      "path": "memory/2026-04-14.md",
+      "startLine": 109,
+      "endLine": 155,
+      "source": "memory",
+      "snippet": "- **Communication**: Email, SMS, voice channels - **Monitoring**: Custom dashboard with real-time metrics ### Security & Compliance - Client data protection protocols - Secure API authentication - Audit trail for all automations - Compliance with financial regulations ## 🎯 Lessons Learned ### Technical Implementation 1. **Cron job syntax matters**: Specific channel IDs required for Discord 2. **Test immediately**: Verify configurations before relying on scheduled runs 3. **Document everything**: Clear documentation prevents future errors 4. **Monitor first runs**: Early detection of issues prevents larger problems ### Business Transformation 1. **Start with documentation**: Understandin",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-17T11:00:56.310Z",
+      "lastRecalledAt": "2026-04-17T11:00:56.310Z",
+      "queryHashes": [
+        "b3e6b728f583"
+      ],
+      "recallDays": [
+        "2026-04-17"
+      ],
+      "conceptTags": [
+        "real-time",
+        "communication",
+        "email",
+        "sms",
+        "voice",
+        "channels",
+        "monitoring",
+        "custom"
+      ]
+    },
+    "memory:memory/2026-04-15.md:1:34": {
+      "key": "memory:memory/2026-04-15.md:1:34",
+      "path": "memory/2026-04-15.md",
+      "startLine": 1,
+      "endLine": 34,
+      "source": "memory",
+      "snippet": "# 2026-04-15 - Evergreen Landscaping AI Transformation ## 🌅 Morning Briefing Enhancement **User Request**: \"Add a to do list of uncompleted task from previous days into the morning brief\" ### Implementation: 1. **Created task tracking system** at `/tasks/todo.md` - 8 active tasks tracked (6 from April 14, 2 new today) - Tasks categorized by priority (High/Medium/Low) - Aging system: Today (0 days), Yesterday (1 day), Older (2+ days) - Completion tracking with metrics 2. **Enhanced morning briefing script** (`/scripts/morning-briefing-enhanced.js`) - Added \"Uncompleted Tasks from Previous Days\" section - Tasks grouped by age with priority indicators - Today's focus re",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-18T11:00:41.199Z",
+      "lastRecalledAt": "2026-04-18T11:00:41.199Z",
+      "queryHashes": [
+        "def344145a12"
+      ],
+      "recallDays": [
+        "2026-04-18"
+      ],
+      "conceptTags": [
+        "tasks/todo.md",
+        "high/medium/low",
+        "evergreen",
+        "landscaping",
+        "transformation",
+        "morning",
+        "briefing",
+        "enhancement"
+      ]
+    }
+  }
+}

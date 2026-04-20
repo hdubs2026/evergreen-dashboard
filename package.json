@@ -1,0 +1,40 @@
+{
+  "name": "evergreen-discord-agents",
+  "version": "1.0.0",
+  "description": "Discord bot with specialized AI agents for Evergreen Landscaping",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "deploy-commands": "node deploy-commands.js"
+  },
+  "dependencies": {
+    "@discordjs/rest": "^2.2.0",
+    "@zapier/zapier-sdk": "^0.41.0",
+    "discord-api-types": "^0.37.54",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1",
+    "node-cron": "^3.0.3",
+    "openai": "^4.28.0",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "@zapier/zapier-sdk-cli": "^0.39.9",
+    "nodemon": "^3.0.1",
+    "typescript": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "discord",
+    "ai",
+    "agents",
+    "landscaping",
+    "business",
+    "automation"
+  ],
+  "author": "Evergreen Landscaping AI Team",
+  "license": "MIT"
+}

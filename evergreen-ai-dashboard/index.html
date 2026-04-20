@@ -1,0 +1,126 @@
+ (metricKey === 'daysLeft') {
+                    displayValue = Math.floor(newValue);
+                } else {
+                    displayValue = `${Math.floor(newValue)}%`;
+                }
+                
+                document.getElementById(metricKey === 'progress' ? 'progress-percent' : 
+                    metricKey === 'timeSaved' ? 'time-saved' : 
+                    metricKey === 'roi' ? 'roi' : 'days-left').textContent = displayValue;
+            });
+            
+            // Update phase progress
+            Object.keys(dashboardData.phases).forEach(phaseKey => {
+                const phase = dashboardData.phases[phaseKey];
+                const current = parseFloat(document.getElementById(`${phaseKey}-progress`).textContent.replace('%', ''));
+                
+                const change = (Math.random() * 0.5 - 0.25);
+                const newValue = Math.max(phase.min, Math.min(phase.max, current + change));
+                
+                document.getElementById(`${phaseKey}-progress`).textContent = `${newValue.toFixed(1)}%`;
+                document.getElementById(`${phaseKey}-fill`).style.width = `${newValue}%`;
+            });
+            
+            // Update agent success rates
+            ['jordan', 'donna', 'jerry'].forEach(agentKey => {
+                const successElement = document.getElementById(`${agentKey}-success`);
+                const current = parseFloat(successElement.textContent.replace('%', ''));
+                
+                const change = (Math.random() * 0.2 - 0.1);
+                const newValue = Math.max(85, Math.min(99, current + change));
+                
+                successElement.textContent = `${newValue.toFixed(1)}%`;
+            });
+            
+            // Update learning stats
+            ['jordan', 'donna', 'jerry'].forEach(agentKey => {
+                const learningElement = document.getElementById(`${agentKey}-learning`);
+                const current = parseInt(learningElement.textContent);
+                
+                if (Math.random() > 0.7) {
+                    learningElement.textContent = current + 1;
+                }
+            });
+        }
+
+        // Start auto-updates
+        function startAutoUpdates() {
+            // Update time every second
+            setInterval(updateTime, 1000);
+            
+            // Update metrics every 30 seconds
+            setInterval(updateMetrics, 30000);
+            
+            // Add random activity every 45-90 seconds
+            setInterval(() => {
+                if (Math.random() > 0.3) {
+                    addRandomActivity();
+                }
+            }, 45000 + Math.random() * 45000);
+            
+            // Simulate agent status changes every 60 seconds
+            setInterval(() => {
+                ['jordan', 'donna', 'jerry'].forEach(agentKey => {
+                    const statusElement = document.getElementById(`${agentKey}-status`);
+                    const statuses = dashboardData.agents[agentKey].statuses;
+                    statusElement.textContent = statuses[Math.floor(Math.random() * statuses.length)];
+                });
+            }, 60000);
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', initDashboard);
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Space to add random activity
+            if (e.code === 'Space' && !e.target.matches('input, textarea')) {
+                e.preventDefault();
+                addRandomActivity();
+            }
+            // A to animate agents
+            if (e.code === 'KeyA' && !e.target.matches('input, textarea')) {
+                e.preventDefault();
+                moveAgents();
+            }
+            // R to reset agents
+            if (e.code === 'KeyR' && !e.target.matches('input, textarea')) {
+                e.preventDefault();
+                resetAgents();
+            }
+            // C to clear activities
+            if (e.code === 'KeyC' && !e.target.matches('input, textarea')) {
+                e.preventDefault();
+                clearActivities();
+            }
+        });
+
+        // Add service worker for offline capability
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+
+        // Add PWA manifest
+        const manifest = document.createElement('link');
+        manifest.rel = 'manifest';
+        manifest.href = '/manifest.json';
+        document.head.appendChild(manifest);
+
+        // Add meta tags for mobile
+        const metaViewport = document.createElement('meta');
+        metaViewport.name = 'viewport';
+        metaViewport.content = 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no';
+        document.head.appendChild(metaViewport);
+
+        // Add theme color
+        const themeColor = document.createElement('meta');
+        themeColor.name = 'theme-color';
+        themeColor.content = '#2ecc71';
+        document.head.appendChild(themeColor);
+    </script>
+</body>
+</html>
