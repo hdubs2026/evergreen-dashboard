@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evergreen Landscaping - Sales Funnel Dashboard</title>
+    <title>Evergreen Landscaping - Sales Funnel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --awareness: #3498db;
@@ -34,7 +33,7 @@
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
@@ -110,9 +109,9 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        .dashboard-grid {
+        .dashboard {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: 1fr;
             gap: 25px;
             margin-bottom: 30px;
         }
@@ -147,11 +146,6 @@
             margin-right: 10px;
         }
 
-        /* Funnel Visualization */
-        .funnel-container {
-            grid-column: span 2;
-        }
-
         .funnel {
             display: flex;
             flex-direction: column;
@@ -170,28 +164,11 @@
             align-items: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
 
         .funnel-stage:hover {
             transform: scale(1.02);
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .funnel-stage::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: translateX(-100%);
-        }
-
-        .funnel-stage:hover::before {
-            animation: shimmer 2s infinite;
         }
 
         .stage-1 { background: var(--awareness); width: 100%; }
@@ -242,90 +219,14 @@
             opacity: 0.9;
         }
 
-        /* Charts */
-        .chart-container {
-            height: 300px;
-            position: relative;
-        }
-
-        /* Lead List */
-        .lead-list {
-            max-height: 400px;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-
-        .lead-item {
-            background: rgba(52, 73, 94, 0.6);
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            border-left: 4px solid;
-            animation: fadeIn 0.5s ease;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .lead-item:hover {
-            transform: translateX(5px);
-            background: rgba(52, 73, 94, 0.8);
-        }
-
-        .lead-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-
-        .lead-name {
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .lead-stage {
-            padding: 3px 10px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            color: white;
-        }
-
-        .lead-details {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: var(--gray);
-        }
-
-        .lead-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .action-btn {
-            padding: 5px 15px;
-            border: none;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: white;
-        }
-
-        .action-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        /* Metrics */
-        .metrics-grid {
+        .metrics {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
+            margin-top: 20px;
         }
 
-        .metric-card {
+        .metric {
             background: rgba(52, 152, 219, 0.1);
             padding: 20px;
             border-radius: 10px;
@@ -335,7 +236,7 @@
             transition: all 0.3s ease;
         }
 
-        .metric-card:hover {
+        .metric:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
@@ -352,14 +253,14 @@
             font-size: 0.9rem;
         }
 
-        /* Quick Actions */
-        .actions-grid {
+        .actions {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 15px;
+            margin-top: 20px;
         }
 
-        .action-card {
+        .action {
             background: rgba(46, 204, 113, 0.1);
             padding: 20px;
             border-radius: 10px;
@@ -369,7 +270,7 @@
             transition: all 0.3s ease;
         }
 
-        .action-card:hover {
+        .action:hover {
             background: rgba(46, 204, 113, 0.2);
             transform: scale(1.05);
         }
@@ -385,96 +286,6 @@
             font-size: 0.9rem;
         }
 
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: var(--dark);
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            color: var(--light);
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            color: var(--gray);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: var(--gray);
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--light);
-            font-size: 1rem;
-        }
-
-        .form-group textarea {
-            height: 100px;
-            resize: vertical;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-top: 20px;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* Toast Notifications */
         .toast {
             position: fixed;
             bottom: 20px;
@@ -485,8 +296,8 @@
             border-radius: 8px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             z-index: 1001;
-            animation: slideIn 0.3s ease;
             display: none;
+            animation: slideIn 0.3s ease;
         }
 
         @keyframes slideIn {
@@ -494,7 +305,6 @@
             to { transform: translateX(0); opacity: 1; }
         }
 
-        /* Footer */
         footer {
             text-align: center;
             margin-top: 40px;
@@ -503,16 +313,7 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .funnel-container {
-                grid-column: span 1;
-            }
-            
             .funnel-stage {
                 flex-direction: column;
                 text-align: center;
@@ -560,9 +361,8 @@
             </div>
         </header>
 
-        <div class="dashboard-grid">
-            <!-- Funnel Visualization -->
-            <div class="card funnel-container">
+        <div class="dashboard">
+            <div class="card">
                 <div class="card-header">
                     <h2 class="card-title"><i class="fas fa-filter"></i> Sales Funnel</h2>
                     <span class="update-info">Total Leads: <span id="total-leads">152</span></span>
@@ -605,4 +405,324 @@
                             <div class="stage-icon">
                                 <i class="fas fa-search"></i>
                             </div>
-                            <
+                            <div class="stage-details">
+                                <h3>Consideration</h3>
+                                <p>Quote requests, consultations</p>
+                            </div>
+                        </div>
+                        <div class="stage-stats">
+                            <div class="stage-count" id="consideration-count">78</div>
+                            <div class="stage-conversion">25%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="funnel-stage stage-4" data-stage="intent">
+                        <div class="stage-info">
+                            <div class="stage-icon">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <div class="stage-details">
+                                <h3>Intent</h3>
+                                <p>Detailed proposals, negotiations</p>
+                            </div>
+                        </div>
+                        <div class="stage-stats">
+                            <div class="stage-count" id="intent-count">39</div>
+                            <div class="stage-conversion">50%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="funnel-stage stage-5" data-stage="evaluation">
+                        <div class="stage-info">
+                            <div class="stage-icon">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                            <div class="stage-details">
+                                <h3>Evaluation</h3>
+                                <p>Final reviews, contract discussions</p>
+                            </div>
+                        </div>
+                        <div class="stage-stats">
+                            <div class="stage-count" id="evaluation-count">19</div>
+                            <div class="stage-conversion">49%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="funnel-stage stage-6" data-stage="purchase">
+                        <div class="stage-info">
+                            <div class="stage-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stage-details">
+                                <h3>Purchase</h3>
+                                <p>Signed contracts, deposits</p>
+                            </div>
+                        </div>
+                        <div class="stage-stats">
+                            <div class="stage-count" id="purchase-count">9</div>
+                            <div class="stage-conversion">47%</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <p style="color: var(--gray);">
+                        <i class="fas fa-info-circle"></i> Click any stage to view leads • Overall conversion rate: <span id="overall-conversion">0.72%</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fas fa-chart-bar"></i> Key Metrics</h2>
+                    <span class="update-info">Last 30 days</span>
+                </div>
+                <div class="metrics">
+                    <div class="metric" id="metric-revenue">
+                        <i class="fas fa-dollar-sign fa-2x"></i>
+                        <div class="metric-value">$42,850</div>
+                        <div class="metric-label">Pipeline Value</div>
+                    </div>
+                    <div class="metric" id="metric-conversion">
+                        <i class="fas fa-percentage fa-2x"></i>
+                        <div class="metric-value">0.72%</div>
+                        <div class="metric-label">Conversion Rate</div>
+                    </div>
+                    <div class="metric" id="metric-velocity">
+                        <i class="fas fa-tachometer-alt fa-2x"></i>
+                        <div class="metric-value">45</div>
+                        <div class="metric-label">Days in Pipeline</div>
+                    </div>
+                    <div class="metric" id="metric-value">
+                        <i class="fas fa-chart-line fa-2x"></i>
+                        <div class="metric-value">$4,761</div>
+                        <div class="metric-label">Avg. Deal Size</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fas fa-bolt"></i> Quick Actions</h2>
+                    <span class="update-info">Common tasks</span>
+                </div>
+                <div class="actions">
+                    <div class="action" id="action-email">
+                        <div class="action-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="action-text">Send Email</div>
+                    </div>
+                    <div class="action" id="action-call">
+                        <div class="action-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="action-text">Schedule Call</div>
+                    </div>
+                    <div class="action" id="action-quote">
+                        <div class="action-icon">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <div class="action-text">Create Quote</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="toast" id="toast">Action completed!</div>
+
+        <footer>
+            <p>Evergreen Landscaping & Design • Sales Funnel Dashboard • Updated: <span id="current-date">April 20, 2026</span></p>
+            <p style="margin-top: 10px; font-size: 0.8rem; color: var(--gray);">
+                <i class="fas fa-info-circle"></i> All data is simulated for demonstration purposes
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Get DOM elements
+        const addLeadBtn = document.getElementById('add-lead-btn');
+        const refreshBtn = document.getElementById('refresh-btn');
+        const exportBtn = document.getElementById('export-btn');
+        const toast = document.getElementById('toast');
+        const currentDate = document.getElementById('current-date');
+        
+        // Funnel stage elements
+        const funnelStages = document.querySelectorAll('.funnel-stage');
+        const stageCounts = {
+            awareness: document.getElementById('awareness-count'),
+            interest: document.getElementById('interest-count'),
+            consideration: document.getElementById('consideration-count'),
+            intent: document.getElementById('intent-count'),
+            evaluation: document.getElementById('evaluation-count'),
+            purchase: document.getElementById('purchase-count')
+        };
+        
+        // Metric elements
+        const metricRevenue = document.getElementById('metric-revenue');
+        const metricConversion = document.getElementById('metric-conversion');
+        const metricVelocity = document.getElementById('metric-velocity');
+        const metricValue = document.getElementById('metric-value');
+        
+        // Action elements
+        const actionEmail = document.getElementById('action-email');
+        const actionCall = document.getElementById('action-call');
+        const actionQuote = document.getElementById('action-quote');
+        
+        // Set current date
+        const now = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        currentDate.textContent = now.toLocaleDateString('en-US', options);
+        
+        // Show toast message
+        function showToast(message) {
+            toast.textContent = message;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Add new lead
+        function addNewLead() {
+            // Increment awareness count
+            let currentCount = parseInt(stageCounts.awareness.textContent.replace(/,/g, ''));
+            currentCount += Math.floor(Math.random() * 50) + 10;
+            stageCounts.awareness.textContent = currentCount.toLocaleString();
+            
+            // Update total leads
+            const totalLeads = document.getElementById('total-leads');
+            let total = parseInt(totalLeads.textContent);
+            total += Math.floor(Math.random() * 3) + 1;
+            totalLeads.textContent = total;
+            
+            showToast('New lead added to Awareness stage');
+        }
+        
+        // Refresh data
+        function refreshData() {
+            // Add small random variations to all counts
+            Object.keys(stageCounts).forEach(stage => {
+                let currentCount = parseInt(stageCounts[stage].textContent.replace(/,/g, ''));
+                const variation = Math.floor(Math.random() * 10) - 5; // -5 to +5
+                currentCount = Math.max(0, currentCount + variation);
+                stageCounts[stage].textContent = currentCount.toLocaleString();
+            });
+            
+            // Update metrics with small variations
+            const metrics = {
+                revenue: [42000, 44000],
+                conversion: [0.65, 0.78],
+                velocity: [40, 50],
+                value: [4600, 4900]
+            };
+            
+            metricRevenue.querySelector('.metric-value').textContent = 
+                '$' + (Math.floor(Math.random() * (metrics.revenue[1] - metrics.revenue[0])) + metrics.revenue[0]).toLocaleString();
+            
+            metricConversion.querySelector('.metric-value').textContent = 
+                (Math.random() * (metrics.conversion[1] - metrics.conversion[0]) + metrics.conversion[0]).toFixed(2) + '%';
+            
+            metricVelocity.querySelector('.metric-value').textContent = 
+                Math.floor(Math.random() * (metrics.velocity[1] - metrics.velocity[0])) + metrics.velocity[0];
+            
+            metricValue.querySelector('.metric-value').textContent = 
+                '$' + (Math.floor(Math.random() * (metrics.value[1] - metrics.value[0])) + metrics.value[0]).toLocaleString();
+            
+            showToast('Data refreshed with latest updates');
+        }
+        
+        // Export report
+        function exportReport() {
+            showToast('Exporting sales funnel report...');
+            
+            // Simulate export process
+            setTimeout(() => {
+                showToast('Report exported successfully! Check your downloads.');
+            }, 1500);
+        }
+        
+        // Handle funnel stage clicks
+        function handleStageClick(stage) {
+            const stageNames = {
+                awareness: 'Awareness',
+                interest: 'Interest',
+                consideration: 'Consideration',
+                intent: 'Intent',
+                evaluation: 'Evaluation',
+                purchase: 'Purchase'
+            };
+            
+            showToast(`Viewing leads in ${stageNames[stage]} stage`);
+            
+            // Highlight the clicked stage
+            funnelStages.forEach(s => s.style.opacity = '0.7');
+            event.currentTarget.style.opacity = '1';
+            event.currentTarget.style.transform = 'scale(1.05)';
+            
+            // Reset after 1 second
+            setTimeout(() => {
+                funnelStages.forEach(s => s.style.opacity = '1');
+                event.currentTarget.style.transform = 'scale(1)';
+            }, 1000);
+        }
+        
+        // Handle metric clicks
+        function handleMetricClick(metric) {
+            const metricNames = {
+                revenue: 'Pipeline Value',
+                conversion: 'Conversion Rate',
+                velocity: 'Days in Pipeline',
+                value: 'Average Deal Size'
+            };
+            
+            showToast(`Detailed view: ${metricNames[metric]}`);
+        }
+        
+        // Handle action clicks
+        function handleActionClick(action) {
+            const actionNames = {
+                email: 'Send Email',
+                call: 'Schedule Call',
+                quote: 'Create Quote'
+            };
+            
+            showToast(`${actionNames[action]} action initiated`);
+            
+            // Simulate action completion
+            setTimeout(() => {
+                showToast(`${actionNames[action]} completed successfully!`);
+            }, 2000);
+        }
+        
+        // Setup event listeners
+        function setupEventListeners() {
+            // Button events
+            addLeadBtn.addEventListener('click', addNewLead);
+            refreshBtn.addEventListener('click', refreshData);
+            exportBtn.addEventListener('click', exportReport);
+            
+            // Funnel stage events
+            funnelStages.forEach(stage => {
+                stage.addEventListener('click', (event) => {
+                    const stageName = event.currentTarget.getAttribute('data-stage');
+                    handleStageClick(stageName);
+                });
+            });
+            
+            // Metric events
+            metricRevenue.addEventListener('click', () => handleMetricClick('revenue'));
+            metricConversion.addEventListener('click', () => handleMetricClick('conversion'));
+            metricVelocity.addEventListener('click', () => handleMetricClick('velocity'));
+            metricValue.addEventListener('click', () => handleMetricClick('value'));
+            
+            // Action events
+            actionEmail.addEventListener('click', () => handleActionClick('email'));
+            actionCall.addEventListener('click', () => handleActionClick('call'));
+            actionQuote.addEventListener('click', () => handleActionClick('quote'));
+        }
+        
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', setupEventListeners);
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Button Test</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        button { padding: 10px 20px; margin: 5px; }
+        #result { margin-top: 20px; padding: 10px; background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h1>Simple Button Test</h1>
+    <button id="test-btn">Click Me!</button>
+    <div id="result">Click the button...</div>
+    
+    <script>
+        // This is how JavaScript should work
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded');
+            
+            const button = document.getElementById('test-btn');
+            const result = document.getElementById('result');
+            
+            if (button) {
+                console.log('Button found:', button);
+                button.addEventListener('click', function() {
+                    result.innerHTML = '✅ Button works! JavaScript is functioning.';
+                    console.log('Button clicked!');
+                });
+                console.log('Event listener added');
+            } else {
+                console.error('Button not found!');
+            }
+        });
+    </script>
+</body>
+</html>

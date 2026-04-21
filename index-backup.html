@@ -766,12 +766,8 @@
     </div>
 
     <script>
-        // Wait for DOM to be fully loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, initializing dashboard...');
-            
-            // Data Structures
-            const agents = {
+        // Data Structures
+        const agents = {
             jordan: {
                 name: "Jordan Belfort",
                 role: "CFO AI",
@@ -1066,11 +1062,40 @@
 
         // Setup event listeners
         function setupEventListeners() {
+            console.log('Setting up event listeners...');
+            console.log('animateBtn:', animateBtn);
+            console.log('resetBtn:', resetBtn);
+            console.log('activityBtn:', activityBtn);
+            console.log('clearBtn:', clearBtn);
+            
             // Button events
-            animateBtn.addEventListener('click', moveAgents);
-            resetBtn.addEventListener('click', resetAgents);
-            activityBtn.addEventListener('click', addRandomActivity);
-            clearBtn.addEventListener('click', clearActivities);
+            if (animateBtn) {
+                animateBtn.addEventListener('click', moveAgents);
+                console.log('Added click listener to animateBtn');
+            } else {
+                console.error('animateBtn not found!');
+            }
+            
+            if (resetBtn) {
+                resetBtn.addEventListener('click', resetAgents);
+                console.log('Added click listener to resetBtn');
+            } else {
+                console.error('resetBtn not found!');
+            }
+            
+            if (activityBtn) {
+                activityBtn.addEventListener('click', addRandomActivity);
+                console.log('Added click listener to activityBtn');
+            } else {
+                console.error('activityBtn not found!');
+            }
+            
+            if (clearBtn) {
+                clearBtn.addEventListener('click', clearActivities);
+                console.log('Added click listener to clearBtn');
+            } else {
+                console.error('clearBtn not found!');
+            }
 
             // Agent click events
             Object.keys(agentElements).forEach(agentId => {
@@ -1155,8 +1180,8 @@
             updateMetrics();
         }
 
-        // Initialize dashboard
-        initDashboard();
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', initDashboard);
 
         // Add CSS animation for pulse
         const style = document.createElement('style');
@@ -1168,15 +1193,6 @@
             }
         `;
         document.head.appendChild(style);
-        
-        console.log('Dashboard initialization complete!');
-        console.log('Buttons should now work:');
-        console.log('- Animate Agents: Moves agents around');
-        console.log('- Reset Positions: Returns agents to desks');
-        console.log('- New Activity: Adds random activity');
-        console.log('- Clear Feed: Clears all activities');
-        
-        }); // End of DOMContentLoaded
     </script>
 </body>
 </html>
