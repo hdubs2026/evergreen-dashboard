@@ -1,0 +1,409 @@
+{
+  "generated_at": "2026-04-22T08:00:08.034253",
+  "date": "2026-04-22",
+  "metrics": {
+    "clients": 151,
+    "active_jobs": 64,
+    "revenue": 9757.44,
+    "completed_jobs": 50,
+    "low_margin_alerts": 40,
+    "briefing_date": "2026-04-22",
+    "automation_phase": "PHASE 1 - Basic data collection"
+  },
+  "low_margin_jobs": [
+    {
+      "service": "Tree Pruning",
+      "amount": 200
+    },
+    {
+      "service": "Shrub Pruning",
+      "amount": 240
+    },
+    {
+      "service": "Shrub Pruning",
+      "amount": 350
+    },
+    {
+      "service": "Shrub Pruning",
+      "amount": 300
+    },
+    {
+      "service": "Lawncare",
+      "amount": 100
+    },
+    {
+      "service": "Maintenance",
+      "amount": 120
+    },
+    {
+      "service": "Lawncare",
+      "amount": 75
+    },
+    {
+      "service": "Lawncare",
+      "amount": 75
+    },
+    {
+      "service": "Lawncare",
+      "amount": 75
+    },
+    {
+      "service": "Lawncare",
+      "amount": 80
+    },
+    {
+      "service": "Lawncare",
+      "amount": 60
+    },
+    {
+      "service": "Lawncare",
+      "amount": 70
+    },
+    {
+      "service": "Lawncare",
+      "amount": 85
+    },
+    {
+      "service": "Lawncare",
+      "amount": 85
+    },
+    {
+      "service": "Lawncare",
+      "amount": 75
+    },
+    {
+      "service": "Lawncare",
+      "amount": 100
+    },
+    {
+      "service": "Work",
+      "amount": 0
+    },
+    {
+      "service": "Lawncare",
+      "amount": 70
+    },
+    {
+      "service": "Herbicide Application",
+      "amount": 40
+    },
+    {
+      "service": "Herbicide Application",
+      "amount": 60
+    },
+    {
+      "service": "Herbicide Application",
+      "amount": 35
+    },
+    {
+      "service": "Herbicide Application",
+      "amount": 35
+    },
+    {
+      "service": "Herbicide Application",
+      "amount": 30
+    },
+    {
+      "service": "Shrub Pruning",
+      "amount": 430
+    },
+    {
+      "service": "Shrub Pruning",
+      "amount": 450
+    },
+    {
+      "service": "Plant Installation",
+      "amount": 100
+    },
+    {
+      "service": "Lawncare",
+      "amount": 65
+    },
+    {
+      "service": "Lawncare",
+      "amount": 65
+    },
+    {
+      "service": "Fertilization",
+      "amount": 70
+    },
+    {
+      "service": "Clean-Up",
+      "amount": 160
+    },
+    {
+      "service": "Fertilization",
+      "amount": 75
+    },
+    {
+      "service": "Fertilization",
+      "amount": 95
+    },
+    {
+      "service": "Fertilization",
+      "amount": 70
+    },
+    {
+      "service": "Lawncare",
+      "amount": 80
+    },
+    {
+      "service": "Fertilization",
+      "amount": 90
+    },
+    {
+      "service": "Lawncare",
+      "amount": 80
+    },
+    {
+      "service": "Maintenance",
+      "amount": 80
+    },
+    {
+      "service": "Lawncare (Back Lot)",
+      "amount": 45
+    },
+    {
+      "service": "Lawncare (Back Lot)",
+      "amount": 70
+    },
+    {
+      "service": "Lawncare (Side Lot)",
+      "amount": 75
+    }
+  ],
+  "service_breakdown": [
+    {
+      "service": "Lawncare",
+      "count": 16,
+      "total": 1240
+    },
+    {
+      "service": "Shrub Pruning",
+      "count": 5,
+      "total": 1770
+    },
+    {
+      "service": "Herbicide Application",
+      "count": 5,
+      "total": 200
+    },
+    {
+      "service": "Fertilization",
+      "count": 5,
+      "total": 400
+    },
+    {
+      "service": "Maintenance",
+      "count": 2,
+      "total": 200
+    },
+    {
+      "service": "Lawncare (Back Lot)",
+      "count": 2,
+      "total": 115
+    },
+    {
+      "service": "Tree Pruning",
+      "count": 1,
+      "total": 200
+    },
+    {
+      "service": "Work",
+      "count": 1,
+      "total": 0
+    },
+    {
+      "service": "Plant Installation",
+      "count": 1,
+      "total": 100
+    },
+    {
+      "service": "Clean-Up",
+      "count": 1,
+      "total": 160
+    },
+    {
+      "service": "Lawncare (Side Lot)",
+      "count": 1,
+      "total": 75
+    }
+  ],
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Address 40 Low-Margin Jobs",
+      "priority": "critical",
+      "status": "inprogress",
+      "desc": "40 jobs identified below profitability threshold",
+      "action": "Implement price adjustments, update Jobber templates",
+      "owner": "Jarvis (automation) + Hunter (client communication)"
+    },
+    {
+      "id": 2,
+      "title": "Follow Up Reese R Quote",
+      "priority": "critical",
+      "status": "inprogress",
+      "desc": "Quote sent 28 days ago, no response",
+      "action": "Immediate follow-up call/email",
+      "owner": "Hunter (with Jerry agent support)"
+    },
+    {
+      "id": 3,
+      "title": "Fix Jordan Automation",
+      "priority": "critical",
+      "status": "inprogress",
+      "desc": "Jordan runs at 6:00 AM via macOS LaunchDaemon",
+      "action": "Verify tomorrow's automated run",
+      "owner": "Jarvis"
+    },
+    {
+      "id": 4,
+      "title": "Update Dashboard with Real Data",
+      "priority": "high",
+      "status": "backlog",
+      "desc": "Dashboard shows 151 clients, 64 jobs, $9,757 revenue",
+      "action": "Deploy to replace current zeros dashboard",
+      "owner": "Jarvis"
+    },
+    {
+      "id": 5,
+      "title": "Activate Donna Agent",
+      "priority": "high",
+      "status": "backlog",
+      "desc": "Scheduling and client communications",
+      "action": "Set up Discord bot and training",
+      "owner": "Jarvis"
+    },
+    {
+      "id": 6,
+      "title": "Activate Jerry Agent",
+      "priority": "high",
+      "status": "backlog",
+      "desc": "Lead follow-up and conversions",
+      "action": "Set up Discord bot and training",
+      "owner": "Jarvis"
+    },
+    {
+      "id": 7,
+      "title": "Implement Invoice Reminder System",
+      "priority": "medium",
+      "status": "backlog",
+      "desc": "Automated overdue invoice reminders",
+      "action": "Configure Zapier automation",
+      "owner": "Jarvis"
+    },
+    {
+      "id": 8,
+      "title": "Complete Google Sheets Cash Flow Model",
+      "priority": "medium",
+      "status": "backlog",
+      "desc": "Real-time cash flow tracking",
+      "action": "Connect Jobber and QuickBooks data",
+      "owner": "Jarvis"
+    }
+  ],
+  "completed_tasks": [
+    {
+      "id": 9,
+      "title": "QuickBooks Integration",
+      "priority": "done",
+      "status": "done"
+    },
+    {
+      "id": 10,
+      "title": "Jordan Automation",
+      "priority": "done",
+      "status": "done"
+    },
+    {
+      "id": 11,
+      "title": "Low-Margin Strategy",
+      "priority": "done",
+      "status": "done"
+    },
+    {
+      "id": 12,
+      "title": "Dashboard",
+      "priority": "done",
+      "status": "done"
+    }
+  ],
+  "agents": {
+    "jordan": {
+      "name": "Jordan Belfort",
+      "role": "CFO AI — Finance & Analytics",
+      "status": "active",
+      "last_run": "2026-04-22 06:05 AM",
+      "priorities": [
+        "Jobber sync — update all client Financial sections",
+        "Flag any accounts >14 days past due → handoff to Jarvis"
+      ],
+      "stats": {
+        "clients": 151,
+        "active_jobs": 64,
+        "revenue": 9757.44,
+        "alerts": 40
+      }
+    },
+    "donna": {
+      "name": "Donna Paulsen",
+      "role": "Admin AI — Operations & Scheduling",
+      "status": "pending",
+      "last_run": null,
+      "priorities": [
+        "Update jobs-in-flight.md with today's confirmed schedule",
+        "Check crew-roster.md for any availability changes"
+      ],
+      "stats": {}
+    },
+    "jerry": {
+      "name": "Jerry McGuire",
+      "role": "Sales AI — Lead Generation",
+      "status": "pending",
+      "last_run": null,
+      "priorities": [
+        "Review leads.md — flag stale leads (>5 days no contact)",
+        "Follow up on qualified leads pending proposal"
+      ],
+      "stats": {}
+    }
+  },
+  "next_actions": [],
+  "blockers": [],
+  "integrations": {
+    "quickbooks": {
+      "status": "connected",
+      "label": "QuickBooks"
+    },
+    "jobber": {
+      "status": "active",
+      "label": "Jobber API"
+    },
+    "discord": {
+      "status": "connected",
+      "label": "Discord"
+    },
+    "zapier": {
+      "status": "active",
+      "label": "Zapier"
+    },
+    "google": {
+      "status": "pending",
+      "label": "Google Sheets"
+    }
+  },
+  "knowledge": {
+    "crew_roster": "---\ntags: [knowledge, crew]\nowner: donna\nversion: 1\nlast_modified: 2026-04-20\nmodified_by: donna\nchange_type: creation\n---\n\n# Crew Roster\n\n*Donna maintains. Check before any scheduling commitment. Do not assign crew from memory.*\n\n---\n\n## Active Crew\n\n*To be populated by Donna from current crew data.*\n\n| Name | Role | Skills | Availability | Notes |\n|------|------|--------|-------------|-------|\n| | | | | |\n\n## Availability Rules\n\n*To be populated.*\n\n## Crew Constraints\n\n- Never schedule crew for back-to-back jobs without 30-minute travel buffer (update with actual rule)\n- Flag to Jarvis if crew availability drops below minimum coverage for week\n\n## Recent Personnel Changes\n\n*Donna logs any additions, departures, or availability changes here with date.*\n",
+    "pricing": "---\ntags: [knowledge, pricing]\nowner: jordan\nversion: 1\nlast_modified: 2026-04-20\nmodified_by: jordan\nchange_type: creation\n---\n\n# Pricing\n\n*Jordan maintains this file as the authoritative source. No agent may quote prices from memory — always reference this file. Pricing changes require a decision record.*\n\n---\n\n## Service Pricing\n\n*To be populated by Jordan from Jobber data.*\n\n| Service | Standard Rate | Unit | Notes |\n|---------|--------------|------|-------|\n| | | | |\n\n## Discount Authority\n\n- Standard discounts (≤10%): Jordan approves, logs in client Financial section\n- Discounts >10%: Jarvis decision record required before granting\n- No retroactive discounts without Jarvis decision record\n\n## Payment Terms\n\n*To be populated.*\n\n- Standard terms: \n- Late fee policy: \n- Accepted payment methods: \n",
+    "biz_rules": "---\ntags: [knowledge, rules]\nowner: jarvis\nversion: 1\nlast_modified: 2026-04-20\nmodified_by: jarvis\nchange_type: creation\n---\n\n# Business Rules\n\n*Jarvis maintains this file. All agents must check it before executing decisions that could violate a constraint. Proposals to change rules go through a handoff to Jarvis → decision record.*\n\n---\n\n## Scheduling Rules\n\n- Minimum 48-hour notice required for cancellations (client or crew side)\n- No early morning starts before 7am unless client specifically requests AND Donna confirms in writing\n- Never commit to a specific date without checking `shared/knowledge/crew-roster.md` first\n- Donna owns all schedule commitments — Jerry may propose dates but never confirm them directly\n\n## Financial Rules\n\n- Jordan must flag any account >14 days past due to Jarvis via handoff, same day discovered\n- No agent may quote prices from memory — always reference `shared/knowledge/pricing.md`\n- Any pricing exception (discount, adjusted rate) requires a decision record in `shared/decisions/`\n- Invoices are not marked paid until Donna's schedule confirms the work was delivered\n\n## Sales Rules\n\n- Jerry qualifies all leads before a client profile is created in `clients/active/`\n- No booking commitments to leads without checking `shared/pipeline/jobs-in-flight.md` for capacity\n- Upsell signals from Donna must be handed off to Jerry within 24 hours\n- Jerry owns the Sales section of every client note — no other agent writes there\n\n## Escalation Rules\n\n- Any client complaint not resolved within the same session → handoff to Jarvis\n- Any financial flag involving >$500 → handoff to Jarvis same day\n- Any scheduling conflict not resolvable in-session → handoff to Jarvis\n- Any unresolved constraint conflict after 48 hours → flag to `shared/flags/` → Hunter notification\n\n## Conflict Resolution\n\n- When two agents' sections contain contradictory data about the same client, Jarvis arbitrates\n- Neither agent may overwrite the other's section — contradictions go to Conflict Log in the client note\n- Jarvis documents all conflict resolutions as decision records\n- In all conflicts, the most conservative interpretation governs until Hunter resolves\n\n## Data Confidence\n\n- Confidence < 0.7 on any shared file write → `requires_human_review: true`\n- Confidence sources: `confirmed` (client/Jobber verified), `inferred` (agent reasoning), `assumed` (placeholder)\n- Jordan's financial data defaults to `confirmed` only when sourced directly from Jobber sync\n- Jerry's lead data defaults to `inferred` until qualification is complete\n",
+    "svc_catalog": "---\ntags: [knowledge, services]\nowner: jarvis\nversion: 1\nlast_modified: 2026-04-20\nmodified_by: jarvis\nchange_type: creation\n---\n\n# Service Catalog\n\n*Jarvis maintains. All agents reference this when describing services to clients or leads. Accurate descriptions prevent scope mismatches.*\n\n---\n\n## Active Services\n\n*To be populated.*\n\n| Service | Description | Typical Duration | Dependencies |\n|---------|------------|-----------------|--------------|\n| | | | |\n\n## Seasonal Availability\n\n*To be populated by Donna.*\n\n## Service Combinations / Packages\n\n*To be populated.*\n"
+  },
+  "pipeline": {
+    "leads": "---\ntags: [pipeline, leads]\nowner: jerry\nversion: 1\nlast_modified: 2026-04-20\nmodified_by: jerry\nchange_type: creation\n---\n\n# Lead Pipeline\n\n*Jerry updates daily. All agents read. Current state — not a log.*\n\n---\n\n## Active Leads\n\n| Lead | Stage | Last Contact | Next Action | Due | Confidence |\n|------|-------|-------------|-------------|-----|-----------|\n| | | | | | |\n\n## This Week's Closes\n\n*Jerry updates end of week.*\n\n## Stale Leads (>5 days no contact)\n\n*Jerry flags in daily 9am cron. Each entry links to lead profile in `clients/leads/`.*\n\n## Closed This Month\n\n| Lead | Outcome | Close Date | Revenue |\n|------|---------|-----------|---------|\n| | | | |\n",
+    "jobs": "---\ntags: [pipeline, jobs]\nowner: donna\nversion: 1\nlast_modified: 2026-04-20\nmodified_by: donna\nchange_type: creation\n---\n\n# Jobs In Flight\n\n*Donna updates each morning. Current state — not a log. Dated history lives in Donna's episodic logs.*\n\n---\n\n## Today's Schedule\n\n| Jobber ID | Client | Crew | Time | Status |\n|-----------|--------|------|------|--------|\n| | | | | |\n\n## This Week\n\n| Jobber ID | Client | Day | Crew | Notes |\n|-----------|--------|-----|------|-------|\n| | | | | |\n\n## Next Week (Confirmed)\n\n| Jobber ID | Client | Day | Crew | Notes |\n|-----------|--------|-----|------|-------|\n| | | | | |\n\n## Open Scheduling Issues\n\n*Donna logs conflicts, capacity problems, or unresolved items here.*\n"
+  },
+  "flags": "# Open Flags — Escalated to Hunter\n\n## Requires Hunter Decision\n\n```dataview\nTABLE raised_by, priority, date, resolution_deadline, hard_timeout\nFROM \"shared/flags\"\nWHERE status = \"open\"\nSORT priority DESC, date ASC\n```\n\n## Past Resolution Deadline\n\n```dataview\nTABLE raised_by, date, resolution_deadline, hard_timeout\nFROM \"shared/flags\"\nWHERE status = \"open\" AND resolution_deadline < date(today)\nSORT date ASC\n```\n",
+  "handoffs": "# Open Handoffs\n\n## All Open\n\n```dataview\nTABLE from, to, priority, date, due\nFROM \"shared/handoffs\"\nWHERE status = \"open\"\nSORT priority DESC, date ASC\n```\n\n## Overdue (>48 hours old, still open)\n\n```dataview\nTABLE from, to, date, due\nFROM \"shared/handoffs\"\nWHERE status = \"open\" AND date < (date(today) - dur(2 days))\nSORT date ASC\n```\n\n## Acknowledged (in-progress)\n\n```dataview\nTABLE from, to, date\nFROM \"shared/handoffs\"\nWHERE status = \"acknowledged\"\nSORT date ASC\n```\n",
+  "briefing": "\n🧮 JORDAN'S DAILY FINANCIAL BRIEFING\n=====================================\nDate: 2026-04-22\nTime: 06:00 AM\n\nEXECUTIVE SUMMARY\n-----------------\n• QuickBooks: Connected via Zapier\n• Jobber: 151 clients, 64 active jobs\n• Total Revenue: $9757.44\n• Completed Jobs Today: 50\n• Low Margin Alerts: 40\n\nCASH POSITION\n-------------\n• Status: Monitoring via QuickBooks Zapier connection\n• Next Update: Full cash balance in tomorrow's briefing\n\nJOB MARGIN ANALYSIS\n-------------------\n50 jobs completed yesterday\n⚠️ 40 jobs below margin threshold\n\nINVOICE STATUS\n--------------\n• Monitoring via QuickBooks triggers\n• Overdue invoices: Will flag via Discord alerts\n\nRISK FLAGS\n----------\n⚠️ 40 low-margin jobs need review\n\n\nNEXT ACTIONS\n------------\n1. Set up detailed QuickBooks report pulls via Zapier\n2. Implement cash balance tracking\n3. Configure Discord alerts for overdue invoices\n4. Complete Google Sheets integration for cash flow model\n\nBLOCKERS\n--------\n• QuickBooks detailed reports need Zapier configuration\n• Google Sheets API credentials pending\n\n---\nJordan - Finance and Strategy Agent\nDaily briefing generated: 2026-04-22T10:00:03.196Z\nAutomation status: PHASE 1 - Basic data collection\n"
+}
