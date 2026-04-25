@@ -3,152 +3,186 @@
 const { execSync } = require('child_process');
 const path = require('path');
 
-// Get current date
-const now = new Date();
-const dateStr = now.toLocaleDateString('en-US', { 
-  weekday: 'long', 
-  year: 'numeric', 
-  month: 'long', 
-  day: 'numeric' 
-});
-const timeStr = now.toLocaleTimeString('en-US', { 
-  hour: '2-digit', 
-  minute: '2-digit',
-  hour12: true 
-});
-
-// Get data from jobber-integration.js
-console.log('📊 Generating daily Jobber report...');
-
-try {
-  // Get summary data
-  const summaryOutput = execSync('node /Users/jarvishstark/.openclaw/workspace/scripts/jobber-integration.js summary', { encoding: 'utf8' });
-  const summary = JSON.parse(summaryOutput);
-  
-  // Get today's visits
-  const todayOutput = execSync('node /Users/jarvishstark/.openclaw/workspace/scripts/jobber-integration.js today', { encoding: 'utf8' });
-  const todayVisits = JSON.parse(todayOutput);
-  
-  // Get clients (first 5 for top clients)
-  const clientsOutput = execSync('node /Users/jarvishstark/.openclaw/workspace/scripts/jobber-integration.js clients', { encoding: 'utf8' });
-  const clients = JSON.parse(clientsOutput);
-  
-  // Calculate metrics
-  const totalClients = summary.totalClients || 0;
-  const activeJobs = summary.activeJobs || 0;
-  const totalInvoices = summary.totalInvoices || 0;
-  const totalRevenue = summary.totalRevenue || "$0.00";
-  const outstandingRevenue = summary.outstandingRevenue || "$0.00";
-  const todaysJobs = todayVisits.length || 0;
-
-  // Monthly target
-  const monthlyTarget = 20000;
-  const currentRevenue = parseFloat((summary.totalRevenue || "$0").replace(/[^0-9.]/g, ''));
-  const percentOfTarget = Math.round((currentRevenue / monthlyTarget) * 100);
-  
-  // Generate ASCII progress bar
-  const barLength = 20;
-  const filledBars = Math.round((percentOfTarget / 100) * barLength);
-  const progressBar = '█'.repeat(filledBars) + '░'.repeat(barLength - filledBars);
-  
-  // Determine status emoji
-  let statusEmoji = '🟢';
-  if (percentOfTarget < 50) statusEmoji = '🔴';
-  else if (percentOfTarget < 75) statusEmoji = '🟡';
-  
-  // Generate report
-  const report = `
-==================================================
-# 📊 DAILY BUSINESS DASHBOARD - ${dateStr}
-*Generated at ${timeStr} from Jobber data*
-
-## 📈 BUSINESS OVERVIEW
-**Total Clients:** ${totalClients}
-**Active Jobs:** ${activeJobs}
-**Open Invoices:** ${totalInvoices}
-**Total Billed (All Invoices):** ${totalRevenue}
-**Outstanding (Unpaid):** ${outstandingRevenue}
-**Today's Scheduled Jobs:** ${todaysJobs}
-
-## 💰 REVENUE STATUS
-**Current:** $${currentRevenue.toLocaleString()} / $${monthlyTarget.toLocaleString()} target
-${statusEmoji} **${percentOfTarget}%** of monthly target
-${progressBar}
-
-## 📅 TODAY'S SCHEDULE
-${todaysJobs === 0 ? 'No jobs scheduled for today' : todayVisits.map((visit, i) => {
-  const start = new Date(visit.startAt);
-  const end = new Date(visit.endAt);
-  const timeStr = start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  return `${i+1}. **${visit.job.client.name}** - ${visit.job.title} (${timeStr})`;
-}).join('\n')}
-
-## 🎯 TOP 3 PROFIT ACTIONS FOR TODAY
-
-1. **${todaysJobs > 0 ? '🟢 EXECUTE TODAY\'S JOBS' : '🔴 FIND NEW WORK'}**
-   ${todaysJobs > 0 
-     ? `*${todaysJobs} job${todaysJobs > 1 ? 's' : ''} scheduled today*`
-     : '*No jobs scheduled for today*'}
-   → ${todaysJobs > 0 
-     ? 'Focus on quality execution and client satisfaction'
-     : 'Reach out to 3 potential clients from leads list'}
-
-2. **${parseFloat(outstandingRevenue.replace(/[^0-9.]/g, '')) > 1000 ? '🔴 COLLECT OUTSTANDING' : '🟢 MANAGE INVOICES'}**
-   *${outstandingRevenue} outstanding*
-   → ${parseFloat(outstandingRevenue.replace(/[^0-9.]/g, '')) > 1000 
-     ? 'Follow up on 2 oldest invoices'
-     : 'Send reminders for any invoices due this week'}
-
-3. **${activeJobs > 30 ? '🟢 LEVERAGE WORKLOAD' : '🔴 BUILD PIPELINE'}**
-   *${activeJobs} active jobs in progress*
-   → ${activeJobs > 30 
-     ? 'Ask top 3 clients for referrals'
-     : 'Follow up on 2 pending quotes'}
-
----
-*Data source: Jobber API - Real-time business data*
-*Next report: Tomorrow 8:00 AM*
-==================================================
-`;
-
-  console.log(report);
-  
-} catch (error) {
-  console.error('❌ Error generating report:', error.message);
-  
-  // Fallback report if API fails
-  const fallbackReport = `
-==================================================
-# 📊 DAILY BUSINESS DASHBOARD - ${dateStr}
-*Generated at ${timeStr}*
-
-## ⚠️ DATA UNAVAILABLE
-Jobber API connection failed. Please check:
-1. Token refresh status
-2. Internet connection
-3. Jobber service status
-
-## 🎯 RECOMMENDED ACTIONS
-
-1. **CHECK API CONNECTION**
-   → Verify Jobber integration is working
-   → Refresh authentication tokens
-
-2. **MANUAL BUSINESS REVIEW**
-   → Review today's scheduled jobs
-   → Check outstanding invoices
-   → Follow up with active clients
-
-3. **SYSTEM MAINTENANCE**
-   → Update integration scripts
-   → Verify credential files
-   → Test API connectivity
-
----
-*Action required: Fix Jobber API connection*
-*Contact: System administrator*
-==================================================
-`;
-  
-  console.log(fallbackReport);
+// Helper to run jobber integration script
+function runJobberCommand(command) {
+    try {
+        const scriptPath = path.join(__dirname, 'jobber-integration.js');
+        const result = execSync(`node "${scriptPath}" ${command}`, { encoding: 'utf8' });
+        return JSON.parse(result);
+    } catch (error) {
+        console.error(`Error running ${command}:`, error.message);
+        return null;
+    }
 }
+
+// Generate ASCII bar chart
+function generateBarChart(value, max, width = 20) {
+    const percentage = value / max;
+    const filled = Math.round(percentage * width);
+    let bar = '';
+    
+    for (let i = 0; i < width; i++) {
+        if (i < filled) {
+            bar += '█';
+        } else {
+            bar += '░';
+        }
+    }
+    
+    return bar;
+}
+
+// Main function
+async function main() {
+    console.log('📊 Generating daily Jobber report from real data...');
+    
+    // Get summary data
+    const summary = runJobberCommand('summary');
+    if (!summary) {
+        console.log('❌ Failed to get summary data');
+        return;
+    }
+    
+    // Get jobs data
+    const jobs = runJobberCommand('jobs');
+    
+    // Get today's date
+    const today = new Date();
+    const todayStr = today.toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    });
+    
+    // Calculate monthly target (based on $20k target)
+    const monthlyTarget = 20000;
+    const revenue = parseFloat(summary.totalRevenue.replace('$', '').replace(',', ''));
+    const revenuePercentage = (revenue / monthlyTarget) * 100;
+    
+    // Determine revenue status
+    let revenueIndicator = '🟢';
+    let revenueTrend = '📈';
+    if (revenuePercentage < 60) {
+        revenueIndicator = '🔴';
+        revenueTrend = '📉';
+    } else if (revenuePercentage < 80) {
+        revenueIndicator = '🟡';
+    }
+    
+    // Analyze jobs for top clients
+    let topClients = [];
+    if (jobs && Array.isArray(jobs)) {
+        const clientRevenue = {};
+        
+        jobs.forEach(job => {
+            if (job.client && job.client.name && job.total) {
+                const clientName = job.client.name;
+                const jobValue = parseFloat(job.total) || 0;
+                
+                if (!clientRevenue[clientName]) {
+                    clientRevenue[clientName] = 0;
+                }
+                clientRevenue[clientName] += jobValue;
+            }
+        });
+        
+        // Sort and get top 3
+        topClients = Object.entries(clientRevenue)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 3)
+            .map(([name, revenue]) => ({ name, revenue }));
+    }
+    
+    // Generate report
+    let report = `# 📊 DAILY BUSINESS DASHBOARD - ${todayStr}\n`;
+    report += `*Generated at 8:00 AM from Jobber data*\n\n`;
+    
+    // Revenue Section
+    report += `## 💰 MONTHLY REVENUE\n`;
+    report += `**${summary.totalRevenue}** / $${monthlyTarget.toLocaleString()} target\n`;
+    report += `${revenueIndicator} ${revenueTrend} ${revenuePercentage.toFixed(1)}% of target\n`;
+    report += `${generateBarChart(revenue, monthlyTarget)}\n\n`;
+    
+    // Key Metrics
+    report += `## 📈 KEY METRICS\n`;
+    report += `┌──────────────────────┬─────────────┐\n`;
+    report += `│ Total Clients        │ ${summary.totalClients.toString().padStart(11)} │\n`;
+    report += `│ Active Jobs          │ ${summary.activeJobs.toString().padStart(11)} │\n`;
+    report += `│ Outstanding Revenue  │ ${summary.outstandingRevenue.padStart(11)} │\n`;
+    report += `└──────────────────────┴─────────────┘\n\n`;
+    
+    // Invoice Aging (simplified)
+    report += `## 📅 INVOICE STATUS\n`;
+    report += `🟢 **${summary.outstandingRevenue} total outstanding**\n\n`;
+    report += `*Note: Detailed aging requires invoice API access*\n\n`;
+    
+    // Top Clients
+    if (topClients.length > 0) {
+        report += `## 👑 TOP 3 CLIENTS (Recent Jobs)\n`;
+        topClients.forEach((client, i) => {
+            const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉';
+            report += `${medal} **${client.name}** - $${client.revenue.toLocaleString()}\n`;
+        });
+        report += `\n`;
+    }
+    
+    // Profit Actions
+    report += `## 🎯 TOP 3 PROFIT ACTIONS FOR TODAY\n\n`;
+    
+    // Action 1: Revenue focus
+    if (revenuePercentage < 70) {
+        report += `1. **🔴 BOOST REVENUE**\n`;
+        report += `   *Only ${revenuePercentage.toFixed(1)}% of monthly target*\n`;
+        report += `   → Contact 2 clients for upsells\n\n`;
+    } else {
+        report += `1. **🟢 MAINTAIN MOMENTUM**\n`;
+        report += `   *Revenue on track (${revenuePercentage.toFixed(1)}% of target)*\n`;
+        report += `   → Schedule next month's work\n\n`;
+    }
+    
+    // Action 2: Job completion
+    if (summary.activeJobs > 50) {
+        report += `2. **🟡 MANAGE WORKLOAD**\n`;
+        report += `   *${summary.activeJobs} active jobs*\n`;
+        report += `   → Review crew scheduling\n\n`;
+    } else {
+        report += `2. **🟢 STRENGTHEN CLIENT RELATIONS**\n`;
+        report += `   *${summary.activeJobs} active jobs - manageable*\n`;
+        report += `   → Send 3 thank-you messages\n\n`;
+    }
+    
+    // Action 3: Collections
+    const outstanding = parseFloat(summary.outstandingRevenue.replace('$', '').replace(',', ''));
+    if (outstanding > 1000) {
+        report += `3. **⭐ COLLECT OUTSTANDING**\n`;
+        report += `   *${summary.outstandingRevenue} outstanding*\n`;
+        report += `   → Follow up on 2 oldest invoices\n`;
+    } else if (topClients.length > 0) {
+        const topClient = topClients[0];
+        report += `3. **⭐ LEVERAGE TOP CLIENT**\n`;
+        report += `   *${topClient.name} spent $${topClient.revenue.toLocaleString()}*\n`;
+        report += `   → Ask for 1 referral\n`;
+    } else {
+        report += `3. **⭐ BUILD CLIENT BASE**\n`;
+        report += `   *${summary.totalClients} total clients*\n`;
+        report += `   → Contact 2 new leads\n`;
+    }
+    
+    report += `\n---\n`;
+    report += `*Next report: Tomorrow 8:00 AM*\n`;
+    report += `*Data source: Jobber API - ${summary.totalClients} clients, ${summary.activeJobs} active jobs*\n`;
+    
+    console.log(report);
+    return report;
+}
+
+// Run if called directly
+if (require.main === module) {
+    main().catch(error => {
+        console.error('Error:', error);
+        process.exit(1);
+    });
+}
+
+module.exports = { main };

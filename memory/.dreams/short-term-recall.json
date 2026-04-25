@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-04-18T11:00:41.199Z",
+  "updatedAt": "2026-04-21T11:28:49.164Z",
   "entries": {
     "memory:memory/2026-04-13.md:1:36": {
       "key": "memory:memory/2026-04-13.md:1:36",
@@ -73,21 +73,23 @@
       "endLine": 182,
       "source": "memory",
       "snippet": "- Planning for following week ### Monthly Assessment - ROI calculation and reporting - Strategic adjustments - Budget review and planning - Team recognition and rewards --- **Next Update**: Evening progress report on invoice reminder implementation **Current Focus**: QuickBooks API integration and OpenClaw agent development **Overall Progress**: 15% complete, on schedule for 6-month transformation ## 📊 Afternoon/Evening Progress - April 14, 2026 ### 🤖 AI Agent Team Creation **User Request**: Create three specialized AI agents for Evergreen Landscaping **Channel Created**: #teamchat (ID: 1493596752882831512) #### Agents Created: 1. **Jordan Belfort** - CFO AI (Finance & Analytics) -",
-      "recallCount": 3,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 3,
+      "totalScore": 4,
       "maxScore": 1,
       "firstRecalledAt": "2026-04-17T11:00:29.081Z",
-      "lastRecalledAt": "2026-04-18T11:00:41.199Z",
+      "lastRecalledAt": "2026-04-21T11:28:49.164Z",
       "queryHashes": [
         "c9260597f1c7",
         "b3e6b728f583",
-        "def344145a12"
+        "def344145a12",
+        "ad6d2fce35fb"
       ],
       "recallDays": [
         "2026-04-17",
-        "2026-04-18"
+        "2026-04-18",
+        "2026-04-21"
       ],
       "conceptTags": [
         "6-month",
@@ -107,21 +109,23 @@
       "endLine": 79,
       "source": "memory",
       "snippet": "- Pain point analysis - Automation priority matrix - 6-month implementation plan 2. **Automation 1 - Invoice Reminder System.md** (10,356 bytes) - Detailed implementation plan for first automation - Technical architecture design - 2-week implementation timeline - Risk management and ROI analysis 3. **Evergreen Landscaping - AI Transformation Dashboard.md** (11,534 bytes) - Real-time progress tracking - KPI monitoring framework - Budget tracking - Risk register - Team responsibilities ## 🎯 Current Status & Next Steps ### Completed Overnight - ✅ Morning briefing system fixed and tested - ✅ Comprehensive workflow documentation created - ✅ First automatio",
-      "recallCount": 3,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 3,
+      "totalScore": 4,
       "maxScore": 1,
       "firstRecalledAt": "2026-04-17T11:00:29.081Z",
-      "lastRecalledAt": "2026-04-18T11:00:41.199Z",
+      "lastRecalledAt": "2026-04-21T11:28:49.164Z",
       "queryHashes": [
         "c9260597f1c7",
         "b3e6b728f583",
-        "def344145a12"
+        "def344145a12",
+        "ad6d2fce35fb"
       ],
       "recallDays": [
         "2026-04-17",
-        "2026-04-18"
+        "2026-04-18",
+        "2026-04-21"
       ],
       "conceptTags": [
         "6-month",
@@ -141,21 +145,23 @@
       "endLine": 38,
       "source": "memory",
       "snippet": "# 2026-04-14 - Evergreen Landscaping AI Transformation ## 🌅 Morning Briefing System Fix ### Problem Identified - Cron job failing with error: \"Discord recipient is required\" - Root cause: Missing `--to` parameter with specific channel ID ### Solution Implemented 1. **Correct syntax discovered**: `--channel discord --to \"channel:1493317177871171707\"` 2. **New cron job created**: `morning-briefing-final` (ID: `28ea3c8a-02de-4440-9a87-9939d0062493`) 3. **Test verification**: Manual run succeeded with `delivered: true` status 4. **Schedule confirmed**: 7:00 AM daily starting tomorrow ### Prevention Measures - Documented correct cron job syntax for Discord - Established testing protocol for n",
-      "recallCount": 3,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 3,
+      "totalScore": 4,
       "maxScore": 1,
       "firstRecalledAt": "2026-04-17T11:00:29.081Z",
-      "lastRecalledAt": "2026-04-18T11:00:41.199Z",
+      "lastRecalledAt": "2026-04-21T11:28:49.164Z",
       "queryHashes": [
         "c9260597f1c7",
         "b3e6b728f583",
-        "def344145a12"
+        "def344145a12",
+        "ad6d2fce35fb"
       ],
       "recallDays": [
         "2026-04-17",
-        "2026-04-18"
+        "2026-04-18",
+        "2026-04-21"
       ],
       "conceptTags": [
         "morning-briefing-final",
@@ -175,20 +181,22 @@
       "endLine": 68,
       "source": "memory",
       "snippet": "## 🎨 Interactive Dashboard Development **User Request**: \"I want a site i can type into google and be there i dont want to have to look through any .js files or anything just a simple website\" ### Solution Delivered: 1. **Created single-file website** in `/evergreen-ai-dashboard/` - `index.html` (52KB) - Complete dashboard in one file - No server required, works on GitHub Pages - Virtual office with animated agent avatars - Live activity feed, progress tracking, metrics - Mobile responsive design 2. **Deployment options provided**: - **GitHub Pages**: Free, permanent hosting - **Netlify Drop**: 2-minute deployment - **Direct file access**: Works locally 3. **User",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 2,
+      "totalScore": 3,
       "maxScore": 1,
       "firstRecalledAt": "2026-04-17T11:00:56.310Z",
-      "lastRecalledAt": "2026-04-18T11:00:41.199Z",
+      "lastRecalledAt": "2026-04-21T11:28:49.164Z",
       "queryHashes": [
         "b3e6b728f583",
-        "def344145a12"
+        "def344145a12",
+        "ad6d2fce35fb"
       ],
       "recallDays": [
         "2026-04-17",
-        "2026-04-18"
+        "2026-04-18",
+        "2026-04-21"
       ],
       "conceptTags": [
         "single-file",
@@ -239,18 +247,21 @@
       "endLine": 34,
       "source": "memory",
       "snippet": "# 2026-04-15 - Evergreen Landscaping AI Transformation ## 🌅 Morning Briefing Enhancement **User Request**: \"Add a to do list of uncompleted task from previous days into the morning brief\" ### Implementation: 1. **Created task tracking system** at `/tasks/todo.md` - 8 active tasks tracked (6 from April 14, 2 new today) - Tasks categorized by priority (High/Medium/Low) - Aging system: Today (0 days), Yesterday (1 day), Older (2+ days) - Completion tracking with metrics 2. **Enhanced morning briefing script** (`/scripts/morning-briefing-enhanced.js`) - Added \"Uncompleted Tasks from Previous Days\" section - Tasks grouped by age with priority indicators - Today's focus re",
-      "recallCount": 1,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1,
+      "totalScore": 3,
       "maxScore": 1,
       "firstRecalledAt": "2026-04-18T11:00:41.199Z",
-      "lastRecalledAt": "2026-04-18T11:00:41.199Z",
+      "lastRecalledAt": "2026-04-21T11:28:49.164Z",
       "queryHashes": [
-        "def344145a12"
+        "def344145a12",
+        "fe975eabd4a6",
+        "ad6d2fce35fb"
       ],
       "recallDays": [
-        "2026-04-18"
+        "2026-04-18",
+        "2026-04-21"
       ],
       "conceptTags": [
         "tasks/todo.md",
@@ -261,6 +272,161 @@
         "morning",
         "briefing",
         "enhancement"
+      ]
+    },
+    "memory:memory/2026-04-15.md:204:228": {
+      "key": "memory:memory/2026-04-15.md:204:228",
+      "path": "memory/2026-04-15.md",
+      "startLine": 204,
+      "endLine": 228,
+      "source": "memory",
+      "snippet": "4. **User control** - Multiple options, user chooses ## 📈 Success Metrics: ### Short-term (This Week): - [ ] Dashboard deployed and accessible - [ ] Jobber automation running daily - [ ] Discord agents active in #teamchat - [ ] Morning briefing with tasks delivered ### Medium-term (This Month): - [ ] 80% reduction in manual Jobber tasks - [ ] AI agents handling routine communications - [ ] Dashboard showing real business metrics - [ ] Cost savings from Ollama optimization ### Long-term (6 Months): - [ ] $71,000 annual net benefit achieved - [ ] DSO reduced from 45 to 30 days - [ ] On-time payments increased to 90% - [ ] Fully automated back office operations --- **Next Session Focus**",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-21T11:28:43.930Z",
+      "lastRecalledAt": "2026-04-21T11:28:43.930Z",
+      "queryHashes": [
+        "fe975eabd4a6"
+      ],
+      "recallDays": [
+        "2026-04-21"
+      ],
+      "conceptTags": [
+        "short-term",
+        "medium-term",
+        "long-term",
+        "on-time",
+        "user",
+        "control",
+        "multiple",
+        "options"
+      ]
+    },
+    "memory:memory/2026-04-15.md:61:102": {
+      "key": "memory:memory/2026-04-15.md:61:102",
+      "path": "memory/2026-04-15.md",
+      "startLine": 61,
+      "endLine": 102,
+      "source": "memory",
+      "snippet": "1. **Initial script didn't work** - User tried credentials in example script 2. **Missing OAuth flow** - Need access token, not just client credentials 3. **Files location problem** - Scripts on my computer, not user's ### Solutions Provided: 1. **Created complete OAuth flow** (`jobber-auth.js`) - Step-by-step browser authorization - Token exchange automation - Error handling and troubleshooting 2. **Built test suite** (`jobber-test.js`) - Connection testing - Endpoint verification - Permission checking 3. **Main integration script** (`jobber-integration.js`) - Daily automation for overdue invoices - Upcoming job tracking - Lead follow-up automation - Report",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-21T11:28:43.930Z",
+      "lastRecalledAt": "2026-04-21T11:28:43.930Z",
+      "queryHashes": [
+        "fe975eabd4a6"
+      ],
+      "recallDays": [
+        "2026-04-21"
+      ],
+      "conceptTags": [
+        "jobber-auth.js",
+        "step-by-step",
+        "jobber-test.js",
+        "jobber-integration.js",
+        "follow-up",
+        "initial",
+        "script",
+        "didn't"
+      ]
+    },
+    "memory:memory/2026-04-15.md:95:139": {
+      "key": "memory:memory/2026-04-15.md:95:139",
+      "path": "memory/2026-04-15.md",
+      "startLine": 95,
+      "endLine": 139,
+      "source": "memory",
+      "snippet": "2. **Issue identified**: \"They are in chat just not connected to something\" - Agents appear in OpenClaw Control UI - But not \"listening\" to Discord automatically - Need routing rules or manual triggering 3. **Solutions provided**: - **Routing rules**: Auto-respond based on keywords - **Webhook method**: Separate Discord users (recommended) - **Manual triggering**: CLI commands for specific agents ### Technical Insight: OpenClaw agents are **configurations, not separate processes**. Only one agent (main/OpenClaw) is \"active\" on Discord by default. Other agents need explicit triggering. ## 🎯 User Behavior Patterns Observed: ### 1. **Preference for Simplicity** - \"I dont",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-21T11:28:43.930Z",
+      "lastRecalledAt": "2026-04-21T11:28:43.930Z",
+      "queryHashes": [
+        "fe975eabd4a6"
+      ],
+      "recallDays": [
+        "2026-04-21"
+      ],
+      "conceptTags": [
+        "auto-respond",
+        "main/openclaw",
+        "issue",
+        "identified",
+        "chat",
+        "not",
+        "connected",
+        "something"
+      ]
+    },
+    "memory:memory/2026-04-15.md:171:215": {
+      "key": "memory:memory/2026-04-15.md:171:215",
+      "path": "memory/2026-04-15.md",
+      "startLine": 171,
+      "endLine": 215,
+      "source": "memory",
+      "snippet": "Recommended webhook method for Discord agents because: - 10 minutes vs 30+ minutes setup - Same visual effect in Discord - Easier to debug and maintain - No separate bot tokens to manage ### 2. **Single HTML File Dashboard** Chosen over Node.js server because: - User wants \"type into google and be there\" - No server maintenance required - Free hosting options available - Works on any device immediately ### 3. **Manual + API Hybrid for Jobber** Designed both manual (CSV export) and API approaches because: - User has API credentials but unsure how to use - Manual method works immediately - API method better long-term - Can transition from manual to API ## 🧠 Learning Points: ### For Future",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-21T11:28:43.930Z",
+      "lastRecalledAt": "2026-04-21T11:28:43.930Z",
+      "queryHashes": [
+        "fe975eabd4a6"
+      ],
+      "recallDays": [
+        "2026-04-21"
+      ],
+      "conceptTags": [
+        "node.js",
+        "long-term",
+        "recommended",
+        "webhook",
+        "method",
+        "discord",
+        "agents",
+        "minutes"
+      ]
+    },
+    "memory:memory/2026-04-14.md:206:244": {
+      "key": "memory:memory/2026-04-14.md:206:244",
+      "path": "memory/2026-04-14.md",
+      "startLine": 206,
+      "endLine": 244,
+      "source": "memory",
+      "snippet": "- Animated agent avatars (Jordan, Donna, Jerry) - Live status updates showing current activities - Interactive controls to animate/reset positions - Office layout with desks and movement paths 2. **📈 Live Monitoring** - Real-time activity feed with agent actions - Progress tracking for all project phases - Performance metrics auto-updating every 30 seconds - Agent statistics (tasks, success rates, learning) 3. **🌐 Remote Access** - Accessible from any device on network - Local URL: http://localhost:8080 - Network URL: http://192.168.7.149:8080 - Responsive design for desktop/tablet/mobile #### Technical Implementation: - **Frontend**: HTML5, CSS3, Jav",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-21T11:28:43.930Z",
+      "lastRecalledAt": "2026-04-21T11:28:43.930Z",
+      "queryHashes": [
+        "fe975eabd4a6"
+      ],
+      "recallDays": [
+        "2026-04-21"
+      ],
+      "conceptTags": [
+        "network",
+        "animate/reset",
+        "real-time",
+        "auto-updating",
+        "192.168.7.149",
+        "desktop/tablet/mobile",
+        "animated",
+        "avatars"
       ]
     }
   }

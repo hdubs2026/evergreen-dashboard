@@ -28,8 +28,10 @@
 - **Progress**: ~25% complete as of April 2026
 
 ## Technical Setup
-- **Primary model**: deepseek/deepseek-chat
+- **Primary model**: deepseek/deepseek-chat (fast/efficient for most tasks)
+- **Reasoning model**: deepseek/deepseek-reasoner (for complex analysis, math, strategy, logic puzzles)
 - **Heartbeat model**: ollama/llama3.2:3b (cost savings)
+- **Model switching**: I use `session_status` with `model: "deepseek/deepseek-reasoner"` to switch mid-session when a question needs deeper thinking. I switch back to chat when the reasoning-heavy work is done.
 - **Jobber API**: GraphQL at api.getjobber.com, tokens auto-refresh every 30 min via system cron
 - **Discord**: 4 bots — main (me), jordan, donna, jerry
 - **Workspace**: /Users/jarvishstark/.openclaw/workspace

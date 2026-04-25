@@ -2,7 +2,10 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, BarChart2, Users, Settings, FileText, Terminal, Brain, Database } from 'lucide-react'
+import {
+  Home, BarChart2, Users, Settings, FileText, Terminal, Brain, Database,
+  Bot, Filter, Users2, ClipboardList, TrendingUp,
+} from 'lucide-react'
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: Home, badge: null },
@@ -14,6 +17,64 @@ const navigation = [
   { name: 'Team', href: '/team', icon: Users, badge: null },
   { name: 'Settings', href: '/settings', icon: Settings, badge: null },
 ]
+
+const commandNav = [
+  { name: 'Jarvis', href: '/jarvis', icon: Bot, badge: null, activeDot: true },
+]
+
+const businessNav = [
+  { name: 'Pipeline', href: '/business/pipeline', icon: Filter, badge: null },
+  { name: 'Clients', href: '/business/clients', icon: Users2, badge: null },
+  { name: 'Quotes', href: '/business/quotes', icon: ClipboardList, badge: null },
+  { name: 'Revenue', href: '/business/revenue', icon: TrendingUp, badge: null },
+]
+
+type NavItem = {
+  name: string
+  href: string
+  icon: React.ComponentType<{ className?: string }>
+  badge: string | null
+  activeDot?: boolean
+}
+
+function NavLink({ item, pathname }: { item: NavItem; pathname: string }) {
+  const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)
+  return (
+    <li>
+      <Link
+        href={item.href}
+        className={`group flex items-center gap-x-3 rounded-md px-3 py-2 text-sm font-medium transition-all duration-100 ${
+          isActive
+            ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400'
+            : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50'
+        }`}
+      >
+        <item.icon
+          className={`h-4 w-4 shrink-0 ${
+            isActive
+              ? 'text-blue-600 dark:text-blue-400'
+              : 'text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300'
+          }`}
+        />
+        <span className="flex-1 leading-none">{item.name}</span>
+        {item.activeDot && (
+          <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
+        )}
+        {item.badge && (
+          <span
+            className={`ml-auto inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full px-1.5 text-xs font-semibold ${
+              isActive
+                ? 'bg-blue-600 dark:bg-blue-500 text-white'
+                : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400'
+            }`}
+          >
+            {item.badge}
+          </span>
+        )}
+      </Link>
+    </li>
+  )
+}
 
 export default function Sidebar() {
   const pathname = usePathname()
@@ -34,47 +95,40 @@ export default function Sidebar() {
           </div>
         </div>
 
-        <nav className="flex flex-1 flex-col gap-y-6 mt-2">
+        <nav className="flex flex-1 flex-col gap-y-5 mt-2">
+          {/* Command */}
+          <div>
+            <p className="px-3 mb-1.5 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
+              Command
+            </p>
+            <ul role="list" className="space-y-0.5">
+              {commandNav.map((item) => (
+                <NavLink key={item.name} item={item} pathname={pathname} />
+              ))}
+            </ul>
+          </div>
+
+          {/* Navigation */}
           <div>
             <p className="px-3 mb-1.5 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
               Navigation
             </p>
             <ul role="list" className="space-y-0.5">
-              {navigation.map((item) => {
-                const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)
-                return (
-                  <li key={item.name}>
-                    <Link
-                      href={item.href}
-                      className={`group flex items-center gap-x-3 rounded-md px-3 py-2 text-sm font-medium transition-all duration-100 ${
-                        isActive
-                          ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400'
-                          : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50'
-                      }`}
-                    >
-                      <item.icon
-                        className={`h-4 w-4 shrink-0 ${
-                          isActive
-                            ? 'text-blue-600 dark:text-blue-400'
-                            : 'text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300'
-                        }`}
-                      />
-                      <span className="flex-1 leading-none">{item.name}</span>
-                      {item.badge && (
-                        <span
-                          className={`ml-auto inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full px-1.5 text-xs font-semibold ${
-                            isActive
-                              ? 'bg-blue-600 dark:bg-blue-500 text-white'
-                              : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400'
-                          }`}
-                        >
-                          {item.badge}
-                        </span>
-                      )}
-                    </Link>
-                  </li>
-                )
-              })}
+              {navigation.map((item) => (
+                <NavLink key={item.name} item={item} pathname={pathname} />
+              ))}
+            </ul>
+          </div>
+
+          {/* Business */}
+          <div>
+            <p className="px-3 mb-1.5 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
+              Business
+            </p>
+            <ul role="list" className="space-y-0.5">
+              {businessNav.map((item) => (
+                <NavLink key={item.name} item={item} pathname={pathname} />
+              ))}
             </ul>
           </div>
 

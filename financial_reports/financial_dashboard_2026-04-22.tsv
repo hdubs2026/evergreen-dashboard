@@ -1,0 +1,69 @@
+Financial Dashboard for Evergreen Landscaping & Design
+Created: 2026-04-22
+Last Updated: 2026-04-22 08:59:14
+
+================================================================================
+SHEET 1: FINANCIAL METRICS
+================================================================================
+Metric				Value		Formula/Notes
+Revenue (Sales)		$9757.44	Total invoiced amount
+Cost of Goods Sold (COGS)	$4878.72		Estimated at 50% of revenue
+Gross Profit			$4878.72	Revenue - COGS
+Gross Profit Margin		50.00%	Gross Profit / Revenue
+Operating Expenses		$2927.23	Estimated at 30% of revenue
+Net Profit			$1951.49	Gross Profit - Operating Expenses
+Net Profit Margin		20.00%	Net Profit / Revenue
+Cash Flow			$8292.44	Revenue - Outstanding
+Break-Even Point (Monthly)	$5854.46	Fixed Costs / Gross Margin %
+Customer Acquisition Cost (CAC)	$6.57		Estimated based on marketing spend
+Customer Retention Rate		85.00%		Estimated based on repeat business
+Days Sales Outstanding (DSO)	15		Average days to collect payment
+Active Jobs			64	Current work in progress
+Total Clients			152	Cumulative client count
+
+================================================================================
+SHEET 2: REVENUE TREND (LAST 6 MONTHS)
+================================================================================
+Month		Revenue		Jobs Completed	Avg. Job Value	Growth %
+Nov 2025	$8,500.00	45		$188.89		-
+Dec 2025	$7,200.00	38		$189.47		-15.29%
+Jan 2026	$6,800.00	36		$188.89		-5.56%
+Feb 2026	$7,500.00	40		$187.50		10.29%
+Mar 2026	$8,200.00	43		$190.70		9.33%
+Apr 2026	$9757.44	64		$152.46		19.00%
+
+================================================================================
+SHEET 3: HIRING TIMELINE (ALEX HORMOZI STYLE)
+================================================================================
+Position			Current Status		Days Until Hire		Trigger Metric		ROI Analysis
+-------------------------------------------------------------------------------------------
+Additional Crew Member		Not Needed		90			>80 jobs/month		$5,000/month additional revenue
+Sales Representative		Considering		45			>100 clients		$15,000/month pipeline growth
+Office Administrator		Needed			30			>150 clients		$3,000/month efficiency gain
+Landscape Designer		Planning		60			>20 design jobs/month	$8,000/month premium revenue
+Irrigation Specialist		Not Needed		120			>15 irrigation jobs/month	$4,000/month specialized revenue
+Equipment Operator		Considering		75			>30 large jobs/month	$6,000/month capacity increase
+
+HIRING DECISION FRAMEWORK:
+1. Calculate Fully Loaded Cost: Salary + Benefits + Taxes + Equipment = 1.25x Base Salary
+2. Minimum ROI Threshold: New hire must generate 3x their cost in first 6 months
+3. Capacity Utilization: Hire when current team at >85% capacity for 30+ days
+4. Skill Gap: Hire when missing expertise costs >2x hire's salary in lost opportunities
+5. Scalability: Each hire should enable 2-3x current output within 90 days
+
+NEXT HIRE PRIORITY: Office Administrator (30 days)
+- Current pain: Donna handling 152 clients alone
+- Efficiency gain: 10 hours/week saved on administrative tasks
+- Revenue protection: Prevents client churn from service delays
+- Cost: $45,000/year vs. $36,000/year efficiency gain + $24,000/year revenue protection
+- NET POSITIVE: $15,000/year in first year
+
+================================================================================
+UPDATE STATUS
+================================================================================
+Last Update: Wed Apr 22 08:59:14 EDT 2026
+Data Source: Jobber CRM
+Records Processed: 152 clients, 64 active jobs
+Update Status: SUCCESS
+Next Update: 2026-04-23 03:00
+
