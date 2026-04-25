@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Control – Evergreen Landscaping</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #22263a;
+      --border: #2a2e45;
+      --primary: #5b6af0;
+      --green: #2ecc71;
+      --yellow: #f1c40f;
+      --red: #e74c3c;
+      --blue: #3498db;
+      --purple: #9b59b6;
+      --text: #e2e8f0;
+      --muted: #6b7280;
+      --card: #1e2235;
+      --sidebar-w: 200px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; display: flex; height: 100vh; overflow: hidden; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+
+    .sidebar-logo {
+      padding: 18px 16px 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-logo .icon-box {
+      width: 32px; height: 32px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+    }
+
+    .sidebar-logo span { font-weight: 700; font-size: 15px; }
+
+    .nav-section { padding: 10px 0; }
+    .nav-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); padding: 6px 16px; }
+
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 16px; cursor: pointer;
+      font-size: 13.5px; color: var(--muted);
+      border-radius: 6px; margin: 1px 6px;
+      transition: all 0.15s;
+    }
+    .nav-item:hover { background: var(--surface2); color: var(--text); }
+    .nav-item.active { background: rgba(91,106,240,0.15); color: var(--primary); }
+    .nav-item i { width: 16px; text-align: center; font-size: 13px; }
+
+    .nav-badge {
+      margin-left: auto; background: var(--surface2);
+      padding: 1px 7px; border-radius: 999px; font-size: 11px; color: var(--muted);
+    }
+
+    /* ── MAIN ── */
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+    /* top bar */
+    .topbar {
+      height: 52px; background: var(--surface); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 20px; gap: 12px; flex-shrink: 0;
+    }
+
+    .topbar-title { font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+    .topbar-title i { color: var(--primary); }
+
+    .topbar-search {
+      flex: 1; max-width: 260px; margin-left: auto;
+      display: flex; align-items: center; gap: 8px;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 6px 12px; font-size: 13px; color: var(--muted);
+      cursor: text;
+    }
+    .topbar-search input {
+      background: none; border: none; outline: none; color: var(--text); font-size: 13px; width: 100%;
+    }
+
+    .topbar-btn {
+      padding: 7px 14px; border-radius: 8px; border: 1px solid var(--border);
+      background: var(--surface2); color: var(--text); font-size: 13px;
+      cursor: pointer; display: flex; align-items: center; gap: 7px;
+      transition: all 0.15s; white-space: nowrap;
+    }
+    .topbar-btn:hover { background: var(--border); }
+    .topbar-btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .topbar-btn.primary:hover { background: #4a57d8; }
+
+    /* stats bar */
+    .stats-bar {
+      padding: 14px 20px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 32px; flex-shrink: 0;
+      background: var(--surface);
+    }
+
+    .stat { display: flex; align-items: baseline; gap: 6px; }
+    .stat-val { font-size: 24px; font-weight: 700; color: var(--primary); }
+    .stat-label { font-size: 12px; color: var(--muted); }
+
+    .stat-divider { width: 1px; height: 28px; background: var(--border); }
+
+    .filter-row { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+    .agent-pill {
+      padding: 5px 12px; border-radius: 999px; font-size: 12px; cursor: pointer;
+      border: 1px solid var(--border); background: var(--surface2); color: var(--muted);
+      transition: all 0.15s;
+    }
+    .agent-pill:hover, .agent-pill.active { border-color: var(--primary); color: var(--primary); background: rgba(91,106,240,0.1); }
+
+    .view-select {
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--text); border-radius: 8px; padding: 5px 10px;
+      font-size: 12px; cursor: pointer; outline: none;
+    }
+
+    /* board + activity layout */
+    .content-area { flex: 1; display: flex; overflow: hidden; }
+
+    /* ── KANBAN BOARD ── */
+    .board {
+      flex: 1; display: flex; gap: 16px;
+      padding: 20px; overflow-x: auto; overflow-y: hidden;
+      align-items: flex-start;
+    }
+
+    .column {
+      min-width: 260px; max-width: 260px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+
+    .column-header {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 2px; font-size: 13px; font-weight: 600;
+    }
+
+    .col-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .dot-gray { background: var(--muted); }
+    .dot-yellow { background: var(--yellow); }
+    .dot-blue { background: var(--blue); }
+    .dot-green { background: var(--green); }
+    .dot-purple { background: var(--purple); }
+
+    .col-count { font-size: 12px; color: var(--muted); }
+    .col-add {
+      margin-left: auto; width: 22px; height: 22px;
+      border-radius: 6px; border: none; background: none;
+      color: var(--muted); cursor: pointer; font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s;
+    }
+    .col-add:hover { background: var(--surface2); color: var(--text); }
+
+    .cards-list {
+      display: flex; flex-direction: column; gap: 8px;
+      min-height: 60px; padding: 2px;
+    }
+
+    .task-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px; cursor: pointer;
+      transition: all 0.15s; position: relative;
+    }
+    .task-card:hover { border-color: var(--primary); box-shadow: 0 0 0 1px rgba(91,106,240,0.3); }
+
+    .task-card.dragging { opacity: 0.5; }
+    .column.drag-over .cards-list { background: rgba(91,106,240,0.05); border-radius: 8px; }
+
+    .task-priority {
+      width: 8px; height: 8px; border-radius: 50%;
+      display: inline-block; margin-right: 6px;
+    }
+
+    .task-title { font-size: 13.5px; font-weight: 600; margin-bottom: 6px; line-height: 1.35; }
+
+    .task-desc {
+      font-size: 12px; color: var(--muted); margin-bottom: 10px;
+      line-height: 1.4; display: -webkit-box;
+      -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+
+    .task-footer { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+
+    .agent-avatar {
+      width: 22px; height: 22px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 700; color: #fff; flex-shrink: 0;
+    }
+    .av-jordan { background: var(--blue); }
+    .av-donna  { background: var(--purple); }
+    .av-jerry  { background: var(--red); }
+    .av-system { background: var(--green); }
+
+    .task-project {
+      font-size: 11px; background: var(--surface2); padding: 2px 8px;
+      border-radius: 999px; color: var(--muted);
+    }
+
+    .task-time { margin-left: auto; font-size: 11px; color: var(--muted); }
+
+    /* empty state */
+    .col-empty {
+      text-align: center; color: var(--muted); font-size: 12px;
+      padding: 20px 10px; border: 1px dashed var(--border); border-radius: 8px;
+    }
+
+    /* ── LIVE ACTIVITY PANEL ── */
+    .activity-panel {
+      width: 280px; flex-shrink: 0;
+      background: var(--surface); border-left: 1px solid var(--border);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+
+    .activity-header {
+      padding: 16px; border-bottom: 1px solid var(--border);
+      font-size: 13px; font-weight: 700;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .live-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
+
+    .activity-list { flex: 1; overflow-y: auto; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; }
+
+    .activity-item {
+      display: flex; gap: 10px; padding: 10px 8px;
+      border-radius: 8px; transition: background 0.15s; cursor: default;
+    }
+    .activity-item:hover { background: var(--surface2); }
+
+    .activity-avatar {
+      width: 28px; height: 28px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0; margin-top: 1px;
+    }
+
+    .activity-body { flex: 1; min-width: 0; }
+    .activity-agent { font-size: 12px; font-weight: 700; margin-bottom: 2px; }
+    .activity-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+    .activity-when { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+      display: none; align-items: center; justify-content: center; z-index: 100;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 28px; width: 440px; max-width: 95vw;
+    }
+
+    .modal h3 { font-size: 17px; margin-bottom: 18px; }
+
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .form-control {
+      width: 100%; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 9px 12px; color: var(--text);
+      font-size: 13px; outline: none;
+    }
+    .form-control:focus { border-color: var(--primary); }
+    select.form-control { cursor: pointer; }
+    textarea.form-control { resize: vertical; min-height: 70px; font-family: inherit; }
+
+    .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 18px; }
+    .btn-cancel {
+      padding: 8px 18px; border-radius: 8px; border: 1px solid var(--border);
+      background: none; color: var(--text); font-size: 13px; cursor: pointer;
+    }
+    .btn-create {
+      padding: 8px 18px; border-radius: 8px; border: none;
+      background: var(--primary); color: #fff; font-size: 13px; cursor: pointer; font-weight: 600;
+    }
+    .btn-create:hover { background: #4a57d8; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 18px; font-size: 13px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      display: flex; align-items: center; gap: 10px;
+      transform: translateY(80px); opacity: 0;
+      transition: all 0.3s ease; z-index: 200;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast i { color: var(--green); }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+    /* last-updated badge */
+    .last-updated { font-size: 11px; color: var(--muted); margin-left: 6px; }
+    /* ── VIEW PANELS ── */
+    .view-panel { flex:1; overflow-y:auto; padding:24px; display:none; background:var(--bg); }
+    .view-panel.active { display:block; }
+    .vp-title { font-size:20px; font-weight:700; margin-bottom:20px; display:flex; align-items:center; gap:10px; }
+    .vp-title i { color:var(--primary); }
+    .vp-grid { display:grid; gap:16px; }
+    .vp-grid-2 { grid-template-columns:repeat(2,1fr); }
+    .vp-grid-3 { grid-template-columns:repeat(3,1fr); }
+    .vp-grid-4 { grid-template-columns:repeat(4,1fr); }
+    .vp-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px; }
+    .vp-stat-val { font-size:32px; font-weight:800; color:var(--primary); margin:6px 0; }
+    .vp-stat-label { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; }
+    .vp-stat-sub { font-size:12px; color:var(--muted); margin-top:4px; }
+    .badge { display:inline-flex; align-items:center; gap:4px; padding:3px 10px; border-radius:999px; font-size:11px; font-weight:600; }
+    .badge-green { background:rgba(46,204,113,.15); color:#2ecc71; }
+    .badge-yellow { background:rgba(241,196,15,.15); color:#f1c40f; }
+    .badge-red { background:rgba(231,76,60,.15); color:#e74c3c; }
+    .badge-blue { background:rgba(91,106,240,.15); color:#5b6af0; }
+    .badge-gray { background:var(--surface2); color:var(--muted); }
+    .skill-tag { display:inline-block; background:var(--surface2); color:var(--muted); font-size:11px; padding:2px 8px; border-radius:6px; margin:2px; }
+    .cap-tag { display:inline-block; background:rgba(91,106,240,.12); color:#8892f5; font-size:11px; padding:2px 8px; border-radius:6px; margin:2px; }
+    .avatar-circle { width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:16px; color:#fff; flex-shrink:0; }
+    .agent-card-header { height:64px; border-radius:10px 10px 0 0; margin:-18px -18px 14px; display:flex; align-items:center; padding:0 18px; gap:12px; font-weight:700; font-size:15px; color:#fff; }
+    .progress-bar-wrap { background:var(--surface2); border-radius:999px; height:8px; flex:1; overflow:hidden; }
+    .progress-bar-fill { height:100%; border-radius:999px; background:var(--primary); }
+    .table-row { display:grid; align-items:center; padding:12px 16px; border-bottom:1px solid var(--border); font-size:13px; }
+    .table-row:last-child { border-bottom:none; }
+    .table-header { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; padding:8px 16px; border-bottom:1px solid var(--border); display:grid; font-weight:600; }
+    .btn-sm { padding:5px 12px; border-radius:7px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-size:12px; cursor:pointer; transition:all .15s; }
+    .btn-sm:hover { background:var(--border); }
+    .btn-approve { background:rgba(46,204,113,.15); border-color:#2ecc71; color:#2ecc71; }
+    .btn-decline { background:rgba(231,76,60,.15); border-color:#e74c3c; color:#e74c3c; }
+    .alert-card { border-radius:10px; padding:16px 18px; display:flex; align-items:flex-start; gap:14px; margin-bottom:12px; border-width:1px; border-style:solid; }
+    .alert-red { background:rgba(231,76,60,.08); border-color:rgba(231,76,60,.3); }
+    .alert-yellow { background:rgba(241,196,15,.08); border-color:rgba(241,196,15,.3); }
+    .alert-green { background:rgba(46,204,113,.08); border-color:rgba(46,204,113,.3); }
+    .cal-grid { display:grid; grid-template-columns:60px repeat(5,1fr); gap:1px; background:var(--border); border-radius:10px; overflow:hidden; }
+    .cal-cell { background:var(--card); padding:6px 8px; font-size:12px; min-height:48px; }
+    .cal-header { background:var(--surface); font-weight:700; font-size:12px; color:var(--muted); text-align:center; padding:8px; min-height:auto; }
+    .cal-time { font-size:11px; color:var(--muted); text-align:right; background:var(--surface); }
+    .cal-job { border-radius:6px; padding:4px 7px; font-size:11px; margin-bottom:3px; font-weight:600; }
+    .toggle-row { display:flex; justify-content:space-between; align-items:center; padding:14px 0; border-bottom:1px solid var(--border); }
+    .toggle-row:last-child { border-bottom:none; }
+    .toggle { position:relative; width:44px; height:24px; flex-shrink:0; }
+    .toggle input { opacity:0; width:0; height:0; }
+    .toggle-slider { position:absolute; inset:0; background:var(--surface2); border-radius:24px; cursor:pointer; transition:.3s; border:1px solid var(--border); }
+    .toggle-slider:before { content:''; position:absolute; height:18px; width:18px; left:2px; bottom:2px; background:var(--muted); border-radius:50%; transition:.3s; }
+    .toggle input:checked + .toggle-slider { background:rgba(91,106,240,.3); border-color:var(--primary); }
+    .toggle input:checked + .toggle-slider:before { transform:translateX(20px); background:var(--primary); }
+    @media(max-width:900px){.vp-grid-4{grid-template-columns:repeat(2,1fr);}.vp-grid-3{grid-template-columns:repeat(2,1fr);}.vp-grid-2{grid-template-columns:1fr;}}
+
+  </style>
+  <meta name="last-sync" content="2026-04-21T03:17:24Z">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="icon-box"><i class="fas fa-seedling"></i></div>
+    <span>Mission Control</span>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-item active" data-view="tasks">
+      <i class="fas fa-th-large"></i> Tasks
+      <span class="nav-badge" id="badge-tasks">0</span>
+    </div>
+    <div class="nav-item" data-view="agents">
+      <i class="fas fa-robot"></i> Agents
+    </div>
+    <div class="nav-item" data-view="content">
+      <i class="fas fa-file-alt"></i> Content
+    </div>
+    <div class="nav-item" data-view="approvals">
+      <i class="fas fa-check-double"></i> Approvals
+    </div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Workspace</div>
+    <div class="nav-item" data-view="calendar">
+      <i class="fas fa-calendar"></i> Calendar
+    </div>
+    <div class="nav-item" data-view="projects">
+      <i class="fas fa-folder"></i> Projects
+    </div>
+    <div class="nav-item" data-view="memory">
+      <i class="fas fa-brain"></i> Memory
+    </div>
+    <div class="nav-item" data-view="docs">
+      <i class="fas fa-book"></i> Docs
+    </div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Business</div>
+    <div class="nav-item" data-view="people">
+      <i class="fas fa-users"></i> People
+    </div>
+    <div class="nav-item" data-view="office">
+      <i class="fas fa-building"></i> Office
+    </div>
+    <div class="nav-item" data-view="pipeline">
+      <i class="fas fa-filter"></i> Pipeline
+    </div>
+    <div class="nav-item" data-view="radar">
+      <i class="fas fa-satellite-dish"></i> Radar
+    </div>
+    <div class="nav-item" data-view="analytics">
+      <i class="fas fa-chart-bar"></i> Analytics
+    </div>
+  </div>
+
+  <div class="nav-section" style="margin-top:auto; border-top: 1px solid var(--border); padding-top: 10px;">
+    <div class="nav-item" data-view="settings">
+      <i class="fas fa-cog"></i> Settings
+    </div>
+    <div class="nav-item" data-view="feedback">
+      <i class="fas fa-comment-alt"></i> Feedback
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN AREA -->
+<div class="main">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-title">
+      <i class="fas fa-th-large"></i> Tasks
+      <span class="last-updated" id="last-updated"></span>
+    </div>
+    <div class="topbar-search">
+      <i class="fas fa-search"></i>
+      <input type="text" id="search-input" placeholder="Search tasks…">
+    </div>
+    <span id="tasks-topbar-btns" style="display:contents">
+    <button class="topbar-btn" id="pause-btn">
+      <i class="fas fa-pause"></i> Pause
+    </button>
+    <button class="topbar-btn" id="ping-btn">
+      <i class="fas fa-bell"></i> Ping Jordan
+    </button>
+    <button class="topbar-btn" id="refresh-btn">
+      <i class="fas fa-sync-alt"></i>
+    </button>
+    <button class="topbar-btn primary" id="new-task-btn">
+      <i class="fas fa-plus"></i> New task
+    </button>
+    </span>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar" id="tasks-stats-bar">
+    <div class="stat">
+      <span class="stat-val" id="stat-week">0</span>
+      <span class="stat-label">This week</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-val" id="stat-inprogress">0</span>
+      <span class="stat-label">In progress</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-val" id="stat-total">0</span>
+      <span class="stat-label">Total</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-val" id="stat-completion">0%</span>
+      <span class="stat-label">Completion</span>
+    </div>
+
+    <div class="filter-row">
+      <div class="agent-pill active" data-agent="all">All</div>
+      <div class="agent-pill" data-agent="jordan">Jordan</div>
+      <div class="agent-pill" data-agent="donna">Donna</div>
+      <div class="agent-pill" data-agent="jerry">Jerry</div>
+      <select class="view-select" id="project-filter">
+        <option value="all">All projects</option>
+        <option value="Finance">Finance</option>
+        <option value="Operations">Operations</option>
+        <option value="Sales">Sales</option>
+        <option value="Marketing">Marketing</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- BOARD + ACTIVITY -->
+  <div class="content-area">
+
+    <!-- KANBAN BOARD -->
+    <div class="board">
+      <div class="column" id="col-recurring" data-status="recurring">
+        <div class="column-header">
+          <span class="col-dot dot-gray"></span>
+          Recurring
+          <span class="col-count" id="count-recurring">0</span>
+          <button class="col-add" data-col="recurring" title="Add task">+</button>
+        </div>
+        <div class="cards-list" id="list-recurring"></div>
+      </div>
+
+      <div class="column" id="col-backlog" data-status="backlog">
+        <div class="column-header">
+          <span class="col-dot dot-yellow"></span>
+          Backlog
+          <span class="col-count" id="count-backlog">0</span>
+          <button class="col-add" data-col="backlog" title="Add task">+</button>
+        </div>
+        <div class="cards-list" id="list-backlog"></div>
+      </div>
+
+      <div class="column" id="col-inprogress" data-status="inprogress">
+        <div class="column-header">
+          <span class="col-dot dot-blue"></span>
+          In Progress
+          <span class="col-count" id="count-inprogress">0</span>
+          <button class="col-add" data-col="inprogress" title="Add task">+</button>
+        </div>
+        <div class="cards-list" id="list-inprogress"></div>
+      </div>
+
+      <div class="column" id="col-review" data-status="review">
+        <div class="column-header">
+          <span class="col-dot dot-purple"></span>
+          Review
+          <span class="col-count" id="count-review">0</span>
+          <button class="col-add" data-col="review" title="Add task">+</button>
+        </div>
+        <div class="cards-list" id="list-review"></div>
+      </div>
+
+      <div class="column" id="col-done" data-status="done">
+        <div class="column-header">
+          <span class="col-dot dot-green"></span>
+          Done
+          <span class="col-count" id="count-done">0</span>
+          <button class="col-add" data-col="done" title="Add task">+</button>
+        </div>
+        <div class="cards-list" id="list-done"></div>
+      </div>
+    </div>
+
+    <!-- LIVE ACTIVITY PANEL -->
+    <div class="activity-panel">
+      <div class="activity-header">
+        Live Activity
+        <div class="live-dot"></div>
+      </div>
+      <div class="activity-list" id="activity-list"></div>
+    </div>
+
+    <!-- VIEW: PEOPLE -->
+    <div id="view-people" class="view-panel">
+      <div class="vp-title"><i class="fas fa-users"></i> People</div>
+      <div class="vp-grid vp-grid-3">
+        <div class="vp-card">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px">
+            <div class="avatar-circle" style="background:#5b6af0">MT</div>
+            <div style="flex:1"><div style="font-weight:700;font-size:14px">Marcus T.</div><div style="font-size:12px;color:var(--muted)">Lead Crew Chief</div></div>
+            <span class="badge badge-green">Tue–Sat</span>
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:8px"><i class="fas fa-briefcase" style="margin-right:5px"></i>8 yrs experience</div>
+          <div><span class="skill-tag">Hardscaping</span><span class="skill-tag">Tree Work</span><span class="skill-tag">Heavy Equipment</span></div>
+        </div>
+        <div class="vp-card">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px">
+            <div class="avatar-circle" style="background:#27ae60">DR</div>
+            <div style="flex:1"><div style="font-weight:700;font-size:14px">Devon R.</div><div style="font-size:12px;color:var(--muted)">Crew Lead</div></div>
+            <span class="badge badge-green">Mon–Fri</span>
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:8px"><i class="fas fa-briefcase" style="margin-right:5px"></i>5 yrs experience</div>
+          <div><span class="skill-tag">Lawn Care</span><span class="skill-tag">Irrigation</span><span class="skill-tag">Pruning</span></div>
+        </div>
+        <div class="vp-card">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px">
+            <div class="avatar-circle" style="background:#e67e22">CM</div>
+            <div style="flex:1"><div style="font-weight:700;font-size:14px">Carlos M.</div><div style="font-size:12px;color:var(--muted)">Crew Member</div></div>
+            <span class="badge badge-green">Mon–Sat</span>
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:8px"><i class="fas fa-briefcase" style="margin-right:5px"></i>3 yrs experience</div>
+          <div><span class="skill-tag">Mowing</span><span class="skill-tag">Edging</span><span class="skill-tag">Mulching</span></div>
+        </div>
+        <div class="vp-card">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px">
+            <div class="avatar-circle" style="background:#3498db">TB</div>
+            <div style="flex:1"><div style="font-weight:700;font-size:14px">Tyler B.</div><div style="font-size:12px;color:var(--muted)">Crew Member</div></div>
+            <span class="badge badge-blue">Mon–Fri</span>
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:8px"><i class="fas fa-briefcase" style="margin-right:5px"></i>2 yrs experience</div>
+          <div><span class="skill-tag">General Maintenance</span><span class="skill-tag">Leaf Removal</span></div>
+        </div>
+        <div class="vp-card">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px">
+            <div class="avatar-circle" style="background:#8e44ad">JK</div>
+            <div style="flex:1"><div style="font-weight:700;font-size:14px">Jaylen K.</div><div style="font-size:12px;color:var(--muted)">Equipment Operator</div></div>
+            <span class="badge badge-green">Mon–Fri</span>
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:8px"><i class="fas fa-briefcase" style="margin-right:5px"></i>4 yrs experience</div>
+          <div><span class="skill-tag">Heavy Equipment</span><span class="skill-tag">Hauling</span><span class="skill-tag">Grading</span></div>
+        </div>
+        <div class="vp-card">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px">
+            <div class="avatar-circle" style="background:#c0392b">SL</div>
+            <div style="flex:1"><div style="font-weight:700;font-size:14px">Sofia L.</div><div style="font-size:12px;color:var(--muted)">Landscape Designer</div></div>
+            <span class="badge badge-yellow">Mon–Thu</span>
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:8px"><i class="fas fa-briefcase" style="margin-right:5px"></i>6 yrs experience</div>
+          <div><span class="skill-tag">Design</span><span class="skill-tag">Plant Selection</span><span class="skill-tag">Client Meetings</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: OFFICE -->
+    <div id="view-office" class="view-panel">
+      <div class="vp-title"><i class="fas fa-building"></i> Office</div>
+      <div class="vp-grid vp-grid-3" style="margin-bottom:20px">
+        <div class="vp-card" style="text-align:center"><div class="vp-stat-label">Open Jobs</div><div class="vp-stat-val">64</div><div class="vp-stat-sub">Active field assignments</div></div>
+        <div class="vp-card" style="text-align:center"><div class="vp-stat-label">Quotes Pending</div><div class="vp-stat-val" style="color:var(--yellow)">12</div><div class="vp-stat-sub">Awaiting client response</div></div>
+        <div class="vp-card" style="text-align:center"><div class="vp-stat-label">Invoices Overdue</div><div class="vp-stat-val" style="color:var(--red)">7</div><div class="vp-stat-sub">14+ days outstanding</div></div>
+      </div>
+      <div class="vp-card" style="margin-bottom:20px">
+        <div style="font-weight:700;font-size:14px;margin-bottom:14px"><i class="fas fa-truck" style="color:var(--primary);margin-right:8px"></i>Equipment Status</div>
+        <div class="table-header" style="grid-template-columns:1.5fr 1fr 1.2fr 1.2fr"><span>Asset</span><span>Status</span><span>Last Serviced</span><span>Next Service</span></div>
+        <div class="table-row" style="grid-template-columns:1.5fr 1fr 1.2fr 1.2fr"><span>Truck 01</span><span class="badge badge-green">Operational</span><span style="color:var(--muted)">Apr 10</span><span style="color:var(--muted)">May 10</span></div>
+        <div class="table-row" style="grid-template-columns:1.5fr 1fr 1.2fr 1.2fr"><span>Truck 02</span><span class="badge badge-green">Operational</span><span style="color:var(--muted)">Apr 15</span><span style="color:var(--muted)">May 15</span></div>
+        <div class="table-row" style="grid-template-columns:1.5fr 1fr 1.2fr 1.2fr"><span>Truck 03</span><span class="badge badge-red">Maint. Due</span><span style="color:var(--muted)">Apr 1</span><span style="color:var(--red)">Apr 30 &#9888;</span></div>
+        <div class="table-row" style="grid-template-columns:1.5fr 1fr 1.2fr 1.2fr"><span>Truck 04</span><span class="badge badge-green">Operational</span><span style="color:var(--muted)">Apr 20</span><span style="color:var(--muted)">May 20</span></div>
+        <div class="table-row" style="grid-template-columns:1.5fr 1fr 1.2fr 1.2fr"><span>Trailer A</span><span class="badge badge-green">Operational</span><span style="color:var(--muted)">Mar 28</span><span style="color:var(--muted)">Jun 28</span></div>
+        <div class="table-row" style="grid-template-columns:1.5fr 1fr 1.2fr 1.2fr"><span>Trailer B</span><span class="badge badge-green">Operational</span><span style="color:var(--muted)">Apr 5</span><span style="color:var(--muted)">Jul 5</span></div>
+        <div class="table-row" style="grid-template-columns:1.5fr 1fr 1.2fr 1.2fr"><span>Mower 1</span><span class="badge badge-green">Operational</span><span style="color:var(--muted)">Apr 18</span><span style="color:var(--muted)">May 18</span></div>
+        <div class="table-row" style="grid-template-columns:1.5fr 1fr 1.2fr 1.2fr"><span>Mower 2</span><span class="badge badge-red">Maint. Due</span><span style="color:var(--muted)">Apr 8</span><span style="color:var(--red)">Apr 22 &#9888;</span></div>
+        <div class="table-row" style="grid-template-columns:1.5fr 1fr 1.2fr 1.2fr"><span>Mower 3</span><span class="badge badge-green">Operational</span><span style="color:var(--muted)">Apr 22</span><span style="color:var(--muted)">May 22</span></div>
+      </div>
+      <div class="vp-card">
+        <div style="font-weight:700;font-size:14px;margin-bottom:12px"><i class="fas fa-calendar-check" style="color:var(--yellow);margin-right:8px"></i>Upcoming Deadlines</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
+          <div><div style="font-size:13px;font-weight:600">Quarterly tax filing</div><div style="font-size:12px;color:var(--muted)">Jordan &mdash; Finance</div></div>
+          <span class="badge badge-red">Apr 30</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0">
+          <div><div style="font-size:13px;font-weight:600">Q2 crew schedule finalized</div><div style="font-size:12px;color:var(--muted)">Donna &mdash; Operations</div></div>
+          <span class="badge badge-yellow">May 1</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: PIPELINE -->
+    <div id="view-pipeline" class="view-panel">
+      <div class="vp-title"><i class="fas fa-filter"></i> Pipeline</div>
+      <div class="vp-grid vp-grid-3" style="margin-bottom:20px">
+        <div class="vp-card" style="text-align:center"><div class="vp-stat-label">Total Leads</div><div class="vp-stat-val">46</div><div class="vp-stat-sub">Across all stages</div></div>
+        <div class="vp-card" style="text-align:center"><div class="vp-stat-label">Pipeline Value</div><div class="vp-stat-val" style="font-size:24px">$139,900</div><div class="vp-stat-sub">Estimated revenue</div></div>
+        <div class="vp-card" style="text-align:center"><div class="vp-stat-label">Avg Deal Size</div><div class="vp-stat-val" style="font-size:24px">$3,041</div><div class="vp-stat-sub">Per closed lead</div></div>
+      </div>
+      <div class="vp-card" style="margin-bottom:20px">
+        <div style="font-weight:700;font-size:14px;margin-bottom:16px"><i class="fas fa-chart-bar" style="color:var(--primary);margin-right:8px"></i>Sales Funnel</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:center;gap:10px"><span style="width:160px;font-size:12px;color:var(--muted);text-align:right;flex-shrink:0">New Lead</span><div style="flex:1;background:var(--surface2);border-radius:4px;overflow:hidden;height:34px"><div style="width:100%;height:100%;background:#6b7280;display:flex;align-items:center;padding:0 12px"><span style="font-size:12px;color:#fff;font-weight:700">18 leads</span><span style="margin-left:auto;font-size:11px;color:#ddd">$47,200</span></div></div></div>
+          <div style="display:flex;align-items:center;gap:10px"><span style="width:160px;font-size:12px;color:var(--muted);text-align:right;flex-shrink:0">Contacted</span><div style="flex:1;background:var(--surface2);border-radius:4px;overflow:hidden;height:34px"><div style="width:61%;height:100%;background:#3b82f6;display:flex;align-items:center;padding:0 12px"><span style="font-size:12px;color:#fff;font-weight:700">11 leads</span><span style="margin-left:auto;font-size:11px;color:#ddd">$31,800</span></div></div></div>
+          <div style="display:flex;align-items:center;gap:10px"><span style="width:160px;font-size:12px;color:var(--muted);text-align:right;flex-shrink:0">Estimate Scheduled</span><div style="flex:1;background:var(--surface2);border-radius:4px;overflow:hidden;height:34px"><div style="width:39%;height:100%;background:#5b6af0;display:flex;align-items:center;padding:0 12px"><span style="font-size:12px;color:#fff;font-weight:700">7 leads</span><span style="margin-left:auto;font-size:11px;color:#ddd">$22,400</span></div></div></div>
+          <div style="display:flex;align-items:center;gap:10px"><span style="width:160px;font-size:12px;color:var(--muted);text-align:right;flex-shrink:0">Quote Sent</span><div style="flex:1;background:var(--surface2);border-radius:4px;overflow:hidden;height:34px"><div style="width:28%;height:100%;background:#7c3aed;display:flex;align-items:center;padding:0 12px"><span style="font-size:12px;color:#fff;font-weight:700">5 leads</span><span style="margin-left:auto;font-size:11px;color:#ddd">$18,900</span></div></div></div>
+          <div style="display:flex;align-items:center;gap:10px"><span style="width:160px;font-size:12px;color:var(--muted);text-align:right;flex-shrink:0">Follow-up</span><div style="flex:1;background:var(--surface2);border-radius:4px;overflow:hidden;height:34px"><div style="width:17%;height:100%;background:#f59e0b;display:flex;align-items:center;padding:0 12px"><span style="font-size:12px;color:#fff;font-weight:700">3 leads</span><span style="margin-left:auto;font-size:11px;color:#ddd">$11,200</span></div></div></div>
+          <div style="display:flex;align-items:center;gap:10px"><span style="width:160px;font-size:12px;color:var(--muted);text-align:right;flex-shrink:0">Closed Won</span><div style="flex:1;background:var(--surface2);border-radius:4px;overflow:hidden;height:34px"><div style="width:11%;min-width:80px;height:100%;background:#10b981;display:flex;align-items:center;padding:0 12px"><span style="font-size:12px;color:#fff;font-weight:700">2 &bull; $8,400</span></div></div></div>
+        </div>
+      </div>
+      <div class="vp-card">
+        <div style="font-weight:700;font-size:14px;margin-bottom:12px"><i class="fas fa-list" style="color:var(--primary);margin-right:8px"></i>Lead List</div>
+        <div class="table-header" style="grid-template-columns:2fr 1fr 1fr 1fr auto"><span>Name</span><span>Type</span><span>Value</span><span>Days in Stage</span><span></span></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1fr 1fr auto"><span>Clearwater HOA</span><span class="badge badge-blue">Commercial</span><span>$4,200</span><span style="color:var(--muted)">2d</span><button class="btn-sm">&#8594; Advance</button></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1fr 1fr auto"><span>T. Brooks</span><span class="badge badge-gray">Residential</span><span>$850</span><span style="color:var(--muted)">5d</span><button class="btn-sm">&#8594; Advance</button></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1fr 1fr auto"><span>Riverside Commercial</span><span class="badge badge-blue">Commercial</span><span>$8,400</span><span style="color:var(--muted)">3d</span><button class="btn-sm">&#8594; Advance</button></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1fr 1fr auto"><span>M. Rodriguez</span><span class="badge badge-gray">Residential</span><span>$1,200</span><span style="color:var(--yellow)">7d</span><button class="btn-sm">&#8594; Advance</button></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1fr 1fr auto"><span>Oak Park Estate</span><span class="badge badge-gray">Residential</span><span>$2,800</span><span style="color:var(--muted)">1d</span><button class="btn-sm">&#8594; Advance</button></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1fr 1fr auto"><span>Sunview Condos</span><span class="badge badge-blue">Commercial</span><span>$5,600</span><span style="color:var(--muted)">4d</span><button class="btn-sm">&#8594; Advance</button></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1fr 1fr auto"><span>D. Harrison</span><span class="badge badge-gray">Residential</span><span>$750</span><span style="color:var(--red)">8d</span><button class="btn-sm">&#8594; Advance</button></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1fr 1fr auto"><span>Corporate Campus</span><span class="badge badge-blue">Commercial</span><span>$12,000</span><span style="color:var(--muted)">2d</span><button class="btn-sm">&#8594; Advance</button></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1fr 1fr auto"><span>P. Martinez</span><span class="badge badge-gray">Residential</span><span>$950</span><span style="color:var(--yellow)">6d</span><button class="btn-sm">&#8594; Advance</button></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1fr 1fr auto"><span>Westlake HOA</span><span class="badge badge-blue">Commercial</span><span>$6,400</span><span style="color:var(--muted)">3d</span><button class="btn-sm">&#8594; Advance</button></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1fr 1fr auto"><span>B. Thompson</span><span class="badge badge-gray">Residential</span><span>$620</span><span style="color:var(--red)">11d</span><button class="btn-sm">&#8594; Advance</button></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1fr 1fr auto"><span>Mountain View Plaza</span><span class="badge badge-blue">Commercial</span><span>$9,800</span><span style="color:var(--muted)">1d</span><button class="btn-sm">&#8594; Advance</button></div>
+      </div>
+    </div>
+
+    <!-- VIEW: RADAR -->
+    <div id="view-radar" class="view-panel">
+      <div class="vp-title"><i class="fas fa-satellite-dish"></i> Radar</div>
+      <div style="margin-bottom:20px">
+        <div class="alert-card alert-red"><i class="fas fa-exclamation-circle" style="color:var(--red);font-size:18px;margin-top:2px"></i><div><div style="font-weight:700;font-size:13px;margin-bottom:4px">7 invoices 14+ days overdue</div><div style="font-size:12px;color:var(--muted)">$3,240 at risk &mdash; Jordan flagged for immediate follow-up</div></div></div>
+        <div class="alert-card alert-yellow"><i class="fas fa-chart-line" style="color:var(--yellow);font-size:18px;margin-top:2px"></i><div><div style="font-weight:700;font-size:13px;margin-bottom:4px">Spring rush: 23% more inquiries than last April</div><div style="font-size:12px;color:var(--muted)">Demand spike &mdash; consider expanding crew capacity for May</div></div></div>
+        <div class="alert-card alert-green"><i class="fas fa-users" style="color:var(--green);font-size:18px;margin-top:2px"></i><div><div style="font-weight:700;font-size:13px;margin-bottom:4px">3 crew members have back-to-back jobs with &lt;15 min gap Friday</div><div style="font-size:12px;color:var(--muted)">Donna reviewing schedule &mdash; adjustment pending approval</div></div></div>
+      </div>
+      <div class="vp-grid vp-grid-2">
+        <div class="vp-card">
+          <div style="font-weight:700;font-size:14px;margin-bottom:14px"><i class="fas fa-envelope" style="color:var(--primary);margin-right:8px"></i>Weekly Inquiry Volume</div>
+          <svg viewBox="0 0 310 110" style="width:100%;max-height:110px">
+            <rect x="10" y="59" width="30" height="31" rx="3" fill="#3a3f5c"/>
+            <rect x="50" y="44" width="30" height="46" rx="3" fill="#3a3f5c"/>
+            <rect x="90" y="28" width="30" height="62" rx="3" fill="#5b6af0"/>
+            <rect x="130" y="10" width="30" height="80" rx="3" fill="#5b6af0"/>
+            <rect x="170" y="18" width="30" height="72" rx="3" fill="#5b6af0"/>
+            <rect x="210" y="51" width="30" height="39" rx="3" fill="#3a3f5c"/>
+            <rect x="250" y="69" width="30" height="21" rx="3" fill="#3a3f5c"/>
+            <text x="25" y="105" text-anchor="middle" fill="#6b7280" font-size="10">Mon</text>
+            <text x="65" y="105" text-anchor="middle" fill="#6b7280" font-size="10">Tue</text>
+            <text x="105" y="105" text-anchor="middle" fill="#6b7280" font-size="10">Wed</text>
+            <text x="145" y="105" text-anchor="middle" fill="#6b7280" font-size="10">Thu</text>
+            <text x="185" y="105" text-anchor="middle" fill="#6b7280" font-size="10">Fri</text>
+            <text x="225" y="105" text-anchor="middle" fill="#6b7280" font-size="10">Sat</text>
+            <text x="265" y="105" text-anchor="middle" fill="#6b7280" font-size="10">Sun</text>
+          </svg>
+        </div>
+        <div class="vp-card">
+          <div style="font-weight:700;font-size:14px;margin-bottom:14px"><i class="fas fa-search" style="color:var(--primary);margin-right:8px"></i>Top Competitor Keywords</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:13px">"lawn care near me"</span><span class="badge badge-green">High Opportunity</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:13px">"landscaping company"</span><span class="badge badge-blue">Competitive</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:13px">"spring cleanup service"</span><span class="badge badge-green">High Opportunity</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:13px">"hardscaping contractors"</span><span class="badge badge-yellow">Medium</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:13px">"irrigation installation"</span><span class="badge badge-green">High Opportunity</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: ANALYTICS -->
+    <div id="view-analytics" class="view-panel">
+      <div class="vp-title"><i class="fas fa-chart-bar"></i> Analytics</div>
+      <div class="vp-grid vp-grid-4" style="margin-bottom:20px">
+        <div class="vp-card" style="text-align:center"><div class="vp-stat-label">Revenue MTD</div><div class="vp-stat-val" style="font-size:26px">$9,757</div><div class="vp-stat-sub"><span class="badge badge-green"><i class="fas fa-arrow-up"></i> 20%</span></div></div>
+        <div class="vp-card" style="text-align:center"><div class="vp-stat-label">Avg Job Value</div><div class="vp-stat-val" style="font-size:26px">$152</div><div class="vp-stat-sub"><span class="badge badge-green"><i class="fas fa-arrow-up"></i> 8%</span></div></div>
+        <div class="vp-card" style="text-align:center"><div class="vp-stat-label">Client Retention</div><div class="vp-stat-val" style="font-size:26px">94%</div><div class="vp-stat-sub"><span class="badge badge-green"><i class="fas fa-arrow-up"></i> 2%</span></div></div>
+        <div class="vp-card" style="text-align:center"><div class="vp-stat-label">Automation Rate</div><div class="vp-stat-val" style="font-size:26px">42%</div><div class="vp-stat-sub"><span class="badge badge-blue"><i class="fas fa-arrow-up"></i> 14%</span></div></div>
+      </div>
+      <div class="vp-grid vp-grid-2" style="margin-bottom:20px">
+        <div class="vp-card">
+          <div style="font-weight:700;font-size:14px;margin-bottom:14px"><i class="fas fa-chart-bar" style="color:var(--primary);margin-right:8px"></i>Monthly Revenue (2026)</div>
+          <svg viewBox="0 0 320 150" style="width:100%;max-height:150px">
+            <rect x="20" y="54" width="60" height="76" rx="4" fill="#3a3f5c"/>
+            <rect x="95" y="59" width="60" height="71" rx="4" fill="#3a3f5c"/>
+            <rect x="170" y="30" width="60" height="100" rx="4" fill="#3a3f5c"/>
+            <rect x="245" y="10" width="60" height="120" rx="4" fill="#5b6af0"/>
+            <text x="50" y="145" text-anchor="middle" fill="#6b7280" font-size="11">Jan</text>
+            <text x="125" y="145" text-anchor="middle" fill="#6b7280" font-size="11">Feb</text>
+            <text x="200" y="145" text-anchor="middle" fill="#6b7280" font-size="11">Mar</text>
+            <text x="275" y="145" text-anchor="middle" fill="#5b6af0" font-size="11" font-weight="bold">Apr</text>
+            <text x="50" y="49" text-anchor="middle" fill="#6b7280" font-size="10">$6.2k</text>
+            <text x="125" y="54" text-anchor="middle" fill="#6b7280" font-size="10">$5.8k</text>
+            <text x="200" y="25" text-anchor="middle" fill="#6b7280" font-size="10">$8.1k</text>
+            <text x="275" y="5" text-anchor="middle" fill="#5b6af0" font-size="10" font-weight="bold">$9.8k</text>
+          </svg>
+        </div>
+        <div class="vp-card">
+          <div style="font-weight:700;font-size:14px;margin-bottom:14px"><i class="fas fa-circle-notch" style="color:var(--primary);margin-right:8px"></i>Revenue by Service</div>
+          <div style="display:flex;align-items:center;gap:20px">
+            <svg viewBox="0 0 160 160" style="width:140px;height:140px;flex-shrink:0">
+              <circle cx="80" cy="80" r="60" fill="none" stroke="#22263a" stroke-width="24"/>
+              <circle cx="80" cy="80" r="60" fill="none" stroke="#5b6af0" stroke-width="24" stroke-dasharray="158.3 218.7" transform="rotate(-90 80 80)"/>
+              <circle cx="80" cy="80" r="60" fill="none" stroke="#2ecc71" stroke-width="24" stroke-dasharray="105.6 271.4" transform="rotate(61.2 80 80)"/>
+              <circle cx="80" cy="80" r="60" fill="none" stroke="#f1c40f" stroke-width="24" stroke-dasharray="67.9 309.1" transform="rotate(162 80 80)"/>
+              <circle cx="80" cy="80" r="60" fill="none" stroke="#9b59b6" stroke-width="24" stroke-dasharray="45.2 331.8" transform="rotate(226.8 80 80)"/>
+              <text x="80" y="76" text-anchor="middle" fill="#e2e8f0" font-size="13" font-weight="bold">Revenue</text>
+              <text x="80" y="92" text-anchor="middle" fill="#6b7280" font-size="10">by service</text>
+            </svg>
+            <div style="display:flex;flex-direction:column;gap:8px;font-size:12px">
+              <div style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;border-radius:50%;background:#5b6af0;flex-shrink:0"></span>Lawn Care<span style="margin-left:auto;color:var(--muted)">42%</span></div>
+              <div style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;border-radius:50%;background:#2ecc71;flex-shrink:0"></span>Hardscaping<span style="margin-left:auto;color:var(--muted)">28%</span></div>
+              <div style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;border-radius:50%;background:#f1c40f;flex-shrink:0"></span>Maintenance<span style="margin-left:auto;color:var(--muted)">18%</span></div>
+              <div style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;border-radius:50%;background:#9b59b6;flex-shrink:0"></span>Design<span style="margin-left:auto;color:var(--muted)">12%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="vp-card">
+        <div style="font-weight:700;font-size:14px;margin-bottom:12px"><i class="fas fa-trophy" style="color:var(--yellow);margin-right:8px"></i>Top 5 Clients by Revenue</div>
+        <div class="table-header" style="grid-template-columns:2fr 1fr 1fr 1fr"><span>Client</span><span>Jobs</span><span>Revenue</span><span>Since</span></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1fr 1fr"><span style="font-weight:600">Clearwater HOA</span><span style="color:var(--muted)">14</span><span style="color:var(--green)">$4,200</span><span style="color:var(--muted)">2022</span></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1fr 1fr"><span style="font-weight:600">Corporate Campus</span><span style="color:var(--muted)">9</span><span style="color:var(--green)">$3,800</span><span style="color:var(--muted)">2023</span></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1fr 1fr"><span style="font-weight:600">Mountain View Plaza</span><span style="color:var(--muted)">7</span><span style="color:var(--green)">$2,940</span><span style="color:var(--muted)">2024</span></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1fr 1fr"><span style="font-weight:600">Westlake HOA</span><span style="color:var(--muted)">11</span><span style="color:var(--green)">$2,640</span><span style="color:var(--muted)">2023</span></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1fr 1fr"><span style="font-weight:600">Sunview Condos</span><span style="color:var(--muted)">6</span><span style="color:var(--green)">$2,100</span><span style="color:var(--muted)">2025</span></div>
+      </div>
+    </div>
+
+    <!-- VIEW: AGENTS -->
+    <div id="view-agents" class="view-panel">
+      <div class="vp-title"><i class="fas fa-robot"></i> Agents</div>
+      <div class="vp-grid vp-grid-2">
+        <div class="vp-card" style="padding:0;overflow:hidden">
+          <div class="agent-card-header" style="background:linear-gradient(135deg,#4a1d96,#7c3aed)"><i class="fas fa-brain" style="font-size:20px"></i> Jarvis<span class="badge badge-green" style="margin-left:auto"><span style="width:6px;height:6px;border-radius:50%;background:#2ecc71;display:inline-block;margin-right:4px"></span>Active</span></div>
+          <div style="padding:16px"><div style="font-size:12px;color:var(--muted);margin-bottom:12px">Master Orchestrator</div><div style="display:flex;gap:20px;margin-bottom:12px;font-size:12px"><div><div style="color:var(--muted)">Actions</div><div style="font-weight:700;font-size:15px">2,847</div></div><div><div style="color:var(--muted)">Last Active</div><div style="font-weight:700;font-size:15px">2m ago</div></div></div><div style="margin-bottom:12px"><span class="cap-tag">Planning</span><span class="cap-tag">Memory Mgmt</span><span class="cap-tag">Task Routing</span><span class="cap-tag">Monitoring</span></div><button class="btn-sm" style="width:100%"><i class="fas fa-list-alt" style="margin-right:5px"></i>View Logs</button></div>
+        </div>
+        <div class="vp-card" style="padding:0;overflow:hidden">
+          <div class="agent-card-header" style="background:linear-gradient(135deg,#065f46,#10b981)"><i class="fas fa-dollar-sign" style="font-size:20px"></i> Jordan<span class="badge badge-green" style="margin-left:auto"><span style="width:6px;height:6px;border-radius:50%;background:#2ecc71;display:inline-block;margin-right:4px"></span>Active</span></div>
+          <div style="padding:16px"><div style="font-size:12px;color:var(--muted);margin-bottom:12px">Finance Agent</div><div style="display:flex;gap:20px;margin-bottom:12px;font-size:12px"><div><div style="color:var(--muted)">Actions</div><div style="font-weight:700;font-size:15px">1,203</div></div><div><div style="color:var(--muted)">Last Active</div><div style="font-weight:700;font-size:15px">6:05 AM</div></div></div><div style="margin-bottom:12px"><span class="cap-tag">QuickBooks</span><span class="cap-tag">Invoicing</span><span class="cap-tag">Reports</span></div><button class="btn-sm" style="width:100%"><i class="fas fa-list-alt" style="margin-right:5px"></i>View Logs</button></div>
+        </div>
+        <div class="vp-card" style="padding:0;overflow:hidden">
+          <div class="agent-card-header" style="background:linear-gradient(135deg,#1e3a8a,#3b82f6)"><i class="fas fa-calendar-alt" style="font-size:20px"></i> Donna<span class="badge badge-yellow" style="margin-left:auto"><span style="width:6px;height:6px;border-radius:50%;background:#f1c40f;display:inline-block;margin-right:4px"></span>Ready</span></div>
+          <div style="padding:16px"><div style="font-size:12px;color:var(--muted);margin-bottom:12px">Scheduling Agent</div><div style="display:flex;gap:20px;margin-bottom:12px;font-size:12px"><div><div style="color:var(--muted)">Actions</div><div style="font-weight:700;font-size:15px">847</div></div><div><div style="color:var(--muted)">Last Active</div><div style="font-weight:700;font-size:15px">Yesterday</div></div></div><div style="margin-bottom:12px"><span class="cap-tag">Calendar</span><span class="cap-tag">Crew Coord</span><span class="cap-tag">Reminders</span></div><button class="btn-sm" style="width:100%"><i class="fas fa-list-alt" style="margin-right:5px"></i>View Logs</button></div>
+        </div>
+        <div class="vp-card" style="padding:0;overflow:hidden">
+          <div class="agent-card-header" style="background:linear-gradient(135deg,#7c2d12,#ea580c)"><i class="fas fa-handshake" style="font-size:20px"></i> Jerry<span class="badge badge-gray" style="margin-left:auto"><span style="width:6px;height:6px;border-radius:50%;background:var(--muted);display:inline-block;margin-right:4px"></span>Inactive</span></div>
+          <div style="padding:16px"><div style="font-size:12px;color:var(--muted);margin-bottom:12px">Sales Agent</div><div style="display:flex;gap:20px;margin-bottom:12px;font-size:12px"><div><div style="color:var(--muted)">Actions</div><div style="font-weight:700;font-size:15px">412</div></div><div><div style="color:var(--muted)">Last Active</div><div style="font-weight:700;font-size:15px">2d ago</div></div></div><div style="margin-bottom:12px"><span class="cap-tag">Lead Mgmt</span><span class="cap-tag">Follow-ups</span><span class="cap-tag">Estimates</span></div><button class="btn-sm" style="width:100%"><i class="fas fa-list-alt" style="margin-right:5px"></i>View Logs</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: CONTENT -->
+    <div id="view-content" class="view-panel">
+      <div class="vp-title"><i class="fas fa-file-alt"></i> Content</div>
+      <div class="vp-grid vp-grid-2" style="margin-bottom:20px">
+        <div class="vp-card" style="text-align:center"><div class="vp-stat-label">Followers Gained</div><div class="vp-stat-val">847</div><div class="vp-stat-sub">This month across all platforms</div></div>
+        <div class="vp-card" style="text-align:center"><div class="vp-stat-label">Engagement Rate</div><div class="vp-stat-val">12%</div><div class="vp-stat-sub"><span class="badge badge-green">Above industry avg</span></div></div>
+      </div>
+      <div class="vp-card">
+        <div style="font-weight:700;font-size:14px;margin-bottom:14px"><i class="fas fa-clock" style="color:var(--primary);margin-right:8px"></i>Scheduled Posts</div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:14px;padding:14px;background:var(--surface2);border-radius:10px;border:1px solid var(--border)"><i class="fab fa-instagram" style="font-size:22px;color:#e1306c;flex-shrink:0"></i><div style="flex:1"><div style="font-weight:700;font-size:13px">5 lawn care tips for spring</div><div style="font-size:12px;color:var(--muted)">Thu Apr 28 &middot; 10:00 AM</div></div><span class="badge badge-blue">Scheduled</span><a href="#" style="font-size:12px;color:var(--primary);margin-left:10px">Edit</a></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px;background:var(--surface2);border-radius:10px;border:1px solid var(--border)"><i class="fab fa-facebook" style="font-size:22px;color:#1877f2;flex-shrink:0"></i><div style="flex:1"><div style="font-weight:700;font-size:13px">Spring cleanup special &mdash; book now!</div><div style="font-size:12px;color:var(--muted)">Sat Apr 30 &middot; 2:00 PM</div></div><span class="badge badge-yellow">Draft</span><a href="#" style="font-size:12px;color:var(--primary);margin-left:10px">Edit</a></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px;background:var(--surface2);border-radius:10px;border:1px solid var(--border)"><i class="fab fa-google" style="font-size:22px;color:#4285f4;flex-shrink:0"></i><div style="flex:1"><div style="font-weight:700;font-size:13px">Updated hours for spring season</div><div style="font-size:12px;color:var(--muted)">Mon May 3 &middot; 8:00 AM</div></div><span class="badge badge-blue">Scheduled</span><a href="#" style="font-size:12px;color:var(--primary);margin-left:10px">Edit</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: APPROVALS -->
+    <div id="view-approvals" class="view-panel">
+      <div class="vp-title"><i class="fas fa-check-double"></i> Approvals <span style="font-size:14px;font-weight:400;color:var(--muted);margin-left:8px">41 pending</span></div>
+      <div class="vp-card">
+        <div class="table-header" style="grid-template-columns:36px 2.5fr 1fr 1fr auto"><span></span><span>Action</span><span>Agent</span><span>Pending</span><span>Decision</span></div>
+        <div class="table-row" style="grid-template-columns:36px 2.5fr 1fr 1fr auto"><i class="fas fa-file-invoice-dollar" style="color:var(--green)"></i><span>Send invoice #4821 to Clearwater HOA ($2,400)</span><span style="color:var(--muted)">Jordan</span><span style="color:var(--muted)">8m</span><span style="display:flex;gap:6px"><button class="btn-sm btn-approve">Approve</button><button class="btn-sm btn-decline">Decline</button></span></div>
+        <div class="table-row" style="grid-template-columns:36px 2.5fr 1fr 1fr auto"><i class="fas fa-envelope" style="color:var(--blue)"></i><span>Send estimate reminder to T. Brooks</span><span style="color:var(--muted)">Jerry</span><span style="color:var(--muted)">12m</span><span style="display:flex;gap:6px"><button class="btn-sm btn-approve">Approve</button><button class="btn-sm btn-decline">Decline</button></span></div>
+        <div class="table-row" style="grid-template-columns:36px 2.5fr 1fr 1fr auto"><i class="fas fa-calendar-alt" style="color:var(--purple)"></i><span>Swap Crew 2 to morning shift Friday</span><span style="color:var(--muted)">Donna</span><span style="color:var(--muted)">18m</span><span style="display:flex;gap:6px"><button class="btn-sm btn-approve">Approve</button><button class="btn-sm btn-decline">Decline</button></span></div>
+        <div class="table-row" style="grid-template-columns:36px 2.5fr 1fr 1fr auto"><i class="fas fa-credit-card" style="color:var(--yellow)"></i><span>Offer 30-day payment terms to Riverside Commercial</span><span style="color:var(--muted)">Jordan</span><span style="color:var(--muted)">25m</span><span style="display:flex;gap:6px"><button class="btn-sm btn-approve">Approve</button><button class="btn-sm btn-decline">Decline</button></span></div>
+        <div class="table-row" style="grid-template-columns:36px 2.5fr 1fr 1fr auto"><i class="fas fa-bullhorn" style="color:var(--primary)"></i><span>Send spring promo email to 847 contacts</span><span style="color:var(--muted)">Jerry</span><span style="color:var(--muted)">31m</span><span style="display:flex;gap:6px"><button class="btn-sm btn-approve">Approve</button><button class="btn-sm btn-decline">Decline</button></span></div>
+        <div class="table-row" style="grid-template-columns:36px 2.5fr 1fr 1fr auto"><i class="fas fa-gas-pump" style="color:var(--muted)"></i><span>Fuel reimbursement &mdash; Truck 03 ($147)</span><span style="color:var(--muted)">Donna</span><span style="color:var(--muted)">44m</span><span style="display:flex;gap:6px"><button class="btn-sm btn-approve">Approve</button><button class="btn-sm btn-decline">Decline</button></span></div>
+        <div class="table-row" style="grid-template-columns:36px 2.5fr 1fr 1fr auto"><i class="fas fa-tag" style="color:var(--yellow)"></i><span>Apply 10% loyalty discount for M. Rodriguez</span><span style="color:var(--muted)">Jerry</span><span style="color:var(--yellow)">1h 2m</span><span style="display:flex;gap:6px"><button class="btn-sm btn-approve">Approve</button><button class="btn-sm btn-decline">Decline</button></span></div>
+        <div class="table-row" style="grid-template-columns:36px 2.5fr 1fr 1fr auto"><i class="fas fa-file-pdf" style="color:var(--primary)"></i><span>Generate Q1 financial summary export (PDF)</span><span style="color:var(--muted)">Jordan</span><span style="color:var(--red)">1h 15m</span><span style="display:flex;gap:6px"><button class="btn-sm btn-approve">Approve</button><button class="btn-sm btn-decline">Decline</button></span></div>
+      </div>
+    </div>
+
+    <!-- VIEW: CALENDAR -->
+    <div id="view-calendar" class="view-panel">
+      <div class="vp-title"><i class="fas fa-calendar"></i> Calendar <span style="font-size:13px;font-weight:400;color:var(--muted);margin-left:8px">Week of Apr 28 &ndash; May 2, 2026</span></div>
+      <div class="vp-card" style="padding:0;overflow:hidden">
+        <div class="cal-grid">
+          <div class="cal-cell cal-header cal-time"></div>
+          <div class="cal-cell cal-header">Mon Apr 28</div>
+          <div class="cal-cell cal-header">Tue Apr 29</div>
+          <div class="cal-cell cal-header">Wed Apr 30</div>
+          <div class="cal-cell cal-header">Thu May 1</div>
+          <div class="cal-cell cal-header" style="color:var(--primary)">Fri May 2 &bull; Today</div>
+
+          <div class="cal-cell cal-time">7 AM</div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"><div class="cal-job" style="background:rgba(91,106,240,.2);color:#8892f5">Commercial Lot<br><span style="font-weight:400;color:var(--muted)">Crew 1 &middot; Mowing</span></div></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"></div>
+
+          <div class="cal-cell cal-time">8 AM</div>
+          <div class="cal-cell"><div class="cal-job" style="background:rgba(46,204,113,.2);color:#2ecc71">Smith Residence<br><span style="font-weight:400;color:var(--muted)">Crew 1 &middot; Lawn Care</span></div></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"><div class="cal-job" style="background:rgba(52,152,219,.2);color:#3498db">Williams Property<br><span style="font-weight:400;color:var(--muted)">Crew 1 &middot; Hardscaping</span></div></div>
+
+          <div class="cal-cell cal-time">9 AM</div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"><div class="cal-job" style="background:rgba(155,89,182,.2);color:#9b59b6">Johnson Estate<br><span style="font-weight:400;color:var(--muted)">Crew 3 &middot; Pruning</span></div></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"></div>
+
+          <div class="cal-cell cal-time">10 AM</div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"><div class="cal-job" style="background:rgba(241,196,15,.2);color:#f1c40f">Rivera Home<br><span style="font-weight:400;color:var(--muted)">Crew 2 &middot; Mulching</span></div></div>
+          <div class="cal-cell"></div>
+
+          <div class="cal-cell cal-time">1 PM</div>
+          <div class="cal-cell"><div class="cal-job" style="background:rgba(52,152,219,.2);color:#3498db">Park District<br><span style="font-weight:400;color:var(--muted)">Crew 2 &middot; Edging</span></div></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"></div>
+
+          <div class="cal-cell cal-time">3 PM</div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"><div class="cal-job" style="background:rgba(46,204,113,.2);color:#2ecc71">Oakwood HOA<br><span style="font-weight:400;color:var(--muted)">Crew 2 &middot; Irrigation</span></div></div>
+          <div class="cal-cell"></div>
+          <div class="cal-cell"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: PROJECTS -->
+    <div id="view-projects" class="view-panel">
+      <div class="vp-title"><i class="fas fa-folder"></i> Projects</div>
+      <div class="vp-card">
+        <div class="table-header" style="grid-template-columns:2fr 1fr 2fr 1fr"><span>Project</span><span>Owner</span><span>Progress</span><span>Dept</span></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 2fr 1fr;align-items:center"><span style="font-weight:600">Spring Cleanup Campaign</span><span style="color:var(--muted)">Jerry</span><div style="display:flex;align-items:center;gap:10px"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:68%"></div></div><span style="font-size:12px;color:var(--muted);white-space:nowrap">68%</span></div><span class="badge badge-blue">Sales</span></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 2fr 1fr;align-items:center"><span style="font-weight:600">Q2 Financial Audit</span><span style="color:var(--muted)">Jordan</span><div style="display:flex;align-items:center;gap:10px"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:45%"></div></div><span style="font-size:12px;color:var(--muted);white-space:nowrap">45%</span></div><span class="badge badge-green">Finance</span></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 2fr 1fr;align-items:center"><span style="font-weight:600">Crew Schedule Optimization</span><span style="color:var(--muted)">Donna</span><div style="display:flex;align-items:center;gap:10px"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:82%"></div></div><span style="font-size:12px;color:var(--muted);white-space:nowrap">82%</span></div><span class="badge badge-gray">Operations</span></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 2fr 1fr;align-items:center"><span style="font-weight:600">Website Refresh</span><span style="color:var(--muted)">Jarvis</span><div style="display:flex;align-items:center;gap:10px"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:30%"></div></div><span style="font-size:12px;color:var(--muted);white-space:nowrap">30%</span></div><span class="badge badge-blue">Marketing</span></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 2fr 1fr;align-items:center"><span style="font-weight:600">New Client Onboarding System</span><span style="color:var(--muted)">Jarvis</span><div style="display:flex;align-items:center;gap:10px"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:55%"></div></div><span style="font-size:12px;color:var(--muted);white-space:nowrap">55%</span></div><span class="badge badge-gray">Operations</span></div>
+      </div>
+    </div>
+
+    <!-- VIEW: MEMORY -->
+    <div id="view-memory" class="view-panel">
+      <div class="vp-title"><i class="fas fa-brain"></i> Memory</div>
+      <div class="vp-grid vp-grid-4" style="margin-bottom:20px">
+        <div class="vp-card" style="text-align:center"><div class="vp-stat-label">Total Notes</div><div class="vp-stat-val">312</div></div>
+        <div class="vp-card" style="text-align:center"><div class="vp-stat-label">Daily Logs</div><div class="vp-stat-val">89</div></div>
+        <div class="vp-card" style="text-align:center"><div class="vp-stat-label">Decisions</div><div class="vp-stat-val">24</div></div>
+        <div class="vp-card" style="text-align:center"><div class="vp-stat-label">Memory Entries</div><div class="vp-stat-val" style="font-size:26px">1,847</div></div>
+      </div>
+      <div class="vp-grid vp-grid-2" style="margin-bottom:20px">
+        <div class="vp-card"><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div class="agent-avatar av-jordan">J</div><div style="flex:1"><div style="font-weight:700;font-size:13px">Jordan</div><div style="font-size:11px;color:var(--muted)">Finance Agent</div></div><span style="font-size:12px;color:var(--muted)">6:05 AM</span></div><div style="font-size:22px;font-weight:800;color:var(--primary);margin-bottom:4px">423</div><div style="font-size:11px;color:var(--muted)">memory entries</div></div>
+        <div class="vp-card"><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div class="agent-avatar av-donna">D</div><div style="flex:1"><div style="font-weight:700;font-size:13px">Donna</div><div style="font-size:11px;color:var(--muted)">Scheduling Agent</div></div><span style="font-size:12px;color:var(--muted)">Yesterday</span></div><div style="font-size:22px;font-weight:800;color:var(--primary);margin-bottom:4px">312</div><div style="font-size:11px;color:var(--muted)">memory entries</div></div>
+        <div class="vp-card"><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div class="agent-avatar av-jerry">Jy</div><div style="flex:1"><div style="font-weight:700;font-size:13px">Jerry</div><div style="font-size:11px;color:var(--muted)">Sales Agent</div></div><span style="font-size:12px;color:var(--muted)">2d ago</span></div><div style="font-size:22px;font-weight:800;color:var(--primary);margin-bottom:4px">198</div><div style="font-size:11px;color:var(--muted)">memory entries</div></div>
+        <div class="vp-card"><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div class="agent-avatar av-system">S</div><div style="flex:1"><div style="font-weight:700;font-size:13px">Jarvis</div><div style="font-size:11px;color:var(--muted)">Master Orchestrator</div></div><span style="font-size:12px;color:var(--muted)">2m ago</span></div><div style="font-size:22px;font-weight:800;color:var(--primary);margin-bottom:4px">914</div><div style="font-size:11px;color:var(--muted)">memory entries</div></div>
+      </div>
+      <div class="vp-card">
+        <div style="font-weight:700;font-size:14px;margin-bottom:12px"><i class="fas fa-pen" style="color:var(--primary);margin-right:8px"></i>Recent Write Activity</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px"><div class="agent-avatar av-system" style="width:26px;height:26px;font-size:10px">S</div><span style="flex:1">Jarvis wrote: "Task routing decision for follow-up"</span><span style="color:var(--muted);font-size:11px;white-space:nowrap">2m ago</span></div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px"><div class="agent-avatar av-jordan" style="width:26px;height:26px;font-size:10px">J</div><span style="flex:1">Jordan wrote: "Invoice #4821 flagged for Clearwater HOA"</span><span style="color:var(--muted);font-size:11px;white-space:nowrap">6m ago</span></div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px"><div class="agent-avatar av-system" style="width:26px;height:26px;font-size:10px">S</div><span style="flex:1">Jarvis wrote: "Scheduling conflict detected Friday"</span><span style="color:var(--muted);font-size:11px;white-space:nowrap">14m ago</span></div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px"><div class="agent-avatar av-donna" style="width:26px;height:26px;font-size:10px">D</div><span style="flex:1">Donna wrote: "Crew 2 availability updated"</span><span style="color:var(--muted);font-size:11px;white-space:nowrap">32m ago</span></div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px"><div class="agent-avatar av-jordan" style="width:26px;height:26px;font-size:10px">J</div><span style="flex:1">Jordan wrote: "Q2 cash flow projection updated"</span><span style="color:var(--muted);font-size:11px;white-space:nowrap">1h ago</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: DOCS -->
+    <div id="view-docs" class="view-panel">
+      <div class="vp-title"><i class="fas fa-book"></i> Docs</div>
+      <div class="vp-card">
+        <div class="table-header" style="grid-template-columns:2fr 1fr 1.2fr 1fr auto"><span>Document</span><span>Type</span><span>Last Modified</span><span>Owner</span><span></span></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1.2fr 1fr auto"><span style="font-weight:600"><i class="fas fa-file-alt" style="color:var(--primary);margin-right:8px"></i>Pricing Guide 2026</span><span class="badge badge-blue">Policy</span><span style="color:var(--muted)">Apr 20, 2026</span><span style="color:var(--muted)">Jordan</span><button class="btn-sm">Open</button></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1.2fr 1fr auto"><span style="font-weight:600"><i class="fas fa-file-alt" style="color:var(--primary);margin-right:8px"></i>Business Rules &amp; SOPs</span><span class="badge badge-gray">Reference</span><span style="color:var(--muted)">Apr 18, 2026</span><span style="color:var(--muted)">Jarvis</span><button class="btn-sm">Open</button></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1.2fr 1fr auto"><span style="font-weight:600"><i class="fas fa-file-alt" style="color:var(--primary);margin-right:8px"></i>Crew Handbook</span><span class="badge badge-gray">Reference</span><span style="color:var(--muted)">Apr 15, 2026</span><span style="color:var(--muted)">Donna</span><button class="btn-sm">Open</button></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1.2fr 1fr auto"><span style="font-weight:600"><i class="fas fa-file-alt" style="color:var(--primary);margin-right:8px"></i>Sales Playbook Q2</span><span class="badge badge-blue">Sales</span><span style="color:var(--muted)">Apr 22, 2026</span><span style="color:var(--muted)">Jerry</span><button class="btn-sm">Open</button></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1.2fr 1fr auto"><span style="font-weight:600"><i class="fas fa-file-alt" style="color:var(--primary);margin-right:8px"></i>Client Onboarding Flow</span><span class="badge badge-gray">Operations</span><span style="color:var(--muted)">Apr 19, 2026</span><span style="color:var(--muted)">Donna</span><button class="btn-sm">Open</button></div>
+        <div class="table-row" style="grid-template-columns:2fr 1fr 1.2fr 1fr auto"><span style="font-weight:600"><i class="fas fa-file-alt" style="color:var(--primary);margin-right:8px"></i>Financial Policies</span><span class="badge badge-green">Finance</span><span style="color:var(--muted)">Apr 12, 2026</span><span style="color:var(--muted)">Jordan</span><button class="btn-sm">Open</button></div>
+      </div>
+    </div>
+
+    <!-- VIEW: SETTINGS -->
+    <div id="view-settings" class="view-panel">
+      <div class="vp-title"><i class="fas fa-cog"></i> Settings</div>
+      <div class="vp-grid vp-grid-2">
+        <div class="vp-card">
+          <div style="font-weight:700;font-size:14px;margin-bottom:14px"><i class="fas fa-robot" style="color:var(--primary);margin-right:8px"></i>Agent Controls</div>
+          <div class="toggle-row"><div><div style="font-weight:600;font-size:13px">Jarvis</div><div style="font-size:12px;color:var(--muted)">Master Orchestrator</div></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+          <div class="toggle-row"><div><div style="font-weight:600;font-size:13px">Jordan</div><div style="font-size:12px;color:var(--muted)">Finance Agent</div></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+          <div class="toggle-row"><div><div style="font-weight:600;font-size:13px">Donna</div><div style="font-size:12px;color:var(--muted)">Scheduling Agent</div></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+          <div class="toggle-row"><div><div style="font-weight:600;font-size:13px">Jerry</div><div style="font-size:12px;color:var(--muted)">Sales Agent</div></div><label class="toggle"><input type="checkbox"><span class="toggle-slider"></span></label></div>
+        </div>
+        <div class="vp-card">
+          <div style="font-weight:700;font-size:14px;margin-bottom:14px"><i class="fas fa-bell" style="color:var(--primary);margin-right:8px"></i>Notification Preferences</div>
+          <div class="toggle-row"><div><div style="font-weight:600;font-size:13px">Task Completions</div><div style="font-size:12px;color:var(--muted)">When an agent finishes a task</div></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+          <div class="toggle-row"><div><div style="font-weight:600;font-size:13px">Agent Alerts</div><div style="font-size:12px;color:var(--muted)">Errors, warnings, and flags</div></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+          <div class="toggle-row"><div><div style="font-weight:600;font-size:13px">Daily Digest</div><div style="font-size:12px;color:var(--muted)">Morning summary at 7 AM</div></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+          <div class="toggle-row"><div><div style="font-weight:600;font-size:13px">Marketing Reports</div><div style="font-size:12px;color:var(--muted)">Weekly content performance</div></div><label class="toggle"><input type="checkbox"><span class="toggle-slider"></span></label></div>
+        </div>
+        <div class="vp-card" style="grid-column:1/-1">
+          <div style="font-weight:700;font-size:14px;margin-bottom:14px"><i class="fas fa-plug" style="color:var(--primary);margin-right:8px"></i>Data Sync &amp; Integrations</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center"><i class="fas fa-briefcase" style="font-size:22px;color:#4CAF50;margin-bottom:8px;display:block"></i><div style="font-weight:700;font-size:13px">Jobber</div><div style="margin:6px 0"><span class="badge badge-green">Connected</span></div><div style="font-size:11px;color:var(--muted)">Last sync: 2m ago</div></div>
+            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center"><i class="fas fa-calculator" style="font-size:22px;color:#2CA01C;margin-bottom:8px;display:block"></i><div style="font-weight:700;font-size:13px">QuickBooks</div><div style="margin:6px 0"><span class="badge badge-green">Connected</span></div><div style="font-size:11px;color:var(--muted)">Last sync: 6m ago</div></div>
+            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center"><i class="fab fa-discord" style="font-size:22px;color:#7289da;margin-bottom:8px;display:block"></i><div style="font-weight:700;font-size:13px">Discord</div><div style="margin:6px 0"><span class="badge badge-green">Connected</span></div><div style="font-size:11px;color:var(--muted)">Last sync: 14m ago</div></div>
+            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center"><i class="fas fa-feather-alt" style="font-size:22px;color:#9b59b6;margin-bottom:8px;display:block"></i><div style="font-weight:700;font-size:13px">Obsidian</div><div style="margin:6px 0"><span class="badge badge-blue">Synced</span></div><div style="font-size:11px;color:var(--muted)">Last sync: 1h ago</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: FEEDBACK -->
+    <div id="view-feedback" class="view-panel">
+      <div class="vp-title"><i class="fas fa-comment-alt"></i> Feedback</div>
+      <div class="vp-card" style="margin-bottom:20px">
+        <div style="font-weight:700;font-size:14px;margin-bottom:12px">Share your feedback</div>
+        <textarea class="form-control" placeholder="What's working well? What could be improved?" style="min-height:100px;margin-bottom:12px"></textarea>
+        <button class="btn-create" style="padding:9px 20px"><i class="fas fa-paper-plane" style="margin-right:6px"></i>Submit Feedback</button>
+      </div>
+      <div class="vp-card">
+        <div style="font-weight:700;font-size:14px;margin-bottom:14px"><i class="fas fa-history" style="color:var(--primary);margin-right:8px"></i>Recent Feedback</div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="padding:12px;background:var(--surface2);border-radius:8px;border:1px solid var(--border)"><div style="font-size:13px;margin-bottom:6px">"The analytics dashboard is really helpful for tracking monthly revenue trends."</div><div style="font-size:11px;color:var(--muted)">3 days ago</div></div>
+          <div style="padding:12px;background:var(--surface2);border-radius:8px;border:1px solid var(--border)"><div style="font-size:13px;margin-bottom:6px">"Jerry should send follow-ups a bit earlier &mdash; some leads felt the wait was too long."</div><div style="font-size:11px;color:var(--muted)">5 days ago</div></div>
+          <div style="padding:12px;background:var(--surface2);border-radius:8px;border:1px solid var(--border)"><div style="font-size:13px;margin-bottom:6px">"Loving the automation rate improvements this quarter!"</div><div style="font-size:11px;color:var(--muted)">1 week ago</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- NEW TASK MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h3><i class="fas fa-plus" style="color:var(--primary);margin-right:8px;"></i>New Task</h3>
+    <div class="form-group">
+      <label>Task Title</label>
+      <input class="form-control" id="task-title" placeholder="What needs to be done?" autocomplete="off">
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea class="form-control" id="task-desc" placeholder="Add details…"></textarea>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="form-group">
+        <label>Assign To</label>
+        <select class="form-control" id="task-agent">
+          <option value="jordan">Jordan (CFO AI)</option>
+          <option value="donna">Donna (Admin AI)</option>
+          <option value="jerry">Jerry (Sales AI)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Priority</label>
+        <select class="form-control" id="task-priority">
+          <option value="red">High</option>
+          <option value="yellow" selected>Medium</option>
+          <option value="green">Low</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Column</label>
+        <select class="form-control" id="task-column">
+          <option value="backlog" selected>Backlog</option>
+          <option value="recurring">Recurring</option>
+          <option value="inprogress">In Progress</option>
+          <option value="review">Review</option>
+          <option value="done">Done</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Project</label>
+        <select class="form-control" id="task-project">
+          <option value="Finance">Finance</option>
+          <option value="Operations">Operations</option>
+          <option value="Sales">Sales</option>
+          <option value="Marketing">Marketing</option>
+          <option value="General">General</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" id="modal-cancel">Cancel</button>
+      <button class="btn-create" id="modal-create">Create Task</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toast-msg"></span></div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const AGENT_META = {
+  jordan: { name: 'Jordan', label: 'CFO AI',   cls: 'av-jordan', short: 'J' },
+  donna:  { name: 'Donna',  label: 'Admin AI',  cls: 'av-donna',  short: 'D' },
+  jerry:  { name: 'Jerry',  label: 'Sales AI',  cls: 'av-jerry',  short: 'Jy' },
+  system: { name: 'System', label: 'Auto',      cls: 'av-system', short: 'S' },
+};
+
+let tasks = [
+  { id: 1, title: 'Review weekly cash flow report',          desc: 'Pull QuickBooks data and flag any overdue invoices over $500.',        agent:'jordan', priority:'red',    status:'inprogress', project:'Finance',    ts: now(-2) },
+  { id: 2, title: 'Optimize crew scheduling for next week',  desc: 'Balance workload across 4 crews based on job locations and weather.',   agent:'donna',  priority:'yellow', status:'inprogress', project:'Operations', ts: now(-5) },
+  { id: 3, title: 'Follow up on 12 open estimates',          desc: 'Send personalized follow-up emails to prospects who haven\'t replied.', agent:'jerry',  priority:'red',    status:'inprogress', project:'Sales',      ts: now(-8) },
+  { id: 4, title: 'Quarterly ROI analysis',                  desc: 'Compare AI implementation cost vs time saved across all departments.',   agent:'jordan', priority:'yellow', status:'backlog',    project:'Finance',    ts: now(-30) },
+  { id: 5, title: 'Update client database',                  desc: 'Sync new contacts from field reports and remove duplicate entries.',     agent:'donna',  priority:'green',  status:'backlog',    project:'Operations', ts: now(-45) },
+  { id: 6, title: 'Build spring promo email campaign',       desc: 'Draft 3-email sequence targeting dormant customers from last year.',     agent:'jerry',  priority:'yellow', status:'backlog',    project:'Marketing',  ts: now(-60) },
+  { id: 7, title: 'Invoice 8 completed jobs',                desc: 'Generate invoices in QuickBooks and send via email.',                    agent:'jordan', priority:'red',    status:'review',     project:'Finance',    ts: now(-90) },
+  { id: 8, title: 'Crew availability report',                desc: 'Compile weekly availability from all 6 crew leads.',                     agent:'donna',  priority:'green',  status:'done',       project:'Operations', ts: now(-120) },
+  { id: 9, title: 'CRM lead import',                        desc: 'Import 47 new leads from website contact form into CRM.',                agent:'jerry',  priority:'yellow', status:'done',       project:'Sales',      ts: now(-180) },
+  { id: 10, title: 'Daily financial digest',                 desc: 'Auto-generate P&L snapshot every morning at 7am.',                       agent:'jordan', priority:'green',  status:'recurring',  project:'Finance',    ts: now(-240) },
+  { id: 11, title: 'Weekly schedule optimization',           desc: 'Re-balance crew assignments every Sunday night.',                        agent:'donna',  priority:'green',  status:'recurring',  project:'Operations', ts: now(-300) },
+  { id: 12, title: 'Lead pipeline review',                   desc: 'Scan for stale leads older than 7 days and queue follow-ups.',          agent:'jerry',  priority:'yellow', status:'backlog',    project:'Sales',      ts: now(-360) },
+];
+
+let nextId = 13;
+let activeFilter = 'all';
+let activeProject = 'all';
+let paused = false;
+let dragSrcId = null;
+
+function now(offsetMinutes = 0) { return Date.now() + offsetMinutes * 60000; }
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function timeAgo(ts) {
+  const diff = Math.floor((Date.now() - ts) / 1000);
+  if (diff < 60)  return 'just now';
+  if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
+  if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
+  return `${Math.floor(diff/86400)}d ago`;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function getFilteredTasks() {
+  return tasks.filter(t => {
+    const agentOk = activeFilter === 'all' || t.agent === activeFilter;
+    const projOk  = activeProject === 'all' || t.project === activeProject;
+    const search  = document.getElementById('search-input').value.trim().toLowerCase();
+    const searchOk = !search || t.title.toLowerCase().includes(search) || (t.desc||'').toLowerCase().includes(search);
+    return agentOk && projOk && searchOk;
+  });
+}
+
+function renderBoard() {
+  const cols = ['recurring','backlog','inprogress','review','done'];
+  const filtered = getFilteredTasks();
+
+  cols.forEach(col => {
+    const list = document.getElementById(`list-${col}`);
+    const colTasks = filtered.filter(t => t.status === col);
+    document.getElementById(`count-${col}`).textContent = colTasks.length;
+
+    list.innerHTML = '';
+    if (colTasks.length === 0) {
+      list.innerHTML = '<div class="col-empty">No tasks</div>';
+      return;
+    }
+    colTasks.forEach(t => list.appendChild(buildCard(t)));
+  });
+
+  updateStats();
+  document.getElementById('badge-tasks').textContent = tasks.length;
+}
+
+function buildCard(t) {
+  const a = AGENT_META[t.agent];
+  const div = document.createElement('div');
+  div.className = 'task-card';
+  div.dataset.id = t.id;
+  div.draggable = true;
+  div.innerHTML = `
+    <div class="task-title">
+      <span class="task-priority" style="background:var(--${t.priority})"></span>
+      ${escHtml(t.title)}
+    </div>
+    ${t.desc ? `<div class="task-desc">${escHtml(t.desc)}</div>` : ''}
+    <div class="task-footer">
+      <div class="agent-avatar ${a.cls}" title="${a.name} — ${a.label}">${a.short}</div>
+      <span class="task-project">${escHtml(t.project)}</span>
+      <span class="task-time">${timeAgo(t.ts)}</span>
+    </div>`;
+
+  div.addEventListener('dragstart', e => { dragSrcId = t.id; div.classList.add('dragging'); });
+  div.addEventListener('dragend',   () => div.classList.remove('dragging'));
+  div.addEventListener('click', () => openMoveMenu(t));
+  return div;
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// click a card → cycle status
+function openMoveMenu(t) {
+  const order = ['backlog','inprogress','review','done','recurring'];
+  const idx = order.indexOf(t.status);
+  const next = order[(idx + 1) % order.length];
+  t.status = next;
+  t.ts = Date.now();
+  renderBoard();
+  addActivity(t.agent, `Moved "${t.title}" → ${next}`);
+  showToast(`Moved to ${next}`);
+}
+
+function updateStats() {
+  const all = tasks;
+  const thisWeek = all.filter(t => t.ts > now(-7*24*60)).length;
+  const inprog   = all.filter(t => t.status === 'inprogress').length;
+  const done     = all.filter(t => t.status === 'done').length;
+  const pct      = all.length ? Math.round(done / all.length * 100) : 0;
+
+  document.getElementById('stat-week').textContent       = thisWeek;
+  document.getElementById('stat-inprogress').textContent = inprog;
+  document.getElementById('stat-total').textContent      = all.length;
+  document.getElementById('stat-completion').textContent = pct + '%';
+}
+
+// ── ACTIVITY FEED ─────────────────────────────────────────────────────────────
+const activityData = [];
+
+function addActivity(agentKey, text) {
+  const a = AGENT_META[agentKey] || AGENT_META.system;
+  activityData.unshift({ agent: a, text, ts: Date.now() });
+  if (activityData.length > 40) activityData.pop();
+  renderActivity();
+}
+
+function renderActivity() {
+  const list = document.getElementById('activity-list');
+  list.innerHTML = '';
+  activityData.slice(0, 20).forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'activity-item';
+    div.innerHTML = `
+      <div class="activity-avatar ${item.agent.cls}">${item.agent.short}</div>
+      <div class="activity-body">
+        <div class="activity-agent">${item.agent.name}</div>
+        <div class="activity-text">${escHtml(item.text)}</div>
+        <div class="activity-when">${timeAgo(item.ts)}</div>
+      </div>`;
+    list.appendChild(div);
+  });
+}
+
+// ── DRAG & DROP ───────────────────────────────────────────────────────────────
+document.querySelectorAll('.column').forEach(col => {
+  col.addEventListener('dragover', e => { e.preventDefault(); col.classList.add('drag-over'); });
+  col.addEventListener('dragleave', () => col.classList.remove('drag-over'));
+  col.addEventListener('drop', e => {
+    e.preventDefault();
+    col.classList.remove('drag-over');
+    if (!dragSrcId) return;
+    const task = tasks.find(t => t.id === dragSrcId);
+    if (!task) return;
+    const newStatus = col.dataset.status;
+    if (task.status !== newStatus) {
+      task.status = newStatus;
+      task.ts = Date.now();
+      renderBoard();
+      addActivity(task.agent, `Moved "${task.title}" → ${newStatus}`);
+      showToast(`Moved to ${newStatus}`);
+    }
+    dragSrcId = null;
+  });
+});
+
+// ── MODAL ─────────────────────────────────────────────────────────────────────
+function openModal(defaultCol) {
+  document.getElementById('task-title').value = '';
+  document.getElementById('task-desc').value  = '';
+  document.getElementById('task-column').value = defaultCol || 'backlog';
+  document.getElementById('modal').classList.add('open');
+  setTimeout(() => document.getElementById('task-title').focus(), 80);
+}
+
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+
+document.getElementById('new-task-btn').addEventListener('click', () => openModal());
+document.getElementById('modal-cancel').addEventListener('click', closeModal);
+document.getElementById('modal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+
+document.querySelectorAll('.col-add').forEach(btn => {
+  btn.addEventListener('click', e => { e.stopPropagation(); openModal(btn.dataset.col); });
+});
+
+document.getElementById('modal-create').addEventListener('click', () => {
+  const title = document.getElementById('task-title').value.trim();
+  if (!title) { document.getElementById('task-title').style.borderColor = 'var(--red)'; return; }
+  document.getElementById('task-title').style.borderColor = '';
+
+  const task = {
+    id:       nextId++,
+    title,
+    desc:     document.getElementById('task-desc').value.trim(),
+    agent:    document.getElementById('task-agent').value,
+    priority: document.getElementById('task-priority').value,
+    status:   document.getElementById('task-column').value,
+    project:  document.getElementById('task-project').value,
+    ts:       Date.now(),
+  };
+
+  tasks.unshift(task);
+  closeModal();
+  renderBoard();
+  addActivity(task.agent, `Created task: "${task.title}"`);
+  showToast('Task created!');
+});
+
+// ── TOP BAR BUTTONS ───────────────────────────────────────────────────────────
+document.getElementById('pause-btn').addEventListener('click', function() {
+  paused = !paused;
+  this.innerHTML = paused
+    ? '<i class="fas fa-play"></i> Resume'
+    : '<i class="fas fa-pause"></i> Pause';
+  showToast(paused ? 'Agent activity paused' : 'Agent activity resumed');
+  addActivity('system', paused ? 'All agent activity paused' : 'Agent activity resumed');
+});
+
+document.getElementById('ping-btn').addEventListener('click', function() {
+  const agents = ['jordan','donna','jerry'];
+  const a = AGENT_META[agents[Math.floor(Math.random() * agents.length)]];
+  this.innerHTML = `<i class="fas fa-bell"></i> Ping ${a.name}`;
+  showToast(`Pinged ${a.name}!`);
+  addActivity(a.name.toLowerCase(), `Received a ping — responding shortly`);
+});
+
+document.getElementById('refresh-btn').addEventListener('click', function() {
+  const icon = this.querySelector('i');
+  icon.style.animation = 'spin 0.6s linear';
+  setTimeout(() => icon.style.animation = '', 600);
+  renderBoard();
+  setLastUpdated();
+  showToast('Dashboard refreshed');
+  addActivity('system', 'Dashboard data refreshed');
+});
+
+// ── FILTERS ───────────────────────────────────────────────────────────────────
+document.querySelectorAll('.agent-pill').forEach(pill => {
+  pill.addEventListener('click', function() {
+    document.querySelectorAll('.agent-pill').forEach(p => p.classList.remove('active'));
+    this.classList.add('active');
+    activeFilter = this.dataset.agent;
+    renderBoard();
+  });
+});
+
+document.getElementById('project-filter').addEventListener('change', function() {
+  activeProject = this.value;
+  renderBoard();
+});
+
+document.getElementById('search-input').addEventListener('input', renderBoard);
+
+// ── NAV ───────────────────────────────────────────────────────────────────────
+const VIEW_META = {
+  tasks:     { icon: 'fas fa-th-large',       title: 'Tasks' },
+  agents:    { icon: 'fas fa-robot',          title: 'Agents' },
+  content:   { icon: 'fas fa-file-alt',       title: 'Content' },
+  approvals: { icon: 'fas fa-check-double',   title: 'Approvals' },
+  calendar:  { icon: 'fas fa-calendar',       title: 'Calendar' },
+  projects:  { icon: 'fas fa-folder',         title: 'Projects' },
+  memory:    { icon: 'fas fa-brain',          title: 'Memory' },
+  docs:      { icon: 'fas fa-book',           title: 'Docs' },
+  people:    { icon: 'fas fa-users',          title: 'People' },
+  office:    { icon: 'fas fa-building',       title: 'Office' },
+  pipeline:  { icon: 'fas fa-filter',         title: 'Pipeline' },
+  radar:     { icon: 'fas fa-satellite-dish', title: 'Radar' },
+  analytics: { icon: 'fas fa-chart-bar',      title: 'Analytics' },
+  settings:  { icon: 'fas fa-cog',            title: 'Settings' },
+  feedback:  { icon: 'fas fa-comment-alt',    title: 'Feedback' },
+};
+
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', function() {
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+    this.classList.add('active');
+    const view = this.dataset.view;
+    const meta = VIEW_META[view] || { icon: 'fas fa-th-large', title: view };
+
+    // Update topbar title (preserve last-updated span)
+    const lu = document.getElementById('last-updated');
+    const luHtml = lu ? lu.outerHTML : '';
+    document.querySelector('.topbar-title').innerHTML =
+      `<i class="${meta.icon}"></i> ${meta.title}${luHtml}`;
+
+    const isTasksView = view === 'tasks';
+    document.querySelector('.board').style.display           = isTasksView ? 'flex'     : 'none';
+    document.querySelector('.activity-panel').style.display  = isTasksView ? 'flex'     : 'none';
+    document.getElementById('tasks-stats-bar').style.display = isTasksView ? ''         : 'none';
+    document.getElementById('tasks-topbar-btns').style.display = isTasksView ? 'contents' : 'none';
+
+    // Hide all view panels, then show the target one
+    document.querySelectorAll('.view-panel').forEach(p => { p.style.display = 'none'; });
+    if (!isTasksView) {
+      const panel = document.getElementById('view-' + view);
+      if (panel) panel.style.display = 'block';
+    }
+
+    if (isTasksView) setLastUpdated();
+  });
+});
+
+// ── AUTO ACTIVITY ─────────────────────────────────────────────────────────────
+const autoActivities = [
+  ['jordan', 'Analyzed 3 new invoice batches'],
+  ['jordan', 'Cash flow forecast updated for Q2'],
+  ['jordan', 'Flagged 2 overdue accounts for follow-up'],
+  ['donna',  'Rescheduled crew #3 due to weather alert'],
+  ['donna',  'Synced 14 new client records'],
+  ['donna',  'Generated weekly operations report'],
+  ['jerry',  'Sent follow-up to 7 open estimates'],
+  ['jerry',  'Added 3 new leads from website form'],
+  ['jerry',  'Closed estimate — Riverside Dr. project'],
+  ['system', 'Auto-backup completed'],
+  ['system', 'Metrics snapshot saved'],
+];
+
+function triggerAutoActivity() {
+  if (paused) return;
+  const [agent, text] = autoActivities[Math.floor(Math.random() * autoActivities.length)];
+  addActivity(agent, text);
+}
+
+// ── LAST UPDATED ──────────────────────────────────────────────────────────────
+function setLastUpdated() {
+  const el = document.getElementById('last-updated');
+  const now = new Date();
+  el.textContent = `· Updated ${now.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' })}`;
+}
+
+// ── SPIN KEYFRAME ─────────────────────────────────────────────────────────────
+const style = document.createElement('style');
+style.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+document.head.appendChild(style);
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+renderBoard();
+setLastUpdated();
+
+// Seed initial activity
+['jordan','donna','jerry','system'].forEach(a => {
+  const picks = autoActivities.filter(x => x[0] === a);
+  const [ag, txt] = picks[Math.floor(Math.random() * picks.length)];
+  addActivity(ag, txt);
+});
+
+// Auto activity every 45–90s
+setInterval(triggerAutoActivity, 45000 + Math.random() * 45000);
+
+// Refresh timestamps every 60s
+setInterval(() => {
+  renderActivity();
+  document.querySelectorAll('.task-time').forEach(el => {
+    const card = el.closest('.task-card');
+    if (!card) return;
+    const task = tasks.find(t => t.id == card.dataset.id);
+    if (task) el.textContent = timeAgo(task.ts);
+  });
+}, 60000);
+</script>
+</body>
+</html>
