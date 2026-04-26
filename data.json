@@ -1,23 +1,35 @@
 {
-  "generated_at": "2026-04-24T23:39:53.605110",
-  "date": "2026-04-24",
+  "generated_at": "2026-04-25T20:10:20.275911",
+  "date": "2026-04-25",
   "metrics": {
-    "clients": 153,
-    "active_jobs": 66,
-    "revenue": 15339.92,
+    "clients": 155,
+    "active_jobs": 67,
+    "revenue": 18222.17,
     "completed_jobs": 50,
-    "low_margin_alerts": 41,
-    "briefing_date": "2026-04-24",
+    "low_margin_alerts": 42,
+    "briefing_date": "2026-04-25",
     "automation_phase": "PHASE 1 - Basic data collection"
   },
   "low_margin_jobs": [
     {
-      "service": "Maintenance",
-      "amount": 80
+      "service": "Lawncare",
+      "amount": 85
+    },
+    {
+      "service": "Lawncare",
+      "amount": 65
     },
     {
       "service": "Lawncare",
       "amount": 0
+    },
+    {
+      "service": "Lawncare",
+      "amount": 65
+    },
+    {
+      "service": "Maintenance",
+      "amount": 80
     },
     {
       "service": "Tree Pruning",
@@ -124,14 +136,6 @@
       "amount": 100
     },
     {
-      "service": "Lawncare",
-      "amount": 65
-    },
-    {
-      "service": "Lawncare",
-      "amount": 65
-    },
-    {
       "service": "Fertilization",
       "amount": 70
     },
@@ -179,8 +183,8 @@
   "service_breakdown": [
     {
       "service": "Lawncare",
-      "count": 17,
-      "total": 1240
+      "count": 18,
+      "total": 1325
     },
     {
       "service": "Shrub Pruning",
@@ -338,16 +342,16 @@
       "name": "Jordan Belfort",
       "role": "CFO AI — Finance & Analytics",
       "status": "active",
-      "last_run": "2026-04-24 06:05 AM",
+      "last_run": "2026-04-25 06:05 AM",
       "priorities": [
         "Jobber sync — update all client Financial sections",
         "Flag any accounts >14 days past due → handoff to Jarvis"
       ],
       "stats": {
-        "clients": 153,
-        "active_jobs": 66,
-        "revenue": 15339.92,
-        "alerts": 41
+        "clients": 155,
+        "active_jobs": 67,
+        "revenue": 18222.17,
+        "alerts": 42
       }
     },
     "donna": {
@@ -409,5 +413,5 @@
   },
   "flags": "# Open Flags — Escalated to Hunter\n\n## Requires Hunter Decision\n\n```dataview\nTABLE raised_by, priority, date, resolution_deadline, hard_timeout\nFROM \"shared/flags\"\nWHERE status = \"open\"\nSORT priority DESC, date ASC\n```\n\n## Past Resolution Deadline\n\n```dataview\nTABLE raised_by, date, resolution_deadline, hard_timeout\nFROM \"shared/flags\"\nWHERE status = \"open\" AND resolution_deadline < date(today)\nSORT date ASC\n```\n",
   "handoffs": "# Open Handoffs\n\n## All Open\n\n```dataview\nTABLE from, to, priority, date, due\nFROM \"shared/handoffs\"\nWHERE status = \"open\"\nSORT priority DESC, date ASC\n```\n\n## Overdue (>48 hours old, still open)\n\n```dataview\nTABLE from, to, date, due\nFROM \"shared/handoffs\"\nWHERE status = \"open\" AND date < (date(today) - dur(2 days))\nSORT date ASC\n```\n\n## Acknowledged (in-progress)\n\n```dataview\nTABLE from, to, date\nFROM \"shared/handoffs\"\nWHERE status = \"acknowledged\"\nSORT date ASC\n```\n",
-  "briefing": "\n🧮 JORDAN'S DAILY FINANCIAL BRIEFING\n=====================================\nDate: 2026-04-24\nTime: 06:00 AM\n\nEXECUTIVE SUMMARY\n-----------------\n• QuickBooks: Connected via Zapier\n• Jobber: 153 clients, 66 active jobs\n• Total Revenue: $15339.92\n• Completed Jobs Today: 50\n• Low Margin Alerts: 41\n\nCASH POSITION\n-------------\n• Status: Monitoring via QuickBooks Zapier connection\n• Next Update: Full cash balance in tomorrow's briefing\n\nJOB MARGIN ANALYSIS\n-------------------\n50 jobs completed yesterday\n⚠️ 41 jobs below margin threshold\n\nINVOICE STATUS\n--------------\n• Monitoring via QuickBooks triggers\n• Overdue invoices: Will flag via Discord alerts\n\nRISK FLAGS\n----------\n⚠️ 41 low-margin jobs need review\n\n\nNEXT ACTIONS\n------------\n1. Set up detailed QuickBooks report pulls via Zapier\n2. Implement cash balance tracking\n3. Configure Discord alerts for overdue invoices\n4. Complete Google Sheets integration for cash flow model\n\nBLOCKERS\n--------\n• QuickBooks detailed reports need Zapier configuration\n• Google Sheets API credentials pending\n\n---\nJordan - Finance and Strategy Agent\nDaily briefing generated: 2026-04-24T10:00:04.785Z\nAutomation status: PHASE 1 - Basic data collection\n"
+  "briefing": "\n🧮 JORDAN'S DAILY FINANCIAL BRIEFING\n=====================================\nDate: 2026-04-25\nTime: 06:00 AM\n\nEXECUTIVE SUMMARY\n-----------------\n• QuickBooks: Connected via Zapier\n• Jobber: 155 clients, 67 active jobs\n• Total Revenue: $18222.17\n• Completed Jobs Today: 50\n• Low Margin Alerts: 42\n\nCASH POSITION\n-------------\n• Status: Monitoring via QuickBooks Zapier connection\n• Next Update: Full cash balance in tomorrow's briefing\n\nJOB MARGIN ANALYSIS\n-------------------\n50 jobs completed yesterday\n⚠️ 42 jobs below margin threshold\n\nINVOICE STATUS\n--------------\n• Monitoring via QuickBooks triggers\n• Overdue invoices: Will flag via Discord alerts\n\nRISK FLAGS\n----------\n⚠️ 42 low-margin jobs need review\n\n\nNEXT ACTIONS\n------------\n1. Set up detailed QuickBooks report pulls via Zapier\n2. Implement cash balance tracking\n3. Configure Discord alerts for overdue invoices\n4. Complete Google Sheets integration for cash flow model\n\nBLOCKERS\n--------\n• QuickBooks detailed reports need Zapier configuration\n• Google Sheets API credentials pending\n\n---\nJordan - Finance and Strategy Agent\nDaily briefing generated: 2026-04-25T10:00:00.570Z\nAutomation status: PHASE 1 - Basic data collection\n"
 }
