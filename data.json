@@ -1,219 +1,17 @@
 {
-  "generated_at": "2026-04-26T21:11:20.228132",
-  "date": "2026-04-26",
+  "generated_at": "2026-04-27T01:07:46.887806",
+  "date": "2026-04-27",
   "metrics": {
     "clients": 156,
     "active_jobs": 89,
     "revenue": 18222.17,
     "completed_jobs": 50,
     "low_margin_alerts": 40,
-    "briefing_date": "2026-04-26",
+    "briefing_date": "2026-04-27",
     "automation_phase": "PHASE 1 - Basic data collection"
   },
-  "low_margin_jobs": [
-    {
-      "service": "Pine Straw",
-      "amount": 435
-    },
-    {
-      "service": "Shrub Pruning",
-      "amount": 300
-    },
-    {
-      "service": "Sod Repair",
-      "amount": 150
-    },
-    {
-      "service": "Fertilization",
-      "amount": 75
-    },
-    {
-      "service": "Fertilization",
-      "amount": 70
-    },
-    {
-      "service": "Fertilization",
-      "amount": 75
-    },
-    {
-      "service": "Fertilization",
-      "amount": 90
-    },
-    {
-      "service": "Fertilization",
-      "amount": 95
-    },
-    {
-      "service": "Fertilization",
-      "amount": 70
-    },
-    {
-      "service": "Herbicide Application",
-      "amount": 30
-    },
-    {
-      "service": "Herbicide Application",
-      "amount": 40
-    },
-    {
-      "service": "Herbicide Application",
-      "amount": 35
-    },
-    {
-      "service": "Herbicide Application",
-      "amount": 35
-    },
-    {
-      "service": "Herbicide Application",
-      "amount": 60
-    },
-    {
-      "service": "Herbicide Application",
-      "amount": 30
-    },
-    {
-      "service": "Herbicide Application",
-      "amount": 40
-    },
-    {
-      "service": "Herbicide Application",
-      "amount": 35
-    },
-    {
-      "service": "Herbicide Application",
-      "amount": 35
-    },
-    {
-      "service": "Herbicide Application",
-      "amount": 60
-    },
-    {
-      "service": "Lawncare",
-      "amount": 85
-    },
-    {
-      "service": "Lawncare",
-      "amount": 65
-    },
-    {
-      "service": "Lawncare",
-      "amount": 0
-    },
-    {
-      "service": "Lawncare",
-      "amount": 65
-    },
-    {
-      "service": "Maintenance",
-      "amount": 80
-    },
-    {
-      "service": "Tree Pruning",
-      "amount": 200
-    },
-    {
-      "service": "Shrub Pruning",
-      "amount": 240
-    },
-    {
-      "service": "Shrub Pruning",
-      "amount": 350
-    },
-    {
-      "service": "Shrub Pruning",
-      "amount": 300
-    },
-    {
-      "service": "Lawncare",
-      "amount": 100
-    },
-    {
-      "service": "Maintenance",
-      "amount": 120
-    },
-    {
-      "service": "Lawncare",
-      "amount": 75
-    },
-    {
-      "service": "Lawncare",
-      "amount": 75
-    },
-    {
-      "service": "Lawncare",
-      "amount": 75
-    },
-    {
-      "service": "Lawncare",
-      "amount": 80
-    },
-    {
-      "service": "Lawncare",
-      "amount": 60
-    },
-    {
-      "service": "Lawncare",
-      "amount": 70
-    },
-    {
-      "service": "Lawncare",
-      "amount": 85
-    },
-    {
-      "service": "Lawncare",
-      "amount": 85
-    },
-    {
-      "service": "Lawncare",
-      "amount": 75
-    },
-    {
-      "service": "Lawncare",
-      "amount": 100
-    }
-  ],
-  "service_breakdown": [
-    {
-      "service": "Lawncare",
-      "count": 15,
-      "total": 1095
-    },
-    {
-      "service": "Herbicide Application",
-      "count": 10,
-      "total": 400
-    },
-    {
-      "service": "Fertilization",
-      "count": 6,
-      "total": 475
-    },
-    {
-      "service": "Shrub Pruning",
-      "count": 4,
-      "total": 1190
-    },
-    {
-      "service": "Maintenance",
-      "count": 2,
-      "total": 200
-    },
-    {
-      "service": "Pine Straw",
-      "count": 1,
-      "total": 435
-    },
-    {
-      "service": "Sod Repair",
-      "count": 1,
-      "total": 150
-    },
-    {
-      "service": "Tree Pruning",
-      "count": 1,
-      "total": 200
-    }
-  ],
+  "low_margin_jobs": [],
+  "service_breakdown": [],
   "tasks": [
     {
       "id": 1,
@@ -319,7 +117,7 @@
       "name": "Jordan Belfort",
       "role": "CFO AI — Finance & Analytics",
       "status": "active",
-      "last_run": "2026-04-26 06:05 AM",
+      "last_run": "2026-04-27 06:05 AM",
       "priorities": [
         "Jobber sync — update all client Financial sections",
         "Flag any accounts >14 days past due → handoff to Jarvis"
