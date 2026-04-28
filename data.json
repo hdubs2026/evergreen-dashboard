@@ -1,17 +1,242 @@
 {
-  "generated_at": "2026-04-28T00:34:30.151639",
+  "generated_at": "2026-04-28T08:02:36.312875",
   "date": "2026-04-28",
   "metrics": {
-    "clients": 157,
-    "active_jobs": 89,
+    "clients": 158,
+    "active_jobs": 96,
     "revenue": 18222.17,
     "completed_jobs": 50,
-    "low_margin_alerts": 40,
+    "low_margin_alerts": 42,
     "briefing_date": "2026-04-28",
     "automation_phase": "PHASE 1 - Basic data collection"
   },
-  "low_margin_jobs": [],
-  "service_breakdown": [],
+  "low_margin_jobs": [
+    {
+      "service": "Tree Removal",
+      "amount": 50
+    },
+    {
+      "service": "Lawncare",
+      "amount": 75
+    },
+    {
+      "service": "Herbicide Application",
+      "amount": 60
+    },
+    {
+      "service": "Lawncare",
+      "amount": 75
+    },
+    {
+      "service": "Lawncare",
+      "amount": 0
+    },
+    {
+      "service": "Lawncare",
+      "amount": 65
+    },
+    {
+      "service": "Lawncare",
+      "amount": 100
+    },
+    {
+      "service": "Maintenance",
+      "amount": 120
+    },
+    {
+      "service": "Shrub Pruning",
+      "amount": 300
+    },
+    {
+      "service": "Lawncare",
+      "amount": 80
+    },
+    {
+      "service": "Herbicide Application",
+      "amount": 35
+    },
+    {
+      "service": "Lawncare",
+      "amount": 75
+    },
+    {
+      "service": "Lawncare",
+      "amount": 80
+    },
+    {
+      "service": "Lawncare",
+      "amount": 60
+    },
+    {
+      "service": "Lawncare",
+      "amount": 70
+    },
+    {
+      "service": "Herbicide Application",
+      "amount": 35
+    },
+    {
+      "service": "Lawncare (Back Lot)",
+      "amount": 45
+    },
+    {
+      "service": "Lawncare",
+      "amount": 85
+    },
+    {
+      "service": "Lawncare (Back Lot)",
+      "amount": 70
+    },
+    {
+      "service": "Lawncare",
+      "amount": 85
+    },
+    {
+      "service": "Lawncare (Side Lot)",
+      "amount": 75
+    },
+    {
+      "service": "Lawncare",
+      "amount": 75
+    },
+    {
+      "service": "Lawncare",
+      "amount": 100
+    },
+    {
+      "service": "Lawncare",
+      "amount": 70
+    },
+    {
+      "service": "Herbicide Application",
+      "amount": 40
+    },
+    {
+      "service": "Faye Sod Installation",
+      "amount": 0
+    },
+    {
+      "service": "Pine Straw",
+      "amount": 435
+    },
+    {
+      "service": "Sod Repair",
+      "amount": 150
+    },
+    {
+      "service": "Fertilization",
+      "amount": 75
+    },
+    {
+      "service": "Fertilization",
+      "amount": 70
+    },
+    {
+      "service": "Fertilization",
+      "amount": 75
+    },
+    {
+      "service": "Fertilization",
+      "amount": 90
+    },
+    {
+      "service": "Fertilization",
+      "amount": 95
+    },
+    {
+      "service": "Fertilization",
+      "amount": 70
+    },
+    {
+      "service": "Herbicide Application",
+      "amount": 30
+    },
+    {
+      "service": "Herbicide Application",
+      "amount": 40
+    },
+    {
+      "service": "Herbicide Application",
+      "amount": 35
+    },
+    {
+      "service": "Herbicide Application",
+      "amount": 35
+    },
+    {
+      "service": "Herbicide Application",
+      "amount": 60
+    },
+    {
+      "service": "Herbicide Application",
+      "amount": 30
+    },
+    {
+      "service": "Lawncare",
+      "amount": 85
+    },
+    {
+      "service": "Lawncare",
+      "amount": 65
+    }
+  ],
+  "service_breakdown": [
+    {
+      "service": "Lawncare",
+      "count": 17,
+      "total": 1245
+    },
+    {
+      "service": "Herbicide Application",
+      "count": 10,
+      "total": 400
+    },
+    {
+      "service": "Fertilization",
+      "count": 6,
+      "total": 475
+    },
+    {
+      "service": "Lawncare (Back Lot)",
+      "count": 2,
+      "total": 115
+    },
+    {
+      "service": "Tree Removal",
+      "count": 1,
+      "total": 50
+    },
+    {
+      "service": "Maintenance",
+      "count": 1,
+      "total": 120
+    },
+    {
+      "service": "Shrub Pruning",
+      "count": 1,
+      "total": 300
+    },
+    {
+      "service": "Lawncare (Side Lot)",
+      "count": 1,
+      "total": 75
+    },
+    {
+      "service": "Faye Sod Installation",
+      "count": 1,
+      "total": 0
+    },
+    {
+      "service": "Pine Straw",
+      "count": 1,
+      "total": 435
+    },
+    {
+      "service": "Sod Repair",
+      "count": 1,
+      "total": 150
+    }
+  ],
   "tasks": [
     {
       "id": 1,
@@ -123,10 +348,10 @@
         "Flag any accounts >14 days past due → handoff to Jarvis"
       ],
       "stats": {
-        "clients": 157,
-        "active_jobs": 89,
+        "clients": 158,
+        "active_jobs": 96,
         "revenue": 18222.17,
-        "alerts": 40
+        "alerts": 42
       }
     },
     "donna": {
@@ -188,5 +413,5 @@
   },
   "flags": "# Open Flags — Escalated to Hunter\n\n## Requires Hunter Decision\n\n```dataview\nTABLE raised_by, priority, date, resolution_deadline, hard_timeout\nFROM \"shared/flags\"\nWHERE status = \"open\"\nSORT priority DESC, date ASC\n```\n\n## Past Resolution Deadline\n\n```dataview\nTABLE raised_by, date, resolution_deadline, hard_timeout\nFROM \"shared/flags\"\nWHERE status = \"open\" AND resolution_deadline < date(today)\nSORT date ASC\n```\n",
   "handoffs": "# Open Handoffs\n\n## All Open\n\n```dataview\nTABLE from, to, priority, date, due\nFROM \"shared/handoffs\"\nWHERE status = \"open\"\nSORT priority DESC, date ASC\n```\n\n## Overdue (>48 hours old, still open)\n\n```dataview\nTABLE from, to, date, due\nFROM \"shared/handoffs\"\nWHERE status = \"open\" AND date < (date(today) - dur(2 days))\nSORT date ASC\n```\n\n## Acknowledged (in-progress)\n\n```dataview\nTABLE from, to, date\nFROM \"shared/handoffs\"\nWHERE status = \"acknowledged\"\nSORT date ASC\n```\n",
-  "briefing": "\n🧮 JORDAN'S DAILY FINANCIAL BRIEFING\n=====================================\nDate: 2026-04-27\nTime: 06:01 AM\n\nEXECUTIVE SUMMARY\n-----------------\n• QuickBooks: Connected via Zapier\n• Jobber: 157 clients, 89 active jobs\n• Total Revenue: $18222.17\n• Completed Jobs Today: 50\n• Low Margin Alerts: 40\n\nCASH POSITION\n-------------\n• Status: Monitoring via QuickBooks Zapier connection\n• Next Update: Full cash balance in tomorrow's briefing\n\nJOB MARGIN ANALYSIS\n-------------------\n50 jobs completed yesterday\n⚠️ 40 jobs below margin threshold\n\nINVOICE STATUS\n--------------\n• Monitoring via QuickBooks triggers\n• Overdue invoices: Will flag via Discord alerts\n\nRISK FLAGS\n----------\n⚠️ 40 low-margin jobs need review\n\n\nNEXT ACTIONS\n------------\n1. Set up detailed QuickBooks report pulls via Zapier\n2. Implement cash balance tracking\n3. Configure Discord alerts for overdue invoices\n4. Complete Google Sheets integration for cash flow model\n\nBLOCKERS\n--------\n• QuickBooks detailed reports need Zapier configuration\n• Google Sheets API credentials pending\n\n---\nJordan - Finance and Strategy Agent\nDaily briefing generated: 2026-04-27T10:01:00.348Z\nAutomation status: PHASE 1 - Basic data collection\n"
+  "briefing": "\n🧮 JORDAN'S DAILY FINANCIAL BRIEFING\n=====================================\nDate: 2026-04-28\nTime: 06:01 AM\n\nEXECUTIVE SUMMARY\n-----------------\n• QuickBooks: Connected via Zapier\n• Jobber: 158 clients, 96 active jobs\n• Total Revenue: $18222.17\n• Completed Jobs Today: 50\n• Low Margin Alerts: 42\n\nCASH POSITION\n-------------\n• Status: Monitoring via QuickBooks Zapier connection\n• Next Update: Full cash balance in tomorrow's briefing\n\nJOB MARGIN ANALYSIS\n-------------------\n50 jobs completed yesterday\n⚠️ 42 jobs below margin threshold\n\nINVOICE STATUS\n--------------\n• Monitoring via QuickBooks triggers\n• Overdue invoices: Will flag via Discord alerts\n\nRISK FLAGS\n----------\n⚠️ 42 low-margin jobs need review\n\n\nNEXT ACTIONS\n------------\n1. Set up detailed QuickBooks report pulls via Zapier\n2. Implement cash balance tracking\n3. Configure Discord alerts for overdue invoices\n4. Complete Google Sheets integration for cash flow model\n\nBLOCKERS\n--------\n• QuickBooks detailed reports need Zapier configuration\n• Google Sheets API credentials pending\n\n---\nJordan - Finance and Strategy Agent\nDaily briefing generated: 2026-04-28T10:01:00.288Z\nAutomation status: PHASE 1 - Basic data collection\n"
 }
