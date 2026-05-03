@@ -1464,76 +1464,75 @@ setInterval(() => {
 
 <script>
 // ── LIVE DATA LOADER ─────────────────────────────────────────────────────────
-// Fetches data.json from the GitHub Pages root and updates dashboard metrics
+// Fetches data.json from GitHub Pages and updates dashboard metrics with live data
 (async function loadLiveData() {
+  function fmtCurrency(v) {
+    if (v == null || v === "") return "—";
+    return "$" + Number(v).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function updateStat(labelText, value, isCurrency) {
+    const labels = document.querySelectorAll(".vp-stat-label");
+    for (const lbl of labels) {
+      if (lbl.textContent.trim() === labelText) {
+        const valEl = lbl.nextElementSibling;
+        if (valEl && valEl.classList.contains("vp-stat-val")) {
+          valEl.textContent = isCurrency ? fmtCurrency(value) : (value != null ? value : "—");
+        }
+        break;
+      }
+    }
+  }
+
   try {
-    const res = await fetch('data.json?_=' + Date.now());
-    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const res = await fetch("data.json?_=" + Date.now());
+    if (!res.ok) throw new Error("HTTP " + res.status);
     const data = await res.json();
     const m = data.metrics || {};
-    
-    // Helper: format currency
-    const fmt = (v) => {
-      if (v == null || v === '—' || v === '') return '—';
-      return '$' + Number(v).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    };
-    
-    // Update all elements with data-metric attributes
-    document.querySelectorAll('[data-metric]').forEach(el => {
-      const key = el.dataset.metric;
-      let val = m[key];
-      
-      // Handle special formatting
-      if (key === 'revenue_formatted') val = fmt(m.revenue);
-      else if (key === 'outstanding_formatted') val = fmt(m.outstanding);
-      else if (key === 'pipeline_formatted') val = fmt(m.pipeline_value);
-      
-      if (val == null || val === '' || val === undefined) {
-        el.textContent = '—';
-      } else {
-        el.textContent = val;
-      }
-    });
-    
-    // Update last-updated timestamp
-    const luEl = document.getElementById('data-last-updated');
+
+    updateStat("Open Jobs", m.active_jobs, false);
+    updateStat("Quotes Pending", m.pending_quotes, false);
+    updateStat("Invoices Overdue", m.overdue_invoices, false);
+    updateStat("Total Clients", m.clients, false);
+    updateStat("Active Jobs", m.active_jobs, false);
+    updateStat("Total Revenue", m.revenue, true);
+    updateStat("Outstanding", m.outstanding, true);
+    updateStat("Open Quotes", m.total_quotes, false);
+    updateStat("Pipeline Value", m.pipeline_value, true);
+
+    const luEl = document.getElementById("data-last-updated");
     if (luEl && data.generated_at) {
       const d = new Date(data.generated_at);
-      luEl.textContent = d.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
+      luEl.textContent = d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
     }
-    
-    // Show overdue alert if there are overdue invoices
-    const overdueAlert = document.getElementById('alert-overdue');
+
+    const overdueAlert = document.getElementById("alert-overdue");
     if (overdueAlert && m.overdue_invoices && m.overdue_invoices > 0) {
-      document.getElementById('alert-overdue-text').textContent = 
-        m.overdue_invoices + ' invoice' + (m.overdue_invoices > 1 ? 's' : '') + ' overdue';
-      document.getElementById('alert-overdue-sub').textContent = 
-        (m.overdue_total ? fmt(m.overdue_total) : 'Amount unknown') + ' at risk — follow up needed';
-      overdueAlert.style.display = 'flex';
+      document.getElementById("alert-overdue-text").textContent =
+        m.overdue_invoices + " invoice" + (m.overdue_invoices > 1 ? "s" : "") + " overdue";
+      document.getElementById("alert-overdue-sub").textContent =
+        (m.overdue_total ? fmtCurrency(m.overdue_total) : "Amount unknown") + " at risk \u2014 follow up needed";
+      overdueAlert.style.display = "flex";
     }
-    
-    // Update recent quotes section
-    const ql = document.getElementById('recent-quotes-list');
+
+    const ql = document.getElementById("recent-quotes-list");
     if (ql && data.quotes && data.quotes.length > 0) {
       const recent = data.quotes.slice(0, 8);
-      let html = '<div class="table-header" style="grid-template-columns:2fr 1fr 1fr 1fr"><span>Client</span><span>Amount</span><span>Status</span><span>Created</span></div>';
+      let qhtml = "<div class=\"table-header\" style=\"grid-template-columns:2fr 1fr 1fr 1fr\"><span>Client</span><span>Amount</span><span>Status</span><span>Created</span></div>";
       recent.forEach(q => {
-        const amt = q.amounts ? fmt(q.amounts.total) : '—';
-        const created = q.createdAt ? new Date(q.createdAt).toLocaleDateString('en-US', { month:'short', day:'numeric' }) : '—';
-        const statusClass = q.quoteStatus === 'awaiting_response' ? 'badge badge-yellow' : q.quoteStatus === 'approved' ? 'badge badge-green' : 'badge';
-        html += '<div class="table-row" style="grid-template-columns:2fr 1fr 1fr 1fr"><span>' + (q.client?.name || 'Unknown') + '</span><span>' + amt + '</span><span class="' + statusClass + '">' + (q.quoteStatus || '—') + '</span><span style="color:var(--muted)">' + created + '</span></div>';
+        const amt = q.amounts ? fmtCurrency(q.amounts.total) : "\u2014";
+        const created = q.createdAt ? new Date(q.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "\u2014";
+        const sc = q.quoteStatus === "awaiting_response" ? "badge badge-yellow" : q.quoteStatus === "approved" ? "badge badge-green" : "badge";
+        qhtml += "<div class=\"table-row\" style=\"grid-template-columns:2fr 1fr 1fr 1fr\"><span>" + (q.client?.name || "Unknown") + "</span><span>" + amt + "</span><span class=\"" + sc + "\">" + (q.quoteStatus || "\u2014") + "</span><span style=\"color:var(--muted)\">" + created + "</span></div>";
       });
-      ql.innerHTML = html;
+      ql.innerHTML = qhtml;
     } else if (ql) {
-      ql.innerHTML = '<div style="color:var(--muted);padding:12px">No quote data available</div>';
+      ql.innerHTML = "<div style=\"color:var(--muted);padding:12px\">No quote data available</div>";
     }
-    
   } catch (e) {
-    console.warn('Could not load live data:', e.message);
-    // If data.json fails, show fallback in elements that need it
-    document.querySelectorAll('[data-metric]').forEach(el => {
-      if (el.textContent === '—' || el.textContent === '') el.textContent = '—';
-    });
+    console.warn("Live data unavailable:", e.message);
   }
 })();
 </script>
+</body>
+</html>
