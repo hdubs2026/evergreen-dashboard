@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-05-03T20:55:59.323Z",
+  "generated_at": "2026-05-03T22:57:41.548Z",
   "date": "2026-05-03",
   "metrics": {
     "clients": 163,
-    "active_jobs": 103,
+    "active_jobs": 105,
     "revenue": 35509.38,
     "outstanding": 13098.88,
     "total_quotes": 15,
@@ -14,6 +14,32 @@
     "today_jobs": null
   },
   "quotes": [
+    {
+      "id": "Z2lkOi8vSm9iYmVyL1F1b3RlLzU4NTY0MjMx",
+      "quoteNumber": "15",
+      "quoteStatus": "converted",
+      "client": {
+        "name": "Keith Hudgins"
+      },
+      "amounts": {
+        "total": 997.6
+      },
+      "createdAt": "2026-05-02T01:42:01Z",
+      "jobberWebUri": "https://secure.getjobber.com/quotes/58564231"
+    },
+    {
+      "id": "Z2lkOi8vSm9iYmVyL1F1b3RlLzU4NTYzMjgw",
+      "quoteNumber": "14",
+      "quoteStatus": "converted",
+      "client": {
+        "name": "Keith Hudgins"
+      },
+      "amounts": {
+        "total": 2113.4
+      },
+      "createdAt": "2026-05-02T00:59:39Z",
+      "jobberWebUri": "https://secure.getjobber.com/quotes/58563280"
+    },
     {
       "id": "Z2lkOi8vSm9iYmVyL1F1b3RlLzU4NTg5NTEw",
       "quoteNumber": "16",
@@ -26,32 +52,6 @@
       },
       "createdAt": "2026-05-03T14:09:10Z",
       "jobberWebUri": "https://secure.getjobber.com/quotes/58589510"
-    },
-    {
-      "id": "Z2lkOi8vSm9iYmVyL1F1b3RlLzU4NTYzMjgw",
-      "quoteNumber": "14",
-      "quoteStatus": "approved",
-      "client": {
-        "name": "Keith Hudgins"
-      },
-      "amounts": {
-        "total": 2113.4
-      },
-      "createdAt": "2026-05-02T00:59:39Z",
-      "jobberWebUri": "https://secure.getjobber.com/quotes/58563280"
-    },
-    {
-      "id": "Z2lkOi8vSm9iYmVyL1F1b3RlLzU4NTY0MjMx",
-      "quoteNumber": "15",
-      "quoteStatus": "approved",
-      "client": {
-        "name": "Keith Hudgins"
-      },
-      "amounts": {
-        "total": 997.6
-      },
-      "createdAt": "2026-05-02T01:42:01Z",
-      "jobberWebUri": "https://secure.getjobber.com/quotes/58564231"
     },
     {
       "id": "Z2lkOi8vSm9iYmVyL1F1b3RlLzU3OTcyODg4",
