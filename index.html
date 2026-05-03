@@ -1461,3 +1461,79 @@ setInterval(() => {
 </script>
 </body>
 </html>
+
+<script>
+// ── LIVE DATA LOADER ─────────────────────────────────────────────────────────
+// Fetches data.json from the GitHub Pages root and updates dashboard metrics
+(async function loadLiveData() {
+  try {
+    const res = await fetch('data.json?_=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    const m = data.metrics || {};
+    
+    // Helper: format currency
+    const fmt = (v) => {
+      if (v == null || v === '—' || v === '') return '—';
+      return '$' + Number(v).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    };
+    
+    // Update all elements with data-metric attributes
+    document.querySelectorAll('[data-metric]').forEach(el => {
+      const key = el.dataset.metric;
+      let val = m[key];
+      
+      // Handle special formatting
+      if (key === 'revenue_formatted') val = fmt(m.revenue);
+      else if (key === 'outstanding_formatted') val = fmt(m.outstanding);
+      else if (key === 'pipeline_formatted') val = fmt(m.pipeline_value);
+      
+      if (val == null || val === '' || val === undefined) {
+        el.textContent = '—';
+      } else {
+        el.textContent = val;
+      }
+    });
+    
+    // Update last-updated timestamp
+    const luEl = document.getElementById('data-last-updated');
+    if (luEl && data.generated_at) {
+      const d = new Date(data.generated_at);
+      luEl.textContent = d.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
+    }
+    
+    // Show overdue alert if there are overdue invoices
+    const overdueAlert = document.getElementById('alert-overdue');
+    if (overdueAlert && m.overdue_invoices && m.overdue_invoices > 0) {
+      document.getElementById('alert-overdue-text').textContent = 
+        m.overdue_invoices + ' invoice' + (m.overdue_invoices > 1 ? 's' : '') + ' overdue';
+      document.getElementById('alert-overdue-sub').textContent = 
+        (m.overdue_total ? fmt(m.overdue_total) : 'Amount unknown') + ' at risk — follow up needed';
+      overdueAlert.style.display = 'flex';
+    }
+    
+    // Update recent quotes section
+    const ql = document.getElementById('recent-quotes-list');
+    if (ql && data.quotes && data.quotes.length > 0) {
+      const recent = data.quotes.slice(0, 8);
+      let html = '<div class="table-header" style="grid-template-columns:2fr 1fr 1fr 1fr"><span>Client</span><span>Amount</span><span>Status</span><span>Created</span></div>';
+      recent.forEach(q => {
+        const amt = q.amounts ? fmt(q.amounts.total) : '—';
+        const created = q.createdAt ? new Date(q.createdAt).toLocaleDateString('en-US', { month:'short', day:'numeric' }) : '—';
+        const statusClass = q.quoteStatus === 'awaiting_response' ? 'badge badge-yellow' : q.quoteStatus === 'approved' ? 'badge badge-green' : 'badge';
+        html += '<div class="table-row" style="grid-template-columns:2fr 1fr 1fr 1fr"><span>' + (q.client?.name || 'Unknown') + '</span><span>' + amt + '</span><span class="' + statusClass + '">' + (q.quoteStatus || '—') + '</span><span style="color:var(--muted)">' + created + '</span></div>';
+      });
+      ql.innerHTML = html;
+    } else if (ql) {
+      ql.innerHTML = '<div style="color:var(--muted);padding:12px">No quote data available</div>';
+    }
+    
+  } catch (e) {
+    console.warn('Could not load live data:', e.message);
+    // If data.json fails, show fallback in elements that need it
+    document.querySelectorAll('[data-metric]').forEach(el => {
+      if (el.textContent === '—' || el.textContent === '') el.textContent = '—';
+    });
+  }
+})();
+</script>
