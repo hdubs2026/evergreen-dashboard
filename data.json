@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-05-04T14:30:18.546Z",
+  "generated_at": "2026-05-04T15:00:18.801Z",
   "date": "2026-05-04",
   "metrics": {
     "clients": 163,
     "active_jobs": 106,
-    "revenue": 35509.38,
-    "outstanding": 11262.88,
+    "revenue": 36354.38,
+    "outstanding": 12107.88,
     "total_quotes": 15,
     "pending_quotes": 7,
     "overdue_invoices": 0,
@@ -211,7 +211,7 @@
     }
   ],
   "invoice_summary": {
-    "total": 39,
+    "total": 40,
     "overdue_count": 0,
     "overdue_amount": 0
   }
