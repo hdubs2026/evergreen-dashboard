@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-05-04T01:01:49.502Z",
+  "generated_at": "2026-05-04T03:03:12.519Z",
   "date": "2026-05-04",
   "metrics": {
     "clients": 163,
-    "active_jobs": 105,
+    "active_jobs": 106,
     "revenue": 35509.38,
     "outstanding": 13098.88,
     "total_quotes": 15,
@@ -14,6 +14,19 @@
     "today_jobs": null
   },
   "quotes": [
+    {
+      "id": "Z2lkOi8vSm9iYmVyL1F1b3RlLzU4NTg5NTEw",
+      "quoteNumber": "16",
+      "quoteStatus": "converted",
+      "client": {
+        "name": "Arlyne Lee"
+      },
+      "amounts": {
+        "total": 160
+      },
+      "createdAt": "2026-05-03T14:09:10Z",
+      "jobberWebUri": "https://secure.getjobber.com/quotes/58589510"
+    },
     {
       "id": "Z2lkOi8vSm9iYmVyL1F1b3RlLzU4NTY0MjMx",
       "quoteNumber": "15",
@@ -39,19 +52,6 @@
       },
       "createdAt": "2026-05-02T00:59:39Z",
       "jobberWebUri": "https://secure.getjobber.com/quotes/58563280"
-    },
-    {
-      "id": "Z2lkOi8vSm9iYmVyL1F1b3RlLzU4NTg5NTEw",
-      "quoteNumber": "16",
-      "quoteStatus": "approved",
-      "client": {
-        "name": "Arlyne Lee"
-      },
-      "amounts": {
-        "total": 160
-      },
-      "createdAt": "2026-05-03T14:09:10Z",
-      "jobberWebUri": "https://secure.getjobber.com/quotes/58589510"
     },
     {
       "id": "Z2lkOi8vSm9iYmVyL1F1b3RlLzU3OTcyODg4",
