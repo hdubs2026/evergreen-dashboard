@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-04T03:03:12.519Z",
+  "generated_at": "2026-05-04T03:29:58.314Z",
   "date": "2026-05-04",
   "metrics": {
     "clients": 163,
@@ -8,10 +8,10 @@
     "outstanding": 13098.88,
     "total_quotes": 15,
     "pending_quotes": 7,
-    "overdue_invoices": null,
+    "overdue_invoices": 0,
     "overdue_total": null,
-    "pipeline_value": 25032.199999999997,
-    "today_jobs": null
+    "pipeline_value": 25032.2,
+    "today_jobs": 0
   },
   "quotes": [
     {
@@ -212,7 +212,7 @@
   ],
   "invoice_summary": {
     "total": 39,
-    "overdue_count": null,
+    "overdue_count": 0,
     "overdue_amount": null
   }
 }
