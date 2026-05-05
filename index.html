@@ -318,6 +318,14 @@
 
     /* last-updated badge */
     .last-updated { font-size: 11px; color: var(--muted); margin-left: 6px; }
+    /* stale data banner */
+    .stale-banner { display:none; padding:10px 20px; text-align:center; font-size:13px; font-weight:600; cursor:pointer; flex-shrink:0; border-bottom:1px solid }
+    .stale-banner i { margin-right:8px }
+    .stale-banner a { color:inherit; text-decoration:underline; font-weight:700 }
+    .stale-banner-yellow { background:rgba(241,196,15,0.12); color:#f1c40f; border-color:rgba(241,196,15,0.2) }
+    .stale-banner-red { background:rgba(231,76,60,0.12); color:#e74c3c; border-color:rgba(231,76,60,0.2) }
+    .stale-banner-dismiss { float:right; opacity:0.6; cursor:pointer; font-size:15px; margin-left:12px }
+    .stale-banner-dismiss:hover { opacity:1 }
     /* ── VIEW PANELS ── */
     .view-panel { flex:1; overflow-y:auto; padding:24px; display:none; background:var(--bg); }
     .view-panel.active { display:block; }
@@ -450,6 +458,12 @@
     <div class="topbar-title">
       <i class="fas fa-th-large"></i> Tasks
       <span class="last-updated" id="last-updated"></span>
+      <div id="stale-banner" class="stale-banner" onclick="this.style.display='none'">
+        <span class="stale-banner-dismiss">×</span>
+        <i class="fas fa-exclamation-triangle"></i>
+        <span id="stale-banner-text">Dashboard data may be stale. Last refreshed: <span id="stale-banner-time">unknown</span></span>
+        &mdash; <a href="http://localhost:8080" target="_blank">Re-authorize Jobber</a> to restore live updates
+      </div>
     </div>
     <div class="topbar-search">
       <i class="fas fa-search"></i>
@@ -1504,6 +1518,28 @@ setInterval(() => {
     if (luEl && data.generated_at) {
       const d = new Date(data.generated_at);
       luEl.textContent = d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
+    }
+
+    // Show stale data banner if data > 2h old
+    if (data.generated_at) {
+      const generated = new Date(data.generated_at).getTime();
+      const now = Date.now();
+      const ageMs = now - generated;
+      const ageHours = ageMs / (1000 * 60 * 60);
+      const banner = document.getElementById("stale-banner");
+      const timeEl = document.getElementById("stale-banner-time");
+      if (banner && timeEl) {
+        const timeStr = new Date(data.generated_at).toLocaleString("en-US", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
+        timeEl.textContent = timeStr;
+        if (ageHours > 2) {
+          if (ageHours > 6) {
+            banner.className = "stale-banner stale-banner-red";
+          } else {
+            banner.className = "stale-banner stale-banner-yellow";
+          }
+          banner.style.display = "block";
+        }
+      }
     }
 
     const overdueAlert = document.getElementById("alert-overdue");
