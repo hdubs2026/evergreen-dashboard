@@ -1,19 +1,45 @@
 {
-  "generated_at": "2026-05-04T23:31:18.160Z",
-  "date": "2026-05-04",
+  "generated_at": "2026-05-06T11:48:37.956Z",
+  "date": "2026-05-06",
   "metrics": {
-    "clients": 164,
+    "clients": 165,
     "active_jobs": 106,
-    "revenue": 36354.38,
-    "outstanding": 12107.88,
-    "total_quotes": 15,
-    "pending_quotes": 7,
+    "revenue": 38902.05,
+    "outstanding": 13810.55,
+    "total_quotes": 17,
+    "pending_quotes": 8,
     "overdue_invoices": 0,
     "overdue_total": 0,
-    "pipeline_value": 25032.2,
-    "today_jobs": 0
+    "pipeline_value": 25907.2,
+    "today_jobs": 1
   },
   "quotes": [
+    {
+      "id": "Z2lkOi8vSm9iYmVyL1F1b3RlLzU4NzI5MDkz",
+      "quoteNumber": "18",
+      "quoteStatus": "awaiting_response",
+      "client": {
+        "name": "Robert Duvall"
+      },
+      "amounts": {
+        "total": 875
+      },
+      "createdAt": "2026-05-05T19:58:06Z",
+      "jobberWebUri": "https://secure.getjobber.com/quotes/58729093"
+    },
+    {
+      "id": "Z2lkOi8vSm9iYmVyL1F1b3RlLzU4NzE0MTQ3",
+      "quoteNumber": "17",
+      "quoteStatus": "draft",
+      "client": {
+        "name": "Tammy Rothell"
+      },
+      "amounts": {
+        "total": 256.1
+      },
+      "createdAt": "2026-05-05T17:38:32Z",
+      "jobberWebUri": "https://secure.getjobber.com/quotes/58714147"
+    },
     {
       "id": "Z2lkOi8vSm9iYmVyL1F1b3RlLzU4NTg5NTEw",
       "quoteNumber": "16",
@@ -211,7 +237,7 @@
     }
   ],
   "invoice_summary": {
-    "total": 40,
+    "total": 41,
     "overdue_count": 0,
     "overdue_amount": 0
   }
