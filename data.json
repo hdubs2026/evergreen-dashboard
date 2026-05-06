@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-06T14:31:18.827Z",
+  "generated_at": "2026-05-06T15:01:18.941Z",
   "date": "2026-05-06",
   "metrics": {
     "clients": 165,
@@ -236,6 +236,9 @@
       "jobberWebUri": "https://secure.getjobber.com/quotes/58145068"
     }
   ],
+  "qbo": {
+    "configured": false
+  },
   "invoice_summary": {
     "total": 41,
     "overdue_count": 0,
