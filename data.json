@@ -1,23 +1,36 @@
 {
-  "generated_at": "2026-05-07T19:58:01.665Z",
+  "generated_at": "2026-05-07T23:00:47.248Z",
   "date": "2026-05-07",
   "metrics": {
     "clients": 166,
-    "active_jobs": 106,
+    "active_jobs": 107,
     "revenue": 38902.05,
     "outstanding": 13810.55,
     "total_quotes": 17,
-    "pending_quotes": 8,
+    "pending_quotes": 7,
     "overdue_invoices": 0,
     "overdue_total": 0,
-    "pipeline_value": 25907.2,
+    "pipeline_value": 21946.99,
     "today_jobs": 2
   },
   "quotes": [
     {
+      "id": "Z2lkOi8vSm9iYmVyL1F1b3RlLzU4MDQzNTMx",
+      "quoteNumber": "4",
+      "quoteStatus": "converted",
+      "client": {
+        "name": "Brad Cantrell"
+      },
+      "amounts": {
+        "total": 2937.03
+      },
+      "createdAt": "2026-04-23T10:07:51Z",
+      "jobberWebUri": "https://secure.getjobber.com/quotes/58043531"
+    },
+    {
       "id": "Z2lkOi8vSm9iYmVyL1F1b3RlLzU4NzE0MTQ3",
       "quoteNumber": "17",
-      "quoteStatus": "approved",
+      "quoteStatus": "converted",
       "client": {
         "name": "Tammy Rothell"
       },
@@ -208,19 +221,6 @@
       },
       "createdAt": "2026-04-26T12:21:37Z",
       "jobberWebUri": "https://secure.getjobber.com/quotes/58194585"
-    },
-    {
-      "id": "Z2lkOi8vSm9iYmVyL1F1b3RlLzU4MDQzNTMx",
-      "quoteNumber": "4",
-      "quoteStatus": "awaiting_response",
-      "client": {
-        "name": "Brad Cantrell"
-      },
-      "amounts": {
-        "total": 3960.21
-      },
-      "createdAt": "2026-04-23T10:07:51Z",
-      "jobberWebUri": "https://secure.getjobber.com/quotes/58043531"
     },
     {
       "id": "Z2lkOi8vSm9iYmVyL1F1b3RlLzU4MTQ1MDY4",
