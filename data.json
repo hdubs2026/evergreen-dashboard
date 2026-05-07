@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-07T01:07:53.929Z",
+  "generated_at": "2026-05-07T17:45:15.055Z",
   "date": "2026-05-07",
   "metrics": {
-    "clients": 165,
+    "clients": 166,
     "active_jobs": 106,
     "revenue": 38902.05,
     "outstanding": 13810.55,
@@ -11,9 +11,22 @@
     "overdue_invoices": 0,
     "overdue_total": 0,
     "pipeline_value": 25907.2,
-    "today_jobs": 1
+    "today_jobs": 2
   },
   "quotes": [
+    {
+      "id": "Z2lkOi8vSm9iYmVyL1F1b3RlLzU4NzE0MTQ3",
+      "quoteNumber": "17",
+      "quoteStatus": "approved",
+      "client": {
+        "name": "Tammy Rothell"
+      },
+      "amounts": {
+        "total": 3442.02
+      },
+      "createdAt": "2026-05-05T17:38:32Z",
+      "jobberWebUri": "https://secure.getjobber.com/quotes/58714147"
+    },
     {
       "id": "Z2lkOi8vSm9iYmVyL1F1b3RlLzU4NzI5MDkz",
       "quoteNumber": "18",
@@ -26,19 +39,6 @@
       },
       "createdAt": "2026-05-05T19:58:06Z",
       "jobberWebUri": "https://secure.getjobber.com/quotes/58729093"
-    },
-    {
-      "id": "Z2lkOi8vSm9iYmVyL1F1b3RlLzU4NzE0MTQ3",
-      "quoteNumber": "17",
-      "quoteStatus": "draft",
-      "client": {
-        "name": "Tammy Rothell"
-      },
-      "amounts": {
-        "total": 256.1
-      },
-      "createdAt": "2026-05-05T17:38:32Z",
-      "jobberWebUri": "https://secure.getjobber.com/quotes/58714147"
     },
     {
       "id": "Z2lkOi8vSm9iYmVyL1F1b3RlLzU4NTg5NTEw",
@@ -84,7 +84,7 @@
       "quoteNumber": "2",
       "quoteStatus": "converted",
       "client": {
-        "name": "Rachale Oehring"
+        "name": "Rachael Oehring"
       },
       "amounts": {
         "total": 845
